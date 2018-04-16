@@ -1,0 +1,34 @@
+{% extends 'template.html'%}
+{% load staticfiles %}
+{% block title %}Cursos{% endblock %}
+{% block subtitle %}Cursos{% endblock %}
+{% block content %}
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>CURSO</th>
+                    <th>INSTRUCTOR</th>
+                    <th>DURACIÓN</th>
+                    <th>SEDE</th>
+                    <th>ENTIDAD</th>
+                    <th>ACCIÓN</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for curso in cursos %}
+                <tr>
+                    <td>{{ curso.curso}}</td>
+                    <td>{{ curso.instructor }}</td>
+                    <td>{{ curso.duracion }}</td>
+                    <td>{{ curso.sede.sede }}</td>
+                    <td>{{ curso.entidad.entidad }}</td>
+                    <td><a href="{% url 'curso_inscribe' %}"><i class="fa fa-address-book" title="Asignar alumnos"></i></a> &nbsp <a href="{% url 'curso_asistencia' curso.id %}"><i class="fa fa-check-square-o" title="Tomar asistencia"></i></a>  &nbsp <a href="{% url 'curso_persona' curso.id %}"><i class="fa fa-search" title="Consultar inscritos"></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+{% block javascript %}
+{% endblock %}

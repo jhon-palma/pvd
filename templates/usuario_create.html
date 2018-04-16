@@ -1,0 +1,189 @@
+{% extends 'template.html'%}
+{% load staticfiles %}
+{% block title %}{% if create %}Crear Usuarios{% endif %}{% if query %}Consultar Usuarios{% endif %}{% if edit %}Modificar Usuarios{% endif %}{% endblock %}
+{% block subtitle %}{% if create %}Crear Usuarios{% endif %}{% if query %}Consultar Usuarios{% endif %}{% if edit %}Modificar Usuarios{% endif %}{% if pswd %}Cambiar Contraseña para {{ usuario.first_name }} {{ usuario.last_name }}{% endif %}{% endblock %}
+{% block content %}
+    {% if query %}
+        <form method="post">
+        {% csrf_token %}
+        <div class="form-row align-items-center">
+            <div class="col-auto">
+                <label for="inlineFormInput">Usuario</label>
+            </div>
+            <div class="col-auto">
+                <input class="form-control input-sm mb-2" type="number" id="inlineFormInput" name="documento" placeholder="Usuario" autocomplete="off">
+            </div>
+            <div class="col-auto">
+                <button type="submit" id="btn" class="btn btn-success mb-2"><span class="fa fa-pencil-square-o"></span> Consultar</button>
+            </div>
+        </div>
+        </form>
+    {% endif %}
+    {% if pswd %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row align-items-center">
+                <div class="col-auto">
+                    <label for="inlineFormInput">Password: </label>
+                </div>
+                <div class="col-auto">
+                    <input class="form-control input-sm mb-2" type="password" name="psw" id="psw" placeholder="*********" autocomplete="off">
+                </div>
+                <div class="col-auto">
+                    <label for="inlineFormInput">Confirmar Password: </label>
+                </div>
+                <div class="col-auto">
+                    <input class="form-control input-sm mb-2" type="password" name="rpsw" id="rpsw" placeholder="*********" autocomplete="off">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" id="btn" class="btn btn-success mb-2"><span class="fa fa-pencil-square-o"></span> Cambiar</button>
+                </div>
+                <p id="error"></p>
+                <p id="error2"></p>
+            </div>
+        </form>
+    {% endif %}
+    {% if create %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="col-md-12 form lab">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Número de identificación: </label>
+                            <input class="form-control input-sm" type="number" name="numeroDocumento" placeholder="Numero de documento" value="{{ usuario.username }}" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Nombres: </label>
+                            <input class="form-control input-sm text-uppercase" type="text" name="nombres" placeholder="Nombres" value="{{ usuario.first_name }}" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Apellidos: </label>
+                            <input class="form-control input-sm text-uppercase" type="text" name="apellidos" placeholder="Apellidos" value="{{ usuario.last_name }}" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Perfil: </label>
+                            <select class="form-control input-sm" name="perfil">
+                                <option value="">Perfil...</option>
+                                {% for perfil in perfiles %}
+                                <option value="{{ perfil.id }}"{% for group in usuario.groups.all %} {% if group.id == perfil.id %} selected {% endif %}{% endfor %}> {{ perfil.name }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Correo: </label>
+                            <input class="form-control input-sm text-lowercase" type="email" value="{{ usuario.email }}" placeholder="email" name="email">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Punto: </label>
+                            <select class="form-control input-sm" name="sede">
+                                <option value="">Punto...</option>
+                                {% for sede in sedes %}
+                                <option value="{{ sede.id }}" {% if usuario.sede.id == sede.id %} selected {% endif %}> {{ sede.sede }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Password: </label>
+                            <input class="form-control input-sm" type="password" name="psw" id="psw" placeholder="*********" autocomplete="off">
+                            <p id="error"></p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Confirmar Password: </label>
+                            <input class="form-control input-sm" type="password" name="rpsw" id="rpsw" placeholder="*********" autocomplete="off">
+                            <p id="error2"></p>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button type="submit" class="btn btn-success"><span class="fa fa-pencil-square-o"></span> Crear</button>
+                </div>
+            </div>
+        </form>
+        {% endif %}
+        {% if edit %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="col-md-12 form lab">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Número de identificación: </label>
+                                <input class="form-control input-sm" type="number" name="numeroDocumento" placeholder="Numero de documento" value="{{ usuario.username }}" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Nombres: </label>
+                                <input class="form-control input-sm text-uppercase" type="text" name="nombres" placeholder="Nombres" value="{{ usuario.first_name }}" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Apellidos: </label>
+                                <input class="form-control input-sm text-uppercase" type="text" name="apellidos" placeholder="Apellidos" value="{{ usuario.last_name }}" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Perfil: </label>
+                                <select class="form-control input-sm" name="perfil">
+                                    <option value="">Perfil...</option>
+                                    {% for perfil in perfiles %}
+                                    <option value="{{ perfil.id }}"{% for group in usuario.groups.all %} {% if group.id == perfil.id %} selected {% endif %}{% endfor %}> {{ perfil.name }} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Correo: </label>
+                                <input class="form-control input-sm text-lowercase" type="email" value="{{ usuario.email }}" placeholder="email" name="email">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Punto: </label>
+                                <select class="form-control input-sm" name="sede">
+                                    <option value="">Punto...</option>
+                                    {% for sede in sedes %}
+                                    <option value="{{ sede.id }}" {% if usuario.sede.id == sede.id %} selected {% endif %}> {{ sede.sede }} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <button type="submit" class="btn btn-success"><span class="fa fa-pencil-square-o"></span> Modificar</button>
+                    </div>
+                </div>
+            </form>
+            <form action={% url 'usuario_password' usuario.id %} method="get">
+                {% csrf_token %}
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-key"></i> Cambia Contraseña</button>
+                </div>
+   </form>
+        {% endif %}
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/pass.js' %}"></script>
+{% endblock %}

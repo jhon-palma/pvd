@@ -1,0 +1,69 @@
+{% extends 'template.html'%}
+{% load staticfiles %}
+{% block title %}Crea Curso{% endblock %}
+{% block subtitle %}Crear Curso{% endblock %}
+{% block content %}
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="col-md-12 form lab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nombre del curso: </label>
+                                        <input class="form-control input-sm text-uppercase" type="text" name="nombre" placeholder="Nombre del curso" value="{{ datos.nombre }}" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Duración: </label>
+                                        <input class="form-control input-sm text-uppercase" type="text" name="duracion" placeholder="Duración" value="{{ datos.nombre }}" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Sede: </label>
+                                        <select class="form-control input-sm" name="sede">
+                                            <option value="">Sede...</option>
+                                            {% for sede in sedes %}
+                                            <option value="{{ sede.id }}"> {{ sede.sede }} </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Instructor: </label>
+                                        <input class="form-control input-sm text-uppercase" type="text" placeholder="Instructor" name="instructor">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Entidad: </label>
+                                        <select class="form-control input-sm" name="entidad">
+                                            <option value="">Entidad...</option>
+                                            {% for entidad in entidades %}
+                                            <option value="{{ entidad.id }}"> {{ entidad.entidad }} </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Tipo: </label>
+                                        <select class="form-control input-sm" name="tipo">
+                                            <option value="">Tipo...</option>
+                                            {% for tipo in tipos %}
+                                            <option value="{{ tipo.id }}"> {{ tipo.tipo }} </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="text-align: center;">
+                                <button type="submit" class="btn btn-success"><span class="fa fa-pencil-square-o"></span> Crear</button>
+                            </div>
+                        </div>
+                    </form>
+{% endblock %}

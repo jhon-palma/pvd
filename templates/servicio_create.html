@@ -1,0 +1,33 @@
+{% extends 'template.html'%}
+{% load staticfiles %}
+{% block title %}Crea Servicio{% endblock %}
+{% block subtitle %}Crear Servicio{% endblock %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="col-md-12 form lab">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Nombre del servicio: </label>
+                        <input class="form-control input-sm text-uppercase" type="text" name="nombre" placeholder="Nombre del servicio" value="{{ datos.nombre }}" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Sede: </label>
+                        <select class="form-control input-sm" name="sede">
+                            <option value="">Sede...</option>
+                            {% for sede in sedes %}
+                            <option value="{{ sede.id }}"> {{ sede.sede }} </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-success"><span class="fa fa-pencil-square-o"></span> Crear</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

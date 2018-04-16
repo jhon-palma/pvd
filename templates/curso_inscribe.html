@@ -1,0 +1,71 @@
+{% extends 'template.html'%}
+{% load staticfiles %}
+{% block title %}Inscripción cursos{% endblock %}
+{% block subtitle %}Inscripción Curso{% endblock %}
+{% block content %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="col-md-12 form lab">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Número de identificación: </label>
+                                        <input class="form-control input-sm" type="number" id="numeroDocumento" name="numeroDocumento" placeholder="Numero de documento" value="{{ datos.nit }}" autocomplete="off" onblur="verifica(this.value);">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Nombres: </label>
+                                        <input class="form-control input-sm text-uppercase" type="text" id="nombres" name="nombres" placeholder="Nombres" value="{{ datos.nombre }}" autocomplete="off" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Curso: </label>
+                                        <select class="form-control input-sm" name="curso">
+                                            <option value="">Curso</option>
+                                            {% for curso in cursos %}
+                                            <option value="{{ curso.id }}"> {{ curso.curso }} </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="text-align: center;">
+                                <button type="submit" id="btn" class="btn btn-success"><span class="fa fa-pencil-square-o"></span> Inscribir</button>
+                            </div>
+                        </div>
+                    </form>
+{% endblock %}
+{% block javascript %}
+    <script src="{% static 'js/sweetalert2.all.js' %}"></script>
+    <script>
+        function verifica()
+            {
+                var documento = $("#numeroDocumento").val();
+                $.ajax({
+                    data : {'documento':documento},
+                    url: '/personaAjax',
+                    type: 'get',
+                    success: function(data) {
+                        if(data.length==1){
+                            document.getElementById('nombres').value = data[0].fields.nombres+" "+data[0].fields.apellidos;
+                            document.getElementById('btn').disabled = false;
+                        }
+                        else{
+                            swal({
+                                title: "Error!",
+                                html: "No existe ninguna persona registrada con el documento número "+ documento +" <a href='{% url 'persona_create' %}'>Click para registrarla</a>",
+                                type: "error",
+                                confirmButtonText: "Entendido",
+                            });
+                            document.getElementById('nombres').value = "";
+                            document.getElementById('numeroDocumento').value = "";
+                            document.getElementById('btn').disabled = true;
+                            document.getElementById("numeroDocumento").focus();
+                        }
+                    }
+                });
+            }
+    </script>
+{% endblock %}

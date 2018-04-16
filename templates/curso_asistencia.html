@@ -1,0 +1,61 @@
+{% extends 'template.html'%}
+{% load staticfiles %}
+{% block title %}Asistencia Curso{% endblock %}
+{% block subtitle %}Asistencia al curso {{ curso.curso }}{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2">
+        </div>
+        <div class="col-lg-8">
+            {% if curso.persona_set.all %}
+            <form method="post">
+            {% csrf_token %}
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>NOMBRES</th>
+                            <th>DOCUMENTO</th>
+                            <th>ASISTENCIA <input type="checkbox" onClick="toggle(this)" name="todo" checked/></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for persona in curso.persona_set.all|dictsort:"apellidos" %}
+                        <tr>
+                            <td>{{ persona.apellidos }} {{ persona.nombres}}</td>
+                            <td>{{ persona.numeroDocumento }}</td>
+                            <td><input type="checkbox" id="asiste" name="asiste" value="{{ persona.id }}" checked/></td>
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-success"><span class="fa fa-pencil-square-o"></span> Registrar asistencia</button>
+            </div>
+        </form>
+        {% else %}
+        <div class="alert alert-danger">
+            <a class="close" href="#" data-dismiss="alert">×</a>
+            <strong>Error!</strong> No existen personas inscritas al curso {{ curso_list.curso }}
+        </div>
+        {% endif %}
+        </div>
+        <div class="col-lg-2">
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+{% block javascript %}
+<script>
+    function toggle(source) {
+        checkboxes = document.getElementsByName('asiste');
+        for(var i=0, n=checkboxes.length;i<n;i++) {
+            checkboxes[i].checked = source.checked;
+        }
+    }
+</script>
+{% endblock %}

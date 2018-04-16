@@ -1,0 +1,61 @@
+{% extends 'template.html'%}
+{% load staticfiles %}
+{% block title %}Inscritos Curso{% endblock %}
+{% block subtitle %}Inscritos al curso {{ curso_list.curso }}{% endblock %}
+{% block content %}
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>NOMBRES</th>
+                    <th>DOCUMENTO</th>
+                    <th>EDAD</th>
+                    <th>CIUDAD</th>
+                    <th>ENTIDAD</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for persona in curso %}
+                <tr>
+                    <td>{{ persona.nombres}} {{ persona.apellidos }}</td>
+                    <td>{{ persona.numeroDocumento }}</td>
+                    <td>{{ persona.getEdad }} Años</td>
+                    <td>{{ persona.ciudadResidencia.ciudad }}</td>
+                    <td>{{ persona.entidad.entidad }}</td>
+                </tr>
+                {% empty %}
+                <div class="alert alert-danger">
+                    <a class="close" href="#" data-dismiss="alert">×</a>
+                    <strong>Error!</strong> No existen personas inscritas en el curso {{ curso_list.curso }}
+                </div>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+        <nav aria-label="Page navigation example">
+            {% if curso.has_other_pages %}
+                <ul class="pagination justify-content-center">
+                    {% if curso.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ curso.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                        {% endif %}
+                    {% for i in curso.paginator.page_range %}
+                        {% if curso.number == i %}
+                            <li class="page-item active"><span class="page-link">{{ i }} <span class="page-link sr-only">(current)</span></span></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if curso.has_next %}
+                        <li page-item ><a class="page-link" href="?page={{ curso.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        </nav>
+
+{% endblock %}
+{% block javascript %}
+{% endblock %}
