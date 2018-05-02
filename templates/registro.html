@@ -3,39 +3,50 @@
 {% block title %}Asistencia ViveLab{% endblock %}
 {% block subtitle %}Registro asistencia y uso de los servicios{% endblock %}
 {% block content %}
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="col-md-12 form lab">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Número de identificación: </label>
-                                        <input class="form-control input-sm" type="number" id="numeroDocumento" name="numeroDocumento" placeholder="Numero de documento" value="{{ datos.nit }}" autocomplete="off" onblur="verifica(this.value);">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Nombres: </label>
-                                        <input class="form-control input-sm text-uppercase" type="text" id="nombres" name="nombres" placeholder="Nombres" value="{{ datos.nombre }}" autocomplete="off" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Servicio: </label>
-                                        <select class="form-control input-sm" name="servicio">
-                                            <option value="">Servicio</option>
-                                            {% for servicio in servicios %}
-                                            <option value="{{ servicio.id }}"> {{ servicio.servicio }} </option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="text-align: center;">
-                                <button type="submit" id="btn" class="btn btn-success"><span class="fa fa-pencil-square-o"></span> Registrar</button>
-                            </div>
-                        </div>
-                    </form>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="col-md-12 form lab">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Número de identificación: </label>
+                        <input class="form-control input-sm" type="number" id="numeroDocumento" name="numeroDocumento" placeholder="Numero de documento" value="{{ datos.nit }}" autocomplete="off" onblur="verifica(this.value);" required>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Nombres: </label>
+                        <input class="form-control input-sm text-uppercase" type="text" id="nombres" name="nombres" placeholder="Nombres" value="{{ datos.nombre }}" autocomplete="off" readonly required>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Laboratorio: </label>
+                        <select class="form-control input-sm" name="servicio" required>
+                            <option value="">Laboratorio....</option>
+                            {% for servicio in servicios %}
+                            <option value="{{ servicio.id }}"> {{ servicio.servicio }} </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Servicio: </label>
+                        <select class="form-control input-sm" name="tipo" required>
+                            <option value="">Servicio....</option>
+                            {% for tipo in tipos %}
+                            <option value="{{ tipo.id }}"> {{ tipo.tipo }} </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <button type="submit" id="btn" class="btn btn-success"><span class="fa fa-pencil-square-o"></span> Registrar</button>
+            </div>
+        </div>
+    </form>
 {% endblock %}
 {% block javascript %}
     <script src="{% static 'js/sweetalert2.all.js' %}"></script>

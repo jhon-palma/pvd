@@ -1,6 +1,8 @@
 document.getElementById('departamento').addEventListener("change", ciudad_departamento);
+document.getElementById('departamenton').addEventListener("change", ciudad_departamenton);
 document.getElementById('ciudad').addEventListener("change", barrio_ciudad);
 document.getElementById('barrio').addEventListener("change", creaBarrio);
+document.getElementById('grabarB').addEventListener("click", grabarb)
 function ciudad_departamento() {
     id = document.getElementById("departamento").value;
     if (id != ''){
@@ -61,4 +63,51 @@ function creaBarrio(){
         else{
             $('#modal').modal('hide');
         }
+}
+function grabarb()
+    {
+        var barrio = $("#barrioN").val();
+        var ciudad = $("#ciudad").val();
+        $.ajax({
+            data : { 'barrio': barrio, 'ciudad':ciudad },
+            url: '/barrioAjax',
+            type: 'get',
+            success: function(dat){
+                var select = $('#barrio').html("<option value='' selected>Barrio...</option>");
+                for (var i = 0; i < dat.length ; i++){
+                    select.append('<option value="'
+                    + dat[i].pk
+                    + '">'
+                    + dat[i].fields.barrio
+                    + '</option>' );
+                }
+                select.append('<option class="fa fa-plus" value="01"> &#xf067; Agregar</option>')
+            }
+        });
     }
+
+function ciudad_departamenton() {
+    id = document.getElementById("departamenton").value;
+    if (id != ''){
+        document.getElementById("ciudadn").disabled = false;
+        $.ajax({
+            data : {'id':id},
+            url: '/ciudadesAjax',
+            type: 'get',
+            success: function(data){
+                var select = $('#ciudadn').html("<option value='' selected>Ciudad de nacimiento...</option>");
+                for (var i = 0; i < data.length ; i++){
+                    select.append('<option value="'
+                        + data[i].pk
+                        + '">'
+                        + data[i].fields.ciudad
+                        + '</option>' );
+                }
+            }
+        });
+
+    }else{
+        var select = $('#ciudadn').html("<option value='' selected>Ciudad de residencia...</option>");
+        document.getElementById("ciudadn").disabled = true;
+    }
+}

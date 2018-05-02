@@ -1,0 +1,137 @@
+{% extends 'template.html'%}
+{% load staticfiles %}
+{% block title %}{% if create %}Crear Instructor{% endif %}{% if query %}Consultar Instructor{% endif %}{% if edit %}Modificar Instructor{% endif %}{% endblock %}
+{% block subtitle %}{% if create %}Crear Instructor{% endif %}{% if query %}Consultar Instructor{% endif %}{% if edit %}Modificar Instructor{% endif %}{% endblock %}
+{% block content %}
+    {% if query %}
+        <form method="post">
+        {% csrf_token %}
+        <div class="form-row align-items-center">
+            <div class="col-auto">
+                <label for="inlineFormInput">Número de identificación: </label>
+            </div>
+            <div class="col-auto">
+                <input class="form-control input-sm mb-2" type="number" id="inlineFormInput" name="documento" placeholder="Numero de documento" autocomplete="off">
+            </div>
+            <div class="col-auto">
+                <button type="submit" id="btn" class="btn btn-success mb-2"><span class="fa fa-pencil-square-o"></span> Consultar</button>
+            </div>
+        </div>
+        </form>
+    {% endif %}
+    {% if create or edit %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="col-md-12 form lab">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Tipo Documento: </label>
+                            <select class="form-control input-sm" id="tipoDocumento" name="tipoDocumento" required>
+                                <option value="">Tipo documento...</option>
+                                {% for tipo in tipoDocumento %}
+                                <option value="{{ tipo.id }}" {% if instructor.tipoDocumento.id == tipo.id %} selected {% endif %}> {{ tipo.tipo }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Número de identificación: </label>
+                            <input class="form-control input-sm" type="number" max="99999999999" id="numeroDocumento" name="numeroDocumento" placeholder="Numero de documento" value="{{ instructor.numeroDocumento }}" autocomplete="off" required>
+                            <p id="error"></p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Nombres: </label>
+                            <input class="form-control input-sm text-uppercase" type="text" id="nombres" name="nombres" placeholder="Nombres" value="{{ instructor.nombres }}" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Apellidos: </label>
+                            <input class="form-control input-sm text-uppercase" type="text" id="apellidos" name="apellidos" placeholder="Apellidos" value="{{ instructor.apellidos }}" autocomplete="off" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Teléfono: </label>
+                            <input class="form-control input-sm" type="number" max="9999999999" name="telefono" placeholder="Teléfono" value="{{ instructor.telefono }}" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Ocupación: </label>
+                            <select class="form-control input-sm" id="ocupacion" name="ocupacion" required>
+                                <option value="">Ocupación...</option>
+                                {% for ocupacion in ocupaciones %}
+                                <option value="{{ ocupacion.id }}" {% if instructor.ocupacion.id == ocupacion.id %} selected {% endif %}> {{ ocupacion.ocupacion }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Sexo: </label>
+                            <select class="form-control input-sm" id="sexo" name="sexo" required>
+                                <option value="">Sexo...</option>
+                                {% for sexo in sexos %}
+                                <option value="{{ sexo.0 }}" {% if instructor.sexo == sexo.0 %} selected {% endif %}> {{ sexo.1 }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Entidad: </label>
+                            <select class="form-control input-sm" id="entidad" name="entidad" required>
+                                <option value="">Entidad...</option>
+                                {% for entidad in entidades %}
+                                <option value="{{ entidad.id }}" {% if instructor.entidad.id == entidad.id %} selected {% endif %}> {{ entidad.entidad }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Correo: </label>
+                            <input class="form-control input-sm text-lowercase" type="email" value='{{ instructor.email }}' placeholder="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button type="submit" name="crear" id="crear" class="btn btn-success"><span class="fa fa-pencil-square-o"></span> {% if create %}Crear {% endif %}{% if edit %}Modificar{% endif %}</button>
+                </div>
+            </div>
+        </form>
+        {% endif %}
+    <div class="modal fade" id="modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Crear barrio</h4>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Barrio</label>
+                        <input class="form-control text-uppercase" name="barrioN" id="barrioN" placeholder="Barrio" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="grabarB">Crear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script src="{% static 'js/ciudad.js' %}"></script>
+    <script src="{% static 'js/sweetalert2.all.js' %}"></script>
+    <script src="{% static 'js/validator.js' %}"></script>
+{% endblock %}

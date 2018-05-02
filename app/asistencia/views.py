@@ -9,6 +9,7 @@ from django.contrib.auth.models import User, Group
 from pvd.validators import *
 from django.contrib.auth.hashers import make_password
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import datetime
 
 def login(request):
     if request.method == 'POST':
@@ -61,6 +62,7 @@ def persona_create(request):
             persona.barrio = Barrio.objects.get(pk = request.POST['barrio'])
             persona.poblacion = Poblacion.objects.get(pk = request.POST['poblacion'])
             persona.entidad = Entidad.objects.get(pk = request.POST['entidad'])
+            persona.ciudadNacimiento = Ciudad.objects.get(pk = request.POST['ciudadn'])
             persona.save()
             messages.success(request,'Usuario creado correctamente')
             return HttpResponseRedirect('/persona_create')
@@ -88,6 +90,7 @@ def persona_consulta(request):
 def persona_edit(request, id_persona):
     edit = True
     tipoDocumento = TipoDocumento.objects.all().order_by('tipo')
+    departamentos = Departamento.objects.all()
     ciudades = Ciudad.objects.all()
     ocupaciones = Ocupacion.objects.all().order_by('ocupacion')
     barrios = Barrio.objects.all().order_by('barrio')
@@ -97,7 +100,7 @@ def persona_edit(request, id_persona):
     entidades = Entidad.objects.all()
     persona = Persona.objects.get(pk = id_persona)
     if request.method == 'POST':
-        validator = PersonaValidator(request.POST)
+        validator = PersonaEditValidator(request.POST)
         validator.required = ['numeroDocumento','nombres','apellidos','direccion','telefono','fechaNacimiento', 'email']
         if validator.is_valid():
             persona.nombres = request.POST['nombres'].upper()
@@ -115,13 +118,86 @@ def persona_edit(request, id_persona):
             persona.barrio = Barrio.objects.get(pk = request.POST['barrio'])
             persona.poblacion = Poblacion.objects.get(pk = request.POST['poblacion'])
             persona.entidad = Entidad.objects.get(pk = request.POST['entidad'])
+            persona.ciudadNacimiento = Ciudad.objects.get(pk = request.POST['ciudadn'])
             persona.save()
             messages.success(request,validator.getMessage())
             return HttpResponseRedirect('/persona_consulta')
         else:
             messages.warning(request,validator.getMessage())
             return HttpResponseRedirect('/persona_consulta')
-    return render(request,'persona_create.html',{'persona':persona,'tipoDocumento':tipoDocumento,'ciudades':ciudades,'ocupaciones':ocupaciones,'barrios':barrios,'estratos':estratos,'sexos':sexos,'poblaciones':poblaciones,'entidades':entidades,'edit':edit})
+    return render(request,'persona_create.html',{'persona':persona,'departamentos':departamentos,'tipoDocumento':tipoDocumento,'ciudades':ciudades,'ocupaciones':ocupaciones,'barrios':barrios,'estratos':estratos,'sexos':sexos,'poblaciones':poblaciones,'entidades':entidades,'edit':edit})
+
+@login_required(login_url="/")
+def instructor_create(request):
+    create = True
+    tipoDocumento = TipoDocumento.objects.all().order_by('tipo')
+    ocupaciones = Ocupacion.objects.all().order_by('ocupacion')
+    sexos = ListaSexo
+    entidades = Entidad.objects.all()
+    if request.method == 'POST':
+        validator = InstructorValidator(request.POST)
+        validator.required = ['numeroDocumento','nombres','apellidos','telefono', 'email']
+        if validator.is_valid():
+            instructor = Instructor()
+            instructor.nombres = request.POST['nombres'].upper()
+            instructor.apellidos = request.POST['apellidos'].upper()
+            instructor.tipoDocumento = TipoDocumento.objects.get(pk=request.POST['tipoDocumento'])
+            instructor.numeroDocumento = request.POST['numeroDocumento']
+            instructor.ocupacion = Ocupacion.objects.get(pk = request.POST['ocupacion'])
+            instructor.sexo = request.POST['sexo'].upper()
+            instructor.telefono = request.POST['telefono']
+            instructor.email = request.POST['email']
+            instructor.entidad = Entidad.objects.get(pk = request.POST['entidad'])
+            instructor.save()
+            messages.success(request,validator.getMessage())
+            return HttpResponseRedirect('/instructor_create')
+        else:
+            messages.warning(request,validator.getMessage())
+            return HttpResponseRedirect('/instructor_create')
+    return render(request,'instructor_create.html',{'tipoDocumento':tipoDocumento,'ocupaciones':ocupaciones,'sexos':sexos,'entidades':entidades,'create':create})
+
+@login_required(login_url="/")
+def instructor_consulta(request):
+    query = True
+    if request.method == 'POST':
+        validator = InstructorCValidator(request.POST)
+        validator.required = ['documento']
+        if validator.is_valid():
+            instructor = Instructor.objects.get(numeroDocumento = request.POST['documento'])
+            return HttpResponseRedirect('/instructor_edit/%s' % instructor.id)
+        else:
+            messages.warning(request,validator.getMessage())
+            return HttpResponseRedirect('/instructor_consulta',{'query':query})
+    return render(request,'instructor_create.html',{'query':query})
+
+@login_required(login_url="/")
+def instructor_edit(request, id_instructor):
+    edit = True
+    tipoDocumento = TipoDocumento.objects.all().order_by('tipo')
+    ocupaciones = Ocupacion.objects.all().order_by('ocupacion')
+    sexos = ListaSexo
+    entidades = Entidad.objects.all()
+    instructor = Instructor.objects.get(pk = id_instructor)
+    if request.method == 'POST':
+        validator = InstructorEditValidator(request.POST)
+        validator.required = ['numeroDocumento','nombres','apellidos','telefono', 'email']
+        if validator.is_valid():
+            instructor.nombres = request.POST['nombres'].upper()
+            instructor.apellidos = request.POST['apellidos'].upper()
+            instructor.tipoDocumento = TipoDocumento.objects.get(pk=request.POST['tipoDocumento'])
+            instructor.numeroDocumento = request.POST['numeroDocumento']
+            instructor.ocupacion = Ocupacion.objects.get(pk = request.POST['ocupacion'])
+            instructor.sexo = request.POST['sexo'].upper()
+            instructor.telefono = request.POST['telefono']
+            instructor.email = request.POST['email']
+            instructor.entidad = Entidad.objects.get(pk = request.POST['entidad'])
+            instructor.save()
+            messages.success(request,validator.getMessage())
+            return HttpResponseRedirect('/instructor_create')
+        else:
+            messages.warning(request,validator.getMessage())
+            return HttpResponseRedirect('/instructor_create')
+    return render(request,'instructor_create.html',{'instructor':instructor,'tipoDocumento':tipoDocumento,'ocupaciones':ocupaciones,'sexos':sexos,'entidades':entidades,'edit':edit})
 
 @login_required(login_url="/")
 def usuario_create(request):
@@ -211,7 +287,7 @@ def curso_create(request):
     entidades = Entidad.objects.all().order_by('entidad')
     if request.method == 'POST':
         validator = CursoValidator(request.POST)
-        validator.required = ['nombre','duracion','instructor', 'tipo']
+        validator.required = ['nombre','duracion','instructor', ]
         if validator.is_valid():
             curso = Curso()
             curso.curso = request.POST['nombre'].upper()
@@ -247,8 +323,25 @@ def servicio_create(request):
     return render(request,'servicio_create.html',{'sedes':sedes})
 
 @login_required(login_url="/")
+def tipo_create(request):
+    if request.method == 'POST':
+        validator = TipoValidator(request.POST)
+        validator.required = ['nombre']
+        if validator.is_valid():
+            servicio = Tipo()
+            servicio.tipo = request.POST['nombre'].upper()
+            servicio.save()
+            messages.success(request,validator.getMessage())
+            return HttpResponseRedirect('/tipo_create')
+        else:
+            messages.warning(request,validator.getMessage())
+            return HttpResponseRedirect('/tipo_create')
+    return render(request,'tipo_create.html',)
+
+@login_required(login_url="/")
 def registro(request):
     servicios = Servicio.objects.all()
+    tipos = Tipo.objects.all()
     if request.method == 'POST':
         validator = RegistroValidator(request.POST)
         validator.required = ['numeroDocumento']
@@ -256,13 +349,14 @@ def registro(request):
             registro = Asistencia()
             registro.persona = Persona.objects.get(numeroDocumento = request.POST['numeroDocumento'])
             registro.servicio = Servicio.objects.get(pk = request.POST['servicio'])
+            registro.tipo = Tipo.objects.get(pk = request.POST['tipo'])
             registro.save()
             messages.success(request,validator.getMessage())
             return HttpResponseRedirect('/registro')
         else:
             messages.warning(request,validator.getMessage())
             return HttpResponseRedirect('/registro')
-    return render(request,'registro.html',{'servicios':servicios})
+    return render(request,'registro.html',{'servicios':servicios,'tipos':tipos})
 
 @login_required(login_url="/")
 def curso_list(request):
@@ -322,16 +416,54 @@ def curso_asistencia(request, id_curso):
     return render(request,'curso_asistencia.html',{'curso':curso})
 
 @login_required(login_url="/")
+def subir_soporte(request):
+    create = True
+    if request.method == 'POST':
+        validator = SoporteValidator(request.POST)
+        validator.required = ['fecha']
+        if validator.is_valid():
+            soporte = Soporte()
+            soporte.soporte = request.FILES['soporte']
+            soporte.fecha = request.POST['fecha']
+            ahora = datetime.datetime.now()
+            soporte.soporte.name = "%s-%s.%s" % (soporte.fecha,ahora.minute,'pdf')
+            soporte.save()
+            messages.success(request,validator.getMessage())
+            return HttpResponseRedirect('/subir_soporte')
+        else:
+            messages.warning(request,validator.getMessage())
+            return HttpResponseRedirect('/subir_soporte')
+    return render(request,'subir_soporte.html',{'create':create})
+
+@login_required(login_url="/")
+def consulta_soporte(request):
+    query = True
+    if request.method == 'POST':
+        validator = SoporteValidator(request.POST)
+        validator.required = ['fecha']
+        if validator.is_valid():
+            edit = True
+            fecha = request.POST['fecha']
+            soportes = Soporte.objects.filter(fecha = fecha)
+            return render(request,'subir_soporte.html', {'edit':edit, 'soportes':soportes,'fecha':fecha })
+        else:
+            messages.warning(request,validator.getMessage())
+            return HttpResponseRedirect('/consulta_soporte',{'query':query})
+    return render(request,'subir_soporte.html',{'query':query})
+
+@login_required(login_url="/")
 def barrioAjax(request):
     barrioN = request.GET['barrio']
+    ciudad = request.GET['ciudad']
     try:
-        if Barrio.objects.filter(barrio = request.GET['barrio']).exists():
+        if Barrio.objects.filter(barrio = request.GET['barrio'], ciudad=ciudad).exists():
             return HttpResponse(json.dumps({"mensaje":"EL BARRIO %s YA EXISTE" %request.GET['barrio']}), content_type='application/json', status = 500)
         else:
             barrio = Barrio()
             barrio.barrio = barrioN.upper()
+            barrio.ciudad = Ciudad.objects.get(pk=ciudad)
             barrio.save()
-            barrios = Barrio.objects.all().order_by('barrio')
+            barrios = Barrio.objects.filter(ciudad=ciudad).order_by('barrio')
             dat = serializers.serialize('json', barrios, fields=('barrio'))
             return HttpResponse(dat, content_type='application/json')
     except:

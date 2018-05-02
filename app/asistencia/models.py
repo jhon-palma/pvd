@@ -43,6 +43,17 @@ class Entidad(models.Model):
     codigo = models.CharField(max_length=3)
     entidad = models.CharField(max_length=40)
 
+class Instructor(models.Model):
+    nombres = models.CharField(max_length=50)
+    apellidos = models.CharField(max_length=50)
+    tipoDocumento = models.ForeignKey(TipoDocumento, on_delete=models.CASCADE)
+    numeroDocumento = models.BigIntegerField()
+    ocupacion = models.ForeignKey(Ocupacion, on_delete=models.CASCADE)
+    sexo = models.CharField(max_length=1, choices=ListaSexo)
+    telefono = models.CharField(max_length=15,null=True)
+    email = models.EmailField()
+    entidad = models.ForeignKey(Entidad, on_delete=models.CASCADE)
+
 class Curso(models.Model):
     codigo = models.CharField(max_length=3)
     curso = models.CharField(max_length=40)
@@ -61,7 +72,8 @@ class Barrio(models.Model):
 class Persona(models.Model):
     nombres = models.CharField(max_length=50)
     apellidos = models.CharField(max_length=50)
-    ciudadResidencia = models.ForeignKey(Ciudad, on_delete=models.CASCADE)
+    ciudadResidencia = models.ForeignKey(Ciudad, related_name='Ciudad_residencia', on_delete=models.CASCADE)
+    ciudadNacimiento = models.ForeignKey(Ciudad, related_name='Ciudad_nacimiento', on_delete=models.CASCADE)
     tipoDocumento = models.ForeignKey(TipoDocumento, on_delete=models.CASCADE)
     numeroDocumento = models.BigIntegerField()
     ocupacion = models.ForeignKey(Ocupacion, on_delete=models.CASCADE)
@@ -87,6 +99,7 @@ class PersonaCurso(models.Model):
 class Asistencia(models.Model):
     persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
     servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE, null=True)
+    tipo = models.ForeignKey(Tipo, on_delete=models.CASCADE, null=True)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE, null=True)
     hora = models.DateTimeField(default=datetime.now,editable=False)
 
@@ -95,3 +108,7 @@ class User(AbstractUser):
 
     class Meta:
         db_table = 'auth_user'
+
+class Soporte(models.Model):
+    soporte = models.FileField(upload_to="static/archivos/")
+    fecha = models.DateField()

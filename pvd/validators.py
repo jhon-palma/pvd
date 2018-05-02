@@ -173,7 +173,106 @@ class PersonaValidator(Validator):
             self._message = ('Seleccione la entidad a la que pertenece').upper()
             return False
 
+        if Persona.objects.filter(numeroDocumento = self._post['numeroDocumento']).exists():
+            self._message = ('La persona con documento %s ya se encuentra registrada' %self._post['numeroDocumento']).upper()
+            return False
+
         self._message = ('Usuario %s creado con exito' %self._post['numeroDocumento']).upper()
+        return True
+
+class PersonaEditValidator(Validator):
+
+    def is_valid(self):
+        if not super(PersonaEditValidator, self).is_valid():
+            return False
+
+        if self._post['tipoDocumento'] == '':
+            self._message = ('Seleccione el tipo de Documento').upper()
+            return False
+
+        if self._post['ciudad'] == '':
+            self._message = ('Seleccione la Ciudad').upper()
+            return False
+
+        if self._post['barrio'] == '':
+            self._message = ('Seleccione el barrio').upper()
+            return False
+
+        if self._post['estrato'] == '':
+            self._message = ('Seleccione el estrato').upper()
+            return False
+
+        if self._post['ocupacion'] == '':
+            self._message = ('Seleccione la ocupación').upper()
+            return False
+
+        if self._post['sexo'] == '':
+            self._message = ('Seleccione el sexo').upper()
+            return False
+
+        if self._post['poblacion'] == '':
+            self._message = ('Seleccione la poblacion a la que pertenece').upper()
+            return False
+
+        if self._post['entidad'] == '':
+            self._message = ('Seleccione la entidad a la que pertenece').upper()
+            return False
+
+        self._message = ('Usuario %s modificado con exito' %self._post['numeroDocumento']).upper()
+        return True
+
+class InstructorValidator(Validator):
+
+    def is_valid(self):
+        if not super(InstructorValidator, self).is_valid():
+            return False
+
+        if self._post['tipoDocumento'] == '':
+            self._message = ('Seleccione el tipo de Documento').upper()
+            return False
+
+        if self._post['ocupacion'] == '':
+            self._message = ('Seleccione la ocupación').upper()
+            return False
+
+        if self._post['sexo'] == '':
+            self._message = ('Seleccione el sexo').upper()
+            return False
+
+        if self._post['entidad'] == '':
+            self._message = ('Seleccione la entidad a la que pertenece').upper()
+            return False
+
+        if Instructor.objects.filter(numeroDocumento = self._post['numeroDocumento']).exists():
+            self._message = ('El instructor identificado con documento %s ya se encuentra registrado.' %self._post['numeroDocumento']).upper()
+            return False
+
+        self._message = ('Instructor %s creado con exito' %self._post['numeroDocumento']).upper()
+        return True
+
+class InstructorEditValidator(Validator):
+
+    def is_valid(self):
+        if not super(InstructorEditValidator, self).is_valid():
+            return False
+
+        if self._post['tipoDocumento'] == '':
+            self._message = ('Seleccione el tipo de Documento').upper()
+            return False
+
+        if self._post['ocupacion'] == '':
+            self._message = ('Seleccione la ocupación').upper()
+            return False
+
+        if self._post['sexo'] == '':
+            self._message = ('Seleccione el sexo').upper()
+            return False
+
+        if self._post['entidad'] == '':
+            self._message = ('Seleccione la entidad a la que pertenece').upper()
+            return False
+
+        self._message = ('Instructor %s modificado con exito' %self._post['numeroDocumento']).upper()
         return True
 
 class CursoValidator(Validator):
@@ -210,6 +309,15 @@ class ServicioValidator(Validator):
         self._message = ('Servicio %s creado con exito' %self._post['nombre']).upper()
         return True
 
+class TipoValidator(Validator):
+
+    def is_valid(self):
+        if not super(TipoValidator, self).is_valid():
+            return False
+
+        self._message = ('Servicio %s creado con exito' %self._post['nombre']).upper()
+        return True
+
 class InscribeCursoValidator(Validator):
 
     def is_valid(self):
@@ -230,7 +338,11 @@ class RegistroValidator(Validator):
             return False
 
         if self._post['servicio'] == '':
-            self._message = ('Seleccione el servicio que se usará').upper()
+            self._message = ('Seleccione el laboratorio que se usará').upper()
+            return False
+
+        if self._post['tipo'] == '':
+            self._message = ('Seleccione el tipo de servicio que se usará').upper()
             return False
 
         self._message = ('Servicio asignado con éxito!!!').upper()
@@ -262,6 +374,19 @@ class ConsultaValidator(Validator):
         self._message = ('¡!').upper()
         return True
 
+class InstructorCValidator(Validator):
+
+    def is_valid(self):
+        if not super(InstructorCValidator, self).is_valid():
+            return False
+
+        if not Instructor.objects.filter(numeroDocumento = self._post['documento']):
+            self._message = 'El Instructor identificado con documento %s no se encuentra registrado. Registrelo en la opción correspondiente' %self._post['documento']
+            return False
+
+        self._message = ('¡!').upper()
+        return True
+
 class ConsultaUsuarioValidator(Validator):
 
     def is_valid(self):
@@ -273,4 +398,13 @@ class ConsultaUsuarioValidator(Validator):
             return False
 
         self._message = ('¡!').upper()
+        return True
+
+class SoporteValidator(Validator):
+
+    def is_valid(self):
+        if not super(SoporteValidator, self).is_valid():
+            return False
+
+        self._message = ('ARCHIVO SUBIDO CORRECTAMENTE').upper()
         return True

@@ -1,0 +1,2349 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: May 01, 2018 at 01:51 PM
+-- Server version: 5.7.22-0ubuntu0.16.04.1
+-- PHP Version: 7.0.28-0ubuntu0.16.04.1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `pvd`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asistencia_asistencia`
+--
+
+CREATE TABLE `asistencia_asistencia` (
+  `id` int(11) NOT NULL,
+  `hora` datetime NOT NULL,
+  `curso_id` int(11) DEFAULT NULL,
+  `persona_id` int(11) NOT NULL,
+  `servicio_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `asistencia_asistencia`
+--
+
+INSERT INTO `asistencia_asistencia` (`id`, `hora`, `curso_id`, `persona_id`, `servicio_id`) VALUES
+(1, '2018-04-17 02:04:05', NULL, 9, 2),
+(2, '2018-04-17 02:22:08', NULL, 4, 1),
+(3, '2018-04-17 02:28:47', NULL, 8, 1),
+(4, '2018-04-17 02:45:04', NULL, 12, 1),
+(5, '2018-04-20 21:08:42', NULL, 19, 3),
+(6, '2018-04-20 21:10:00', NULL, 18, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asistencia_barrio`
+--
+
+CREATE TABLE `asistencia_barrio` (
+  `id` int(11) NOT NULL,
+  `barrio` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `comuna` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `ciudad_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `asistencia_barrio`
+--
+
+INSERT INTO `asistencia_barrio` (`id`, `barrio`, `comuna`, `ciudad_id`) VALUES
+(1, 'BUENOS AIRES', '', 492),
+(2, 'KENNEDY', '', 492),
+(3, 'SAN ANTONIO', '', 492),
+(4, 'SAN MIGUEL', '', 492),
+(5, 'ALTO DE LA CRUZ', '', 492),
+(6, 'CENTENARIO', '', 492),
+(7, 'CENTRO', '', 492),
+(8, 'CAMBULOS', '', 492),
+(9, 'ARRAYANES', '', 492),
+(10, 'SAN FERNANDO', '', 492),
+(11, 'AGUA BLANCA', '', 492),
+(12, 'ALGARROBOS', '', 492),
+(13, 'ALTO DEL BARBULA', '', 492),
+(14, 'ALTO ROSARIO', '', 492),
+(15, 'BALI', '', 492),
+(16, 'BRISAS', '', 492),
+(17, 'CIUDAD MONTES', '', 492),
+(18, 'CAFAM DEL SOL', '', 492),
+(19, 'CEIBA', '', 492),
+(20, 'CODALES', '', 492),
+(21, 'LA COLINA', '', 492),
+(22, 'DIAMANTE', '', 492),
+(23, 'ESMERALDA', '', 492),
+(24, 'ESMERALDA 2', '', 492),
+(25, 'ESPERANZA', '', 492),
+(26, 'ESTACION', '', 492),
+(27, 'GAITAN', '', 492),
+(28, 'GOLGOTA', '', 492),
+(29, 'GUABINAL', '', 492),
+(30, 'LA CEIBA', '', 492),
+(31, 'LA MAGDALENA', '', 492),
+(32, 'LA VICTORIA', '', 492),
+(33, 'LAS ACACIAS', '', 492),
+(34, 'LAS ROSAS', '', 492),
+(35, 'LLERAS', '', 492),
+(36, 'LOS PANTANOS', '', 492),
+(37, 'MAGDALENA', '', 492),
+(38, 'MIRAFLORES', '', 492),
+(39, 'OBRERO', '', 492),
+(40, 'ORQUIDEAS', '', 492),
+(41, 'PORTACHUELO', '', 492),
+(42, 'PUERTO MONGI', '', 492),
+(43, 'PUBENZA', '', 492),
+(44, 'QUINTAS', '', 492),
+(45, 'QUINTO PATIO', '', 492),
+(46, 'ROSA BLANCA', '', 492),
+(47, 'SANTA HELENA', '', 492),
+(48, 'SAN JORGE', '', 492),
+(49, 'SAN LUIS', '', 492),
+(50, 'SANTA ISABEL', '', 492),
+(51, 'SANTA MONICA', '', 492),
+(52, 'SANTA RITA', '', 492),
+(53, 'SANTANDER', '', 492),
+(54, 'SUCRE', '', 492),
+(55, 'TERRAZAS DE GUADALQUIVIR ', '', 492),
+(56, 'TOLEDO', '', 492),
+(57, 'TRIANA', '', 492),
+(58, 'EL TRIUNFO', '', 492),
+(59, 'VILLA ALEXANDER', '', 492),
+(60, 'PIAMONTE', '', 492),
+(61, 'VILLA DEL RIO', '', 492),
+(62, 'VALLE DEL SOL', '', 492),
+(63, 'VILLA LUCIA', '', 492),
+(64, 'VILLA OARTE', '', 492),
+(65, 'VILLAMPISS', '', 492),
+(66, 'VOLVER A VIVIR', '', 492),
+(67, 'APROVITEF', '', 974),
+(68, 'CAMALA', '', 974),
+(69, 'CAPILLA', '', 974),
+(70, 'LAS ROSAS', '', 974),
+(71, 'PAKISTAN', '', 974),
+(72, 'PALMAR', '', 974),
+(73, 'QUINTAS', '', 974),
+(74, 'ALTO MAGDALENA', '', 532),
+(75, 'CENTRO', '', 532),
+(76, 'ISLA DEL SOL', '', 532),
+(77, 'PEÑALIZA', '', 532),
+(78, 'TOGORALLE', '', 532),
+(79, 'CENTRO', '', 983),
+(80, 'ESPERANZA', '', 983),
+(81, 'GALAN', '', 983),
+(82, 'PORTACHUELO', '', 983),
+(83, 'SICOMOR', '', 983),
+(84, 'VILLA ELSA', '', 983),
+(85, 'EL CAPOTE', '', 457),
+(86, 'CENTRO', '', 457),
+(87, 'COYALES', '', 457),
+(88, 'EL CARMEN', '', 457),
+(89, 'SAN JOSE', '', 457),
+(90, 'SANTA ISABEL', '', 459),
+(91, 'SANTA ISABEL', '', 460),
+(92, 'CENTRO ', '', 149),
+(93, 'CARMEN', '', 965),
+(94, 'BALCANES ', '', 972),
+(95, 'PALMERAS', '', 972),
+(96, 'SANTA MARGARITA', '', 972),
+(97, 'URBANIZACION PRADO', '', 972),
+(98, 'TRIANA', '', 505),
+(99, 'LA INMACULADA', '', 515),
+(100, 'CENTRO', '', 517),
+(101, 'BORIANZA', '', 995),
+(102, 'PLAZUELA', '', 999),
+(103, 'CUNCISTA', '', 556),
+(104, 'EL CARMELES ', '', 556),
+(105, 'SAN FERNANDO', '', 556),
+(106, 'CHICO', '', 569),
+(107, '', '', NULL),
+(108, 'PUERTO  MONGUI', '', NULL),
+(109, 'CENTR6', '', NULL),
+(110, 'VILLAS DE MELGAR', '', NULL),
+(111, 'CATARNICA', '', NULL),
+(112, 'RESERVAS DEL NOGAL', '', NULL),
+(113, 'USATAMA', '', NULL),
+(114, 'BARZALOZA', '', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asistencia_ciudad`
+--
+
+CREATE TABLE `asistencia_ciudad` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
+  `ciudad` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `departamento_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `asistencia_ciudad`
+--
+
+INSERT INTO `asistencia_ciudad` (`id`, `codigo`, `ciudad`, `departamento_id`) VALUES
+(1, '001', 'MEDELLIN', 1),
+(2, '002', 'ABEJORRAL', 1),
+(3, '004', 'ABRIAQUI', 1),
+(4, '021', 'ALEJANDRIA', 1),
+(5, '030', 'AMAGA', 1),
+(6, '031', 'AMALFI', 1),
+(7, '034', 'ANDES', 1),
+(8, '036', 'ANGELOPOLIS', 1),
+(9, '038', 'ANGOSTURA', 1),
+(10, '040', 'ANORI', 1),
+(11, '042', 'SANTAFE DE ANTIOQUIA', 1),
+(12, '044', 'ANZA', 1),
+(13, '045', 'APARTADO', 1),
+(14, '051', 'ARBOLETES', 1),
+(15, '055', 'ARGELIA', 1),
+(16, '059', 'ARMENIA', 1),
+(17, '079', 'BARBOSA', 1),
+(18, '086', 'BELMIRA', 1),
+(19, '088', 'BELLO', 1),
+(20, '091', 'BETANIA', 1),
+(21, '093', 'BETULIA', 1),
+(22, '101', 'CIUDAD BOLIVAR', 1),
+(23, '107', 'BRICEÑO', 1),
+(24, '113', 'BURITICA', 1),
+(25, '120', 'CACERES', 1),
+(26, '125', 'CAICEDO', 1),
+(27, '129', 'CALDAS', 1),
+(28, '134', 'CAMPAMENTO', 1),
+(29, '138', 'CAÑASGORDAS', 1),
+(30, '142', 'CARACOLI', 1),
+(31, '145', 'CARAMANTA', 1),
+(32, '147', 'CAREPA', 1),
+(33, '148', 'EL CARMEN DE VIBORAL', 1),
+(34, '150', 'CAROLINA', 1),
+(35, '154', 'CAUCASIA', 1),
+(36, '172', 'CHIGORODO', 1),
+(37, '190', 'CISNEROS', 1),
+(38, '197', 'COCORNA', 1),
+(39, '206', 'CONCEPCION', 1),
+(40, '209', 'CONCORDIA', 1),
+(41, '212', 'COPACABANA', 1),
+(42, '234', 'DABEIBA', 1),
+(43, '237', 'DON MATIAS', 1),
+(44, '240', 'EBEJICO', 1),
+(45, '250', 'EL BAGRE', 1),
+(46, '264', 'ENTRERRIOS', 1),
+(47, '266', 'ENVIGADO', 1),
+(48, '282', 'FREDONIA', 1),
+(49, '284', 'FRONTINO', 1),
+(50, '306', 'GIRALDO', 1),
+(51, '308', 'GIRARDOTA', 1),
+(52, '310', 'GOMEZ PLATA', 1),
+(53, '313', 'GRANADA', 1),
+(54, '315', 'GUADALUPE', 1),
+(55, '318', 'GUARNE', 1),
+(56, '321', 'GUATAPE', 1),
+(57, '347', 'HELICONIA', 1),
+(58, '353', 'HISPANIA', 1),
+(59, '360', 'ITAGUI', 1),
+(60, '361', 'ITUANGO', 1),
+(61, '364', 'JARDIN', 1),
+(62, '368', 'JERICO', 1),
+(63, '376', 'LA CEJA', 1),
+(64, '380', 'LA ESTRELLA', 1),
+(65, '390', 'LA PINTADA', 1),
+(66, '400', 'LA UNION', 1),
+(67, '411', 'LIBORINA', 1),
+(68, '425', 'MACEO', 1),
+(69, '440', 'MARINILLA', 1),
+(70, '467', 'MONTEBELLO', 1),
+(71, '475', 'MURINDO', 1),
+(72, '480', 'MUTATA', 1),
+(73, '483', 'NARIÑO', 1),
+(74, '490', 'NECOCLI', 1),
+(75, '495', 'NECHI', 1),
+(76, '501', 'OLAYA', 1),
+(77, '541', 'PEÐOL', 1),
+(78, '543', 'PEQUE', 1),
+(79, '576', 'PUEBLORRICO', 1),
+(80, '579', 'PUERTO BERRIO', 1),
+(81, '585', 'PUERTO NARE', 1),
+(82, '591', 'PUERTO TRIUNFO', 1),
+(83, '604', 'REMEDIOS', 1),
+(84, '607', 'RETIRO', 1),
+(85, '615', 'RIONEGRO', 1),
+(86, '628', 'SABANALARGA', 1),
+(87, '631', 'SABANETA', 1),
+(88, '642', 'SALGAR', 1),
+(89, '647', 'SAN ANDRES DE CUERQUIA', 1),
+(90, '649', 'SAN CARLOS', 1),
+(91, '652', 'SAN FRANCISCO', 1),
+(92, '656', 'SAN JERONIMO', 1),
+(93, '658', 'SAN JOSE DE LA MONTAÑA', 1),
+(94, '659', 'SAN JUAN DE URABA', 1),
+(95, '660', 'SAN LUIS', 1),
+(96, '664', 'SAN PEDRO', 1),
+(97, '665', 'SAN PEDRO DE URABA', 1),
+(98, '667', 'SAN RAFAEL', 1),
+(99, '670', 'SAN ROQUE', 1),
+(100, '674', 'SAN VICENTE', 1),
+(101, '679', 'SANTA BARBARA', 1),
+(102, '686', 'SANTA ROSA DE OSOS', 1),
+(103, '690', 'SANTO DOMINGO', 1),
+(104, '697', 'EL SANTUARIO', 1),
+(105, '736', 'SEGOVIA', 1),
+(106, '756', 'SONSON', 1),
+(107, '761', 'SOPETRAN', 1),
+(108, '789', 'TAMESIS', 1),
+(109, '790', 'TARAZA', 1),
+(110, '792', 'TARSO', 1),
+(111, '809', 'TITIRIBI', 1),
+(112, '819', 'TOLEDO', 1),
+(113, '837', 'TURBO', 1),
+(114, '842', 'URAMITA', 1),
+(115, '847', 'URRAO', 1),
+(116, '854', 'VALDIVIA', 1),
+(117, '856', 'VALPARAISO', 1),
+(118, '858', 'VEGACHI', 1),
+(119, '861', 'VENECIA', 1),
+(120, '873', 'VIGIA DEL FUERTE', 1),
+(121, '885', 'YALI', 1),
+(122, '887', 'YARUMAL', 1),
+(123, '890', 'YOLOMBO', 1),
+(124, '893', 'YONDO', 1),
+(125, '895', 'ZARAGOZA', 1),
+(126, '001', 'BARRANQUILLA', 2),
+(127, '078', 'BARANOA', 2),
+(128, '137', 'CAMPO DE LA CRUZ', 2),
+(129, '141', 'CANDELARIA', 2),
+(130, '296', 'GALAPA', 2),
+(131, '372', 'JUAN DE ACOSTA', 2),
+(132, '421', 'LURUACO', 2),
+(133, '433', 'MALAMBO', 2),
+(134, '436', 'MANATI', 2),
+(135, '520', 'PALMAR DE VARELA', 2),
+(136, '549', 'PIOJO', 2),
+(137, '558', 'POLONUEVO', 2),
+(138, '560', 'PONEDERA', 2),
+(139, '573', 'PUERTO COLOMBIA', 2),
+(140, '606', 'REPELON', 2),
+(141, '634', 'SABANAGRANDE', 2),
+(142, '638', 'SABANALARGA', 2),
+(143, '675', 'SANTA LUCIA', 2),
+(144, '685', 'SANTO TOMAS', 2),
+(145, '758', 'SOLEDAD', 2),
+(146, '770', 'SUAN', 2),
+(147, '832', 'TUBARA', 2),
+(148, '849', 'USIACURI', 2),
+(149, '001', 'BOGOTA, D.C.', 3),
+(150, '001', 'CARTAGENA', 4),
+(151, '006', 'ACHI', 4),
+(152, '030', 'ALTOS DEL ROSARIO', 4),
+(153, '042', 'ARENAL', 4),
+(154, '052', 'ARJONA', 4),
+(155, '062', 'ARROYOHONDO', 4),
+(156, '074', 'BARRANCO DE LOBA', 4),
+(157, '140', 'CALAMAR', 4),
+(158, '160', 'CANTAGALLO', 4),
+(159, '188', 'CICUCO', 4),
+(160, '212', 'CORDOBA', 4),
+(161, '222', 'CLEMENCIA', 4),
+(162, '244', 'EL CARMEN DE BOLIVAR', 4),
+(163, '248', 'EL GUAMO', 4),
+(164, '268', 'EL PEÑON', 4),
+(165, '300', 'HATILLO DE LOBA', 4),
+(166, '430', 'MAGANGUE', 4),
+(167, '433', 'MAHATES', 4),
+(168, '440', 'MARGARITA', 4),
+(169, '442', 'MARIA LA BAJA', 4),
+(170, '458', 'MONTECRISTO', 4),
+(171, '468', 'MOMPOS', 4),
+(172, '490', 'NOROSI', 4),
+(173, '473', 'MORALES', 4),
+(174, '549', 'PINILLOS', 4),
+(175, '580', 'REGIDOR', 4),
+(176, '600', 'RIO VIEJO', 4),
+(177, '620', 'SAN CRISTOBAL', 4),
+(178, '647', 'SAN ESTANISLAO', 4),
+(179, '650', 'SAN FERNANDO', 4),
+(180, '654', 'SAN JACINTO', 4),
+(181, '655', 'SAN JACINTO DEL CAUCA', 4),
+(182, '657', 'SAN JUAN NEPOMUCENO', 4),
+(183, '667', 'SAN MARTIN DE LOBA', 4),
+(184, '670', 'SAN PABLO', 4),
+(185, '673', 'SANTA CATALINA', 4),
+(186, '683', 'SANTA ROSA', 4),
+(187, '688', 'SANTA ROSA DEL SUR', 4),
+(188, '744', 'SIMITI', 4),
+(189, '760', 'SOPLAVIENTO', 4),
+(190, '780', 'TALAIGUA NUEVO', 4),
+(191, '810', 'TIQUISIO', 4),
+(192, '836', 'TURBACO', 4),
+(193, '838', 'TURBANA', 4),
+(194, '873', 'VILLANUEVA', 4),
+(195, '894', 'ZAMBRANO', 4),
+(196, '001', 'TUNJA', 5),
+(197, '022', 'ALMEIDA', 5),
+(198, '047', 'AQUITANIA', 5),
+(199, '051', 'ARCABUCO', 5),
+(200, '087', 'BELEN', 5),
+(201, '090', 'BERBEO', 5),
+(202, '092', 'BETEITIVA', 5),
+(203, '097', 'BOAVITA', 5),
+(204, '104', 'BOYACA', 5),
+(205, '106', 'BRICEÑO', 5),
+(206, '109', 'BUENAVISTA', 5),
+(207, '114', 'BUSBANZA', 5),
+(208, '131', 'CALDAS', 5),
+(209, '135', 'CAMPOHERMOSO', 5),
+(210, '162', 'CERINZA', 5),
+(211, '172', 'CHINAVITA', 5),
+(212, '176', 'CHIQUINQUIRA', 5),
+(213, '180', 'CHISCAS', 5),
+(214, '183', 'CHITA', 5),
+(215, '185', 'CHITARAQUE', 5),
+(216, '187', 'CHIVATA', 5),
+(217, '189', 'CIENEGA', 5),
+(218, '204', 'COMBITA', 5),
+(219, '212', 'COPER', 5),
+(220, '215', 'CORRALES', 5),
+(221, '218', 'COVARACHIA', 5),
+(222, '223', 'CUBARA', 5),
+(223, '224', 'CUCAITA', 5),
+(224, '226', 'CUITIVA', 5),
+(225, '232', 'CHIQUIZA', 5),
+(226, '236', 'CHIVOR', 5),
+(227, '238', 'DUITAMA', 5),
+(228, '244', 'EL COCUY', 5),
+(229, '248', 'EL ESPINO', 5),
+(230, '272', 'FIRAVITOBA', 5),
+(231, '276', 'FLORESTA', 5),
+(232, '293', 'GACHANTIVA', 5),
+(233, '296', 'GAMEZA', 5),
+(234, '299', 'GARAGOA', 5),
+(235, '317', 'GUACAMAYAS', 5),
+(236, '322', 'GUATEQUE', 5),
+(237, '325', 'GUAYATA', 5),
+(238, '332', 'GSICAN', 5),
+(239, '362', 'IZA', 5),
+(240, '367', 'JENESANO', 5),
+(241, '368', 'JERICO', 5),
+(242, '377', 'LABRANZAGRANDE', 5),
+(243, '380', 'LA CAPILLA', 5),
+(244, '401', 'LA VICTORIA', 5),
+(245, '403', 'LA UVITA', 5),
+(246, '407', 'VILLA DE LEYVA', 5),
+(247, '425', 'MACANAL', 5),
+(248, '442', 'MARIPI', 5),
+(249, '455', 'MIRAFLORES', 5),
+(250, '464', 'MONGUA', 5),
+(251, '466', 'MONGUI', 5),
+(252, '469', 'MONIQUIRA', 5),
+(253, '476', 'MOTAVITA', 5),
+(254, '480', 'MUZO', 5),
+(255, '491', 'NOBSA', 5),
+(256, '494', 'NUEVO COLON', 5),
+(257, '500', 'OICATA', 5),
+(258, '507', 'OTANCHE', 5),
+(259, '511', 'PACHAVITA', 5),
+(260, '514', 'PAEZ', 5),
+(261, '516', 'PAIPA', 5),
+(262, '518', 'PAJARITO', 5),
+(263, '522', 'PANQUEBA', 5),
+(264, '531', 'PAUNA', 5),
+(265, '533', 'PAYA', 5),
+(266, '537', 'PAZ DE RIO', 5),
+(267, '542', 'PESCA', 5),
+(268, '550', 'PISBA', 5),
+(269, '572', 'PUERTO BOYACA', 5),
+(270, '580', 'QUIPAMA', 5),
+(271, '599', 'RAMIRIQUI', 5),
+(272, '600', 'RAQUIRA', 5),
+(273, '621', 'RONDON', 5),
+(274, '632', 'SABOYA', 5),
+(275, '638', 'SACHICA', 5),
+(276, '646', 'SAMACA', 5),
+(277, '660', 'SAN EDUARDO', 5),
+(278, '664', 'SAN JOSE DE PARE', 5),
+(279, '667', 'SAN LUIS DE GACENO', 5),
+(280, '673', 'SAN MATEO', 5),
+(281, '676', 'SAN MIGUEL DE SEMA', 5),
+(282, '681', 'SAN PABLO DE BORBUR', 5),
+(283, '686', 'SANTANA', 5),
+(284, '690', 'SANTA MARIA', 5),
+(285, '693', 'SANTA ROSA DE VITERBO', 5),
+(286, '696', 'SANTA SOFIA', 5),
+(287, '720', 'SATIVANORTE', 5),
+(288, '723', 'SATIVASUR', 5),
+(289, '740', 'SIACHOQUE', 5),
+(290, '753', 'SOATA', 5),
+(291, '755', 'SOCOTA', 5),
+(292, '757', 'SOCHA', 5),
+(293, '759', 'SOGAMOSO', 5),
+(294, '761', 'SOMONDOCO', 5),
+(295, '762', 'SORA', 5),
+(296, '763', 'SOTAQUIRA', 5),
+(297, '764', 'SORACA', 5),
+(298, '774', 'SUSACON', 5),
+(299, '776', 'SUTAMARCHAN', 5),
+(300, '778', 'SUTATENZA', 5),
+(301, '790', 'TASCO', 5),
+(302, '798', 'TENZA', 5),
+(303, '804', 'TIBANA', 5),
+(304, '806', 'TIBASOSA', 5),
+(305, '808', 'TINJACA', 5),
+(306, '810', 'TIPACOQUE', 5),
+(307, '814', 'TOCA', 5),
+(308, '816', 'TOGSI', 5),
+(309, '820', 'TOPAGA', 5),
+(310, '822', 'TOTA', 5),
+(311, '832', 'TUNUNGUA', 5),
+(312, '835', 'TURMEQUE', 5),
+(313, '837', 'TUTA', 5),
+(314, '839', 'TUTAZA', 5),
+(315, '842', 'UMBITA', 5),
+(316, '861', 'VENTAQUEMADA', 5),
+(317, '879', 'VIRACACHA', 5),
+(318, '897', 'ZETAQUIRA', 5),
+(319, '001', 'MANIZALES', 6),
+(320, '013', 'AGUADAS', 6),
+(321, '042', 'ANSERMA', 6),
+(322, '050', 'ARANZAZU', 6),
+(323, '088', 'BELALCAZAR', 6),
+(324, '174', 'CHINCHINA', 6),
+(325, '272', 'FILADELFIA', 6),
+(326, '380', 'LA DORADA', 6),
+(327, '388', 'LA MERCED', 6),
+(328, '433', 'MANZANARES', 6),
+(329, '442', 'MARMATO', 6),
+(330, '444', 'MARQUETALIA', 6),
+(331, '446', 'MARULANDA', 6),
+(332, '486', 'NEIRA', 6),
+(333, '495', 'NORCASIA', 6),
+(334, '513', 'PACORA', 6),
+(335, '524', 'PALESTINA', 6),
+(336, '541', 'PENSILVANIA', 6),
+(337, '614', 'RIOSUCIO', 6),
+(338, '616', 'RISARALDA', 6),
+(339, '653', 'SALAMINA', 6),
+(340, '662', 'SAMANA', 6),
+(341, '665', 'SAN JOSE', 6),
+(342, '777', 'SUPIA', 6),
+(343, '867', 'VICTORIA', 6),
+(344, '873', 'VILLAMARIA', 6),
+(345, '877', 'VITERBO', 6),
+(346, '001', 'FLORENCIA', 7),
+(347, '029', 'ALBANIA', 7),
+(348, '094', 'BELEN DE LOS ANDAQUIES', 7),
+(349, '150', 'CARTAGENA DEL CHAIRA', 7),
+(350, '205', 'CURILLO', 7),
+(351, '247', 'EL DONCELLO', 7),
+(352, '256', 'EL PAUJIL', 7),
+(353, '410', 'LA MONTAÑITA', 7),
+(354, '460', 'MILAN', 7),
+(355, '479', 'MORELIA', 7),
+(356, '592', 'PUERTO RICO', 7),
+(357, '610', 'SAN JOSE DEL FRAGUA', 7),
+(358, '753', 'SAN VICENTE DEL CAGUAN', 7),
+(359, '756', 'SOLANO', 7),
+(360, '785', 'SOLITA', 7),
+(361, '860', 'VALPARAISO', 7),
+(362, '001', 'POPAYAN', 8),
+(363, '022', 'ALMAGUER', 8),
+(364, '050', 'ARGELIA', 8),
+(365, '075', 'BALBOA', 8),
+(366, '100', 'BOLIVAR', 8),
+(367, '110', 'BUENOS AIRES', 8),
+(368, '130', 'CAJIBIO', 8),
+(369, '137', 'CALDONO', 8),
+(370, '142', 'CALOTO', 8),
+(371, '212', 'CORINTO', 8),
+(372, '256', 'EL TAMBO', 8),
+(373, '290', 'FLORENCIA', 8),
+(374, '300', 'GUACHENE', 8),
+(375, '318', 'GUAPI', 8),
+(376, '355', 'INZA', 8),
+(377, '364', 'JAMBALO', 8),
+(378, '392', 'LA SIERRA', 8),
+(379, '397', 'LA VEGA', 8),
+(380, '418', 'LOPEZ', 8),
+(381, '450', 'MERCADERES', 8),
+(382, '455', 'MIRANDA', 8),
+(383, '473', 'MORALES', 8),
+(384, '513', 'PADILLA', 8),
+(385, '517', 'PAEZ', 8),
+(386, '532', 'PATIA', 8),
+(387, '533', 'PIAMONTE', 8),
+(388, '548', 'PIENDAMO', 8),
+(389, '573', 'PUERTO TEJADA', 8),
+(390, '585', 'PURACE', 8),
+(391, '622', 'ROSAS', 8),
+(392, '693', 'SAN SEBASTIAN', 8),
+(393, '698', 'SANTANDER DE QUILICHAO', 8),
+(394, '701', 'SANTA ROSA', 8),
+(395, '743', 'SILVIA', 8),
+(396, '760', 'SOTARA', 8),
+(397, '780', 'SUAREZ', 8),
+(398, '785', 'SUCRE', 8),
+(399, '807', 'TIMBIO', 8),
+(400, '809', 'TIMBIQUI', 8),
+(401, '821', 'TORIBIO', 8),
+(402, '824', 'TOTORO', 8),
+(403, '845', 'VILLA RICA', 8),
+(404, '001', 'VALLEDUPAR', 9),
+(405, '011', 'AGUACHICA', 9),
+(406, '013', 'AGUSTIN CODAZZI', 9),
+(407, '032', 'ASTREA', 9),
+(408, '045', 'BECERRIL', 9),
+(409, '060', 'BOSCONIA', 9),
+(410, '175', 'CHIMICHAGUA', 9),
+(411, '178', 'CHIRIGUANA', 9),
+(412, '228', 'CURUMANI', 9),
+(413, '238', 'EL COPEY', 9),
+(414, '250', 'EL PASO', 9),
+(415, '295', 'GAMARRA', 9),
+(416, '310', 'GONZALEZ', 9),
+(417, '383', 'LA GLORIA', 9),
+(418, '400', 'LA JAGUA DE IBIRICO', 9),
+(419, '443', 'MANAURE', 9),
+(420, '517', 'PAILITAS', 9),
+(421, '550', 'PELAYA', 9),
+(422, '570', 'PUEBLO BELLO', 9),
+(423, '614', 'RIO DE ORO', 9),
+(424, '621', 'LA PAZ', 9),
+(425, '710', 'SAN ALBERTO', 9),
+(426, '750', 'SAN DIEGO', 9),
+(427, '770', 'SAN MARTIN', 9),
+(428, '787', 'TAMALAMEQUE', 9),
+(429, '001', 'MONTERIA', 10),
+(430, '068', 'AYAPEL', 10),
+(431, '079', 'BUENAVISTA', 10),
+(432, '090', 'CANALETE', 10),
+(433, '162', 'CERETE', 10),
+(434, '168', 'CHIMA', 10),
+(435, '182', 'CHINU', 10),
+(436, '189', 'CIENAGA DE ORO', 10),
+(437, '300', 'COTORRA', 10),
+(438, '350', 'LA APARTADA', 10),
+(439, '417', 'LORICA', 10),
+(440, '419', 'LOS CORDOBAS', 10),
+(441, '464', 'MOMIL', 10),
+(442, '466', 'MONTELIBANO', 10),
+(443, '500', 'MOÑITOS', 10),
+(444, '555', 'PLANETA RICA', 10),
+(445, '570', 'PUEBLO NUEVO', 10),
+(446, '574', 'PUERTO ESCONDIDO', 10),
+(447, '580', 'PUERTO LIBERTADOR', 10),
+(448, '586', 'PURISIMA', 10),
+(449, '660', 'SAHAGUN', 10),
+(450, '670', 'SAN ANDRES SOTAVENTO', 10),
+(451, '672', 'SAN ANTERO', 10),
+(452, '675', 'SAN BERNARDO DEL VIENTO', 10),
+(453, '678', 'SAN CARLOS', 10),
+(454, '686', 'SAN PELAYO', 10),
+(455, '807', 'TIERRALTA', 10),
+(456, '855', 'VALENCIA', 10),
+(457, '001', 'AGUA DE DIOS', 11),
+(458, '019', 'ALBAN', 11),
+(459, '035', 'ANAPOIMA', 11),
+(460, '040', 'ANOLAIMA', 11),
+(461, '053', 'ARBELAEZ', 11),
+(462, '086', 'BELTRAN', 11),
+(463, '095', 'BITUIMA', 11),
+(464, '099', 'BOJACA', 11),
+(465, '120', 'CABRERA', 11),
+(466, '123', 'CACHIPAY', 11),
+(467, '126', 'CAJICA', 11),
+(468, '148', 'CAPARRAPI', 11),
+(469, '151', 'CAQUEZA', 11),
+(470, '154', 'CARMEN DE CARUPA', 11),
+(471, '168', 'CHAGUANI', 11),
+(472, '175', 'CHIA', 11),
+(473, '178', 'CHIPAQUE', 11),
+(474, '181', 'CHOACHI', 11),
+(475, '183', 'CHOCONTA', 11),
+(476, '200', 'COGUA', 11),
+(477, '214', 'COTA', 11),
+(478, '224', 'CUCUNUBA', 11),
+(479, '245', 'EL COLEGIO', 11),
+(480, '258', 'EL PEÑON', 11),
+(481, '260', 'EL ROSAL', 11),
+(482, '269', 'FACATATIVA', 11),
+(483, '279', 'FOMEQUE', 11),
+(484, '281', 'FOSCA', 11),
+(485, '286', 'FUNZA', 11),
+(486, '288', 'FUQUENE', 11),
+(487, '290', 'FUSAGASUGA', 11),
+(488, '293', 'GACHALA', 11),
+(489, '295', 'GACHANCIPA', 11),
+(490, '297', 'GACHETA', 11),
+(491, '299', 'GAMA', 11),
+(492, '307', 'GIRARDOT', 11),
+(493, '312', 'GRANADA', 11),
+(494, '317', 'GUACHETA', 11),
+(495, '320', 'GUADUAS', 11),
+(496, '322', 'GUASCA', 11),
+(497, '324', 'GUATAQUI', 11),
+(498, '326', 'GUATAVITA', 11),
+(499, '328', 'GUAYABAL DE SIQUIMA', 11),
+(500, '335', 'GUAYABETAL', 11),
+(501, '339', 'GUTIERREZ', 11),
+(502, '368', 'JERUSALEN', 11),
+(503, '372', 'JUNIN', 11),
+(504, '377', 'LA CALERA', 11),
+(505, '386', 'LA MESA', 11),
+(506, '394', 'LA PALMA', 11),
+(507, '398', 'LA PEÑA', 11),
+(508, '402', 'LA VEGA', 11),
+(509, '407', 'LENGUAZAQUE', 11),
+(510, '426', 'MACHETA', 11),
+(511, '430', 'MADRID', 11),
+(512, '436', 'MANTA', 11),
+(513, '438', 'MEDINA', 11),
+(514, '473', 'MOSQUERA', 11),
+(515, '483', 'NARIÑO', 11),
+(516, '486', 'NEMOCON', 11),
+(517, '488', 'NILO', 11),
+(518, '489', 'NIMAIMA', 11),
+(519, '491', 'NOCAIMA', 11),
+(520, '506', 'VENECIA', 11),
+(521, '513', 'PACHO', 11),
+(522, '518', 'PAIME', 11),
+(523, '524', 'PANDI', 11),
+(524, '530', 'PARATEBUENO', 11),
+(525, '535', 'PASCA', 11),
+(526, '572', 'PUERTO SALGAR', 11),
+(527, '580', 'PULI', 11),
+(528, '592', 'QUEBRADANEGRA', 11),
+(529, '594', 'QUETAME', 11),
+(530, '596', 'QUIPILE', 11),
+(531, '599', 'APULO', 11),
+(532, '612', 'RICAURTE', 11),
+(533, '645', 'SAN ANTONIO DEL TEQUENDAMA', 11),
+(534, '649', 'SAN BERNARDO', 11),
+(535, '653', 'SAN CAYETANO', 11),
+(536, '658', 'SAN FRANCISCO', 11),
+(537, '662', 'SAN JUAN DE RIO SECO', 11),
+(538, '718', 'SASAIMA', 11),
+(539, '736', 'SESQUILE', 11),
+(540, '740', 'SIBATE', 11),
+(541, '743', 'SILVANIA', 11),
+(542, '745', 'SIMIJACA', 11),
+(543, '754', 'SOACHA', 11),
+(544, '758', 'SOPO', 11),
+(545, '769', 'SUBACHOQUE', 11),
+(546, '772', 'SUESCA', 11),
+(547, '777', 'SUPATA', 11),
+(548, '779', 'SUSA', 11),
+(549, '781', 'SUTATAUSA', 11),
+(550, '785', 'TABIO', 11),
+(551, '793', 'TAUSA', 11),
+(552, '797', 'TENA', 11),
+(553, '799', 'TENJO', 11),
+(554, '805', 'TIBACUY', 11),
+(555, '807', 'TIBIRITA', 11),
+(556, '815', 'TOCAIMA', 11),
+(557, '817', 'TOCANCIPA', 11),
+(558, '823', 'TOPAIPI', 11),
+(559, '839', 'UBALA', 11),
+(560, '841', 'UBAQUE', 11),
+(561, '843', 'VILLA DE SAN DIEGO DE UBATE', 11),
+(562, '845', 'UNE', 11),
+(563, '851', 'UTICA', 11),
+(564, '862', 'VERGARA', 11),
+(565, '867', 'VIANI', 11),
+(566, '871', 'VILLAGOMEZ', 11),
+(567, '873', 'VILLAPINZON', 11),
+(568, '875', 'VILLETA', 11),
+(569, '878', 'VIOTA', 11),
+(570, '885', 'YACOPI', 11),
+(571, '898', 'ZIPACON', 11),
+(572, '899', 'ZIPAQUIRA', 11),
+(573, '001', 'QUIBDO', 12),
+(574, '006', 'ACANDI', 12),
+(575, '025', 'ALTO BAUDO', 12),
+(576, '050', 'ATRATO', 12),
+(577, '073', 'BAGADO', 12),
+(578, '075', 'BAHIA SOLANO', 12),
+(579, '077', 'BAJO BAUDO', 12),
+(580, '099', 'BOJAYA', 12),
+(581, '135', 'EL CANTON DEL SAN PABLO', 12),
+(582, '150', 'CARMEN DEL DARIEN', 12),
+(583, '160', 'CERTEGUI', 12),
+(584, '205', 'CONDOTO', 12),
+(585, '245', 'EL CARMEN DE ATRATO', 12),
+(586, '250', 'EL LITORAL DEL SAN JUAN', 12),
+(587, '361', 'ISTMINA', 12),
+(588, '372', 'JURADO', 12),
+(589, '413', 'LLORO', 12),
+(590, '425', 'MEDIO ATRATO', 12),
+(591, '430', 'MEDIO BAUDO', 12),
+(592, '450', 'MEDIO SAN JUAN', 12),
+(593, '491', 'NOVITA', 12),
+(594, '495', 'NUQUI', 12),
+(595, '580', 'RIO IRO', 12),
+(596, '600', 'RIO QUITO', 12),
+(597, '615', 'RIOSUCIO', 12),
+(598, '660', 'SAN JOSE DEL PALMAR', 12),
+(599, '745', 'SIPI', 12),
+(600, '787', 'TADO', 12),
+(601, '800', 'UNGUIA', 12),
+(602, '810', 'UNION PANAMERICANA', 12),
+(603, '001', 'NEIVA', 13),
+(604, '006', 'ACEVEDO', 13),
+(605, '013', 'AGRADO', 13),
+(606, '016', 'AIPE', 13),
+(607, '020', 'ALGECIRAS', 13),
+(608, '026', 'ALTAMIRA', 13),
+(609, '078', 'BARAYA', 13),
+(610, '132', 'CAMPOALEGRE', 13),
+(611, '206', 'COLOMBIA', 13),
+(612, '244', 'ELIAS', 13),
+(613, '298', 'GARZON', 13),
+(614, '306', 'GIGANTE', 13),
+(615, '319', 'GUADALUPE', 13),
+(616, '349', 'HOBO', 13),
+(617, '357', 'IQUIRA', 13),
+(618, '359', 'ISNOS', 13),
+(619, '378', 'LA ARGENTINA', 13),
+(620, '396', 'LA PLATA', 13),
+(621, '483', 'NATAGA', 13),
+(622, '503', 'OPORAPA', 13),
+(623, '518', 'PAICOL', 13),
+(624, '524', 'PALERMO', 13),
+(625, '530', 'PALESTINA', 13),
+(626, '548', 'PITAL', 13),
+(627, '551', 'PITALITO', 13),
+(628, '615', 'RIVERA', 13),
+(629, '660', 'SALADOBLANCO', 13),
+(630, '668', 'SAN AGUSTIN', 13),
+(631, '676', 'SANTA MARIA', 13),
+(632, '770', 'SUAZA', 13),
+(633, '791', 'TARQUI', 13),
+(634, '797', 'TESALIA', 13),
+(635, '799', 'TELLO', 13),
+(636, '801', 'TERUEL', 13),
+(637, '807', 'TIMANA', 13),
+(638, '872', 'VILLAVIEJA', 13),
+(639, '885', 'YAGUARA', 13),
+(640, '001', 'RIOHACHA', 14),
+(641, '035', 'ALBANIA', 14),
+(642, '078', 'BARRANCAS', 14),
+(643, '090', 'DIBULLA', 14),
+(644, '098', 'DISTRACCION', 14),
+(645, '110', 'EL MOLINO', 14),
+(646, '279', 'FONSECA', 14),
+(647, '378', 'HATONUEVO', 14),
+(648, '420', 'LA JAGUA DEL PILAR', 14),
+(649, '430', 'MAICAO', 14),
+(650, '560', 'MANAURE', 14),
+(651, '650', 'SAN JUAN DEL CESAR', 14),
+(652, '847', 'URIBIA', 14),
+(653, '855', 'URUMITA', 14),
+(654, '874', 'VILLANUEVA', 14),
+(655, '001', 'SANTA MARTA', 15),
+(656, '030', 'ALGARROBO', 15),
+(657, '053', 'ARACATACA', 15),
+(658, '058', 'ARIGUANI', 15),
+(659, '161', 'CERRO SAN ANTONIO', 15),
+(660, '170', 'CHIBOLO', 15),
+(661, '189', 'CIENAGA', 15),
+(662, '205', 'CONCORDIA', 15),
+(663, '245', 'EL BANCO', 15),
+(664, '258', 'EL PIÑON', 15),
+(665, '268', 'EL RETEN', 15),
+(666, '288', 'FUNDACION', 15),
+(667, '318', 'GUAMAL', 15),
+(668, '460', 'NUEVA GRANADA', 15),
+(669, '541', 'PEDRAZA', 15),
+(670, '545', 'PIJIÑO DEL CARMEN', 15),
+(671, '551', 'PIVIJAY', 15),
+(672, '555', 'PLATO', 15),
+(673, '570', 'PUEBLOVIEJO', 15),
+(674, '605', 'REMOLINO', 15),
+(675, '660', 'SABANAS DE SAN ANGEL', 15),
+(676, '675', 'SALAMINA', 15),
+(677, '692', 'SAN SEBASTIAN DE BUENAVISTA', 15),
+(678, '703', 'SAN ZENON', 15),
+(679, '707', 'SANTA ANA', 15),
+(680, '720', 'SANTA BARBARA DE PINTO', 15),
+(681, '745', 'SITIONUEVO', 15),
+(682, '798', 'TENERIFE', 15),
+(683, '960', 'ZAPAYAN', 15),
+(684, '980', 'ZONA BANANERA', 15),
+(685, '001', 'VILLAVICENCIO', 16),
+(686, '006', 'ACACIAS', 16),
+(687, '110', 'BARRANCA DE UPIA', 16),
+(688, '124', 'CABUYARO', 16),
+(689, '150', 'CASTILLA LA NUEVA', 16),
+(690, '223', 'CUBARRAL', 16),
+(691, '226', 'CUMARAL', 16),
+(692, '245', 'EL CALVARIO', 16),
+(693, '251', 'EL CASTILLO', 16),
+(694, '270', 'EL DORADO', 16),
+(695, '287', 'FUENTE DE ORO', 16),
+(696, '313', 'GRANADA', 16),
+(697, '318', 'GUAMAL', 16),
+(698, '325', 'MAPIRIPAN', 16),
+(699, '330', 'MESETAS', 16),
+(700, '350', 'LA MACARENA', 16),
+(701, '370', 'URIBE', 16),
+(702, '400', 'LEJANIAS', 16),
+(703, '450', 'PUERTO CONCORDIA', 16),
+(704, '568', 'PUERTO GAITAN', 16),
+(705, '573', 'PUERTO LOPEZ', 16),
+(706, '577', 'PUERTO LLERAS', 16),
+(707, '590', 'PUERTO RICO', 16),
+(708, '606', 'RESTREPO', 16),
+(709, '680', 'SAN CARLOS DE GUAROA', 16),
+(710, '683', 'SAN JUAN DE ARAMA', 16),
+(711, '686', 'SAN JUANITO', 16),
+(712, '689', 'SAN MARTIN', 16),
+(713, '711', 'VISTAHERMOSA', 16),
+(714, '001', 'PASTO', 17),
+(715, '019', 'ALBAN', 17),
+(716, '022', 'ALDANA', 17),
+(717, '036', 'ANCUYA', 17),
+(718, '051', 'ARBOLEDA', 17),
+(719, '079', 'BARBACOAS', 17),
+(720, '083', 'BELEN', 17),
+(721, '110', 'BUESACO', 17),
+(722, '203', 'COLON', 17),
+(723, '207', 'CONSACA', 17),
+(724, '210', 'CONTADERO', 17),
+(725, '215', 'CORDOBA', 17),
+(726, '224', 'CUASPUD', 17),
+(727, '227', 'CUMBAL', 17),
+(728, '233', 'CUMBITARA', 17),
+(729, '240', 'CHACHAGSI', 17),
+(730, '250', 'EL CHARCO', 17),
+(731, '254', 'EL PEÑOL', 17),
+(732, '256', 'EL ROSARIO', 17),
+(733, '258', 'EL TABLON DE GOMEZ', 17),
+(734, '260', 'EL TAMBO', 17),
+(735, '287', 'FUNES', 17),
+(736, '317', 'GUACHUCAL', 17),
+(737, '320', 'GUAITARILLA', 17),
+(738, '323', 'GUALMATAN', 17),
+(739, '352', 'ILES', 17),
+(740, '354', 'IMUES', 17),
+(741, '356', 'IPIALES', 17),
+(742, '378', 'LA CRUZ', 17),
+(743, '381', 'LA FLORIDA', 17),
+(744, '385', 'LA LLANADA', 17),
+(745, '390', 'LA TOLA', 17),
+(746, '399', 'LA UNION', 17),
+(747, '405', 'LEIVA', 17),
+(748, '411', 'LINARES', 17),
+(749, '418', 'LOS ANDES', 17),
+(750, '427', 'MAGSI', 17),
+(751, '435', 'MALLAMA', 17),
+(752, '473', 'MOSQUERA', 17),
+(753, '480', 'NARIÑO', 17),
+(754, '490', 'OLAYA HERRERA', 17),
+(755, '506', 'OSPINA', 17),
+(756, '520', 'FRANCISCO PIZARRO', 17),
+(757, '540', 'POLICARPA', 17),
+(758, '560', 'POTOSI', 17),
+(759, '565', 'PROVIDENCIA', 17),
+(760, '573', 'PUERRES', 17),
+(761, '585', 'PUPIALES', 17),
+(762, '612', 'RICAURTE', 17),
+(763, '621', 'ROBERTO PAYAN', 17),
+(764, '678', 'SAMANIEGO', 17),
+(765, '683', 'SANDONA', 17),
+(766, '685', 'SAN BERNARDO', 17),
+(767, '687', 'SAN LORENZO', 17),
+(768, '693', 'SAN PABLO', 17),
+(769, '694', 'SAN PEDRO DE CARTAGO', 17),
+(770, '696', 'SANTA BARBARA', 17),
+(771, '699', 'SANTACRUZ', 17),
+(772, '720', 'SAPUYES', 17),
+(773, '786', 'TAMINANGO', 17),
+(774, '788', 'TANGUA', 17),
+(775, '835', 'SAN ANDRES DE TUMACO', 17),
+(776, '838', 'TUQUERRES', 17),
+(777, '885', 'YACUANQUER', 17),
+(778, '001', 'CUCUTA', 18),
+(779, '003', 'ABREGO', 18),
+(780, '051', 'ARBOLEDAS', 18),
+(781, '099', 'BOCHALEMA', 18),
+(782, '109', 'BUCARASICA', 18),
+(783, '125', 'CACOTA', 18),
+(784, '128', 'CACHIRA', 18),
+(785, '172', 'CHINACOTA', 18),
+(786, '174', 'CHITAGA', 18),
+(787, '206', 'CONVENCION', 18),
+(788, '223', 'CUCUTILLA', 18),
+(789, '239', 'DURANIA', 18),
+(790, '245', 'EL CARMEN', 18),
+(791, '250', 'EL TARRA', 18),
+(792, '261', 'EL ZULIA', 18),
+(793, '313', 'GRAMALOTE', 18),
+(794, '344', 'HACARI', 18),
+(795, '347', 'HERRAN', 18),
+(796, '377', 'LABATECA', 18),
+(797, '385', 'LA ESPERANZA', 18),
+(798, '398', 'LA PLAYA', 18),
+(799, '405', 'LOS PATIOS', 18),
+(800, '418', 'LOURDES', 18),
+(801, '480', 'MUTISCUA', 18),
+(802, '498', 'OCAÑA', 18),
+(803, '518', 'PAMPLONA', 18),
+(804, '520', 'PAMPLONITA', 18),
+(805, '553', 'PUERTO SANTANDER', 18),
+(806, '599', 'RAGONVALIA', 18),
+(807, '660', 'SALAZAR', 18),
+(808, '670', 'SAN CALIXTO', 18),
+(809, '673', 'SAN CAYETANO', 18),
+(810, '680', 'SANTIAGO', 18),
+(811, '720', 'SARDINATA', 18),
+(812, '743', 'SILOS', 18),
+(813, '800', 'TEORAMA', 18),
+(814, '810', 'TIBU', 18),
+(815, '820', 'TOLEDO', 18),
+(816, '871', 'VILLA CARO', 18),
+(817, '874', 'VILLA DEL ROSARIO', 18),
+(818, '001', 'ARMENIA', 19),
+(819, '111', 'BUENAVISTA', 19),
+(820, '130', 'CALARCA', 19),
+(821, '190', 'CIRCASIA', 19),
+(822, '212', 'CORDOBA', 19),
+(823, '272', 'FILANDIA', 19),
+(824, '302', 'GENOVA', 19),
+(825, '401', 'LA TEBAIDA', 19),
+(826, '470', 'MONTENEGRO', 19),
+(827, '548', 'PIJAO', 19),
+(828, '594', 'QUIMBAYA', 19),
+(829, '690', 'SALENTO', 19),
+(830, '001', 'PEREIRA', 20),
+(831, '045', 'APIA', 20),
+(832, '075', 'BALBOA', 20),
+(833, '088', 'BELEN DE UMBRIA', 20),
+(834, '170', 'DOSQUEBRADAS', 20),
+(835, '318', 'GUATICA', 20),
+(836, '383', 'LA CELIA', 20),
+(837, '400', 'LA VIRGINIA', 20),
+(838, '440', 'MARSELLA', 20),
+(839, '456', 'MISTRATO', 20),
+(840, '572', 'PUEBLO RICO', 20),
+(841, '594', 'QUINCHIA', 20),
+(842, '682', 'SANTA ROSA DE CABAL', 20),
+(843, '687', 'SANTUARIO', 20),
+(844, '001', 'BUCARAMANGA', 21),
+(845, '013', 'AGUADA', 21),
+(846, '020', 'ALBANIA', 21),
+(847, '051', 'ARATOCA', 21),
+(848, '077', 'BARBOSA', 21),
+(849, '079', 'BARICHARA', 21),
+(850, '081', 'BARRANCABERMEJA', 21),
+(851, '092', 'BETULIA', 21),
+(852, '101', 'BOLIVAR', 21),
+(853, '121', 'CABRERA', 21),
+(854, '132', 'CALIFORNIA', 21),
+(855, '147', 'CAPITANEJO', 21),
+(856, '152', 'CARCASI', 21),
+(857, '160', 'CEPITA', 21),
+(858, '162', 'CERRITO', 21),
+(859, '167', 'CHARALA', 21),
+(860, '169', 'CHARTA', 21),
+(861, '176', 'CHIMA', 21),
+(862, '179', 'CHIPATA', 21),
+(863, '190', 'CIMITARRA', 21),
+(864, '207', 'CONCEPCION', 21),
+(865, '209', 'CONFINES', 21),
+(866, '211', 'CONTRATACION', 21),
+(867, '217', 'COROMORO', 21),
+(868, '229', 'CURITI', 21),
+(869, '235', 'EL CARMEN DE CHUCURI', 21),
+(870, '245', 'EL GUACAMAYO', 21),
+(871, '250', 'EL PEÑON', 21),
+(872, '255', 'EL PLAYON', 21),
+(873, '264', 'ENCINO', 21),
+(874, '266', 'ENCISO', 21),
+(875, '271', 'FLORIAN', 21),
+(876, '276', 'FLORIDABLANCA', 21),
+(877, '296', 'GALAN', 21),
+(878, '298', 'GAMBITA', 21),
+(879, '307', 'GIRON', 21),
+(880, '318', 'GUACA', 21),
+(881, '320', 'GUADALUPE', 21),
+(882, '322', 'GUAPOTA', 21),
+(883, '324', 'GUAVATA', 21),
+(884, '327', 'GSEPSA', 21),
+(885, '344', 'HATO', 21),
+(886, '368', 'JESUS MARIA', 21),
+(887, '370', 'JORDAN', 21),
+(888, '377', 'LA BELLEZA', 21),
+(889, '385', 'LANDAZURI', 21),
+(890, '397', 'LA PAZ', 21),
+(891, '406', 'LEBRIJA', 21),
+(892, '418', 'LOS SANTOS', 21),
+(893, '425', 'MACARAVITA', 21),
+(894, '432', 'MALAGA', 21),
+(895, '444', 'MATANZA', 21),
+(896, '464', 'MOGOTES', 21),
+(897, '468', 'MOLAGAVITA', 21),
+(898, '498', 'OCAMONTE', 21),
+(899, '500', 'OIBA', 21),
+(900, '502', 'ONZAGA', 21),
+(901, '522', 'PALMAR', 21),
+(902, '524', 'PALMAS DEL SOCORRO', 21),
+(903, '533', 'PARAMO', 21),
+(904, '547', 'PIEDECUESTA', 21),
+(905, '549', 'PINCHOTE', 21),
+(906, '572', 'PUENTE NACIONAL', 21),
+(907, '573', 'PUERTO PARRA', 21),
+(908, '575', 'PUERTO WILCHES', 21),
+(909, '615', 'RIONEGRO', 21),
+(910, '655', 'SABANA DE TORRES', 21),
+(911, '669', 'SAN ANDRES', 21),
+(912, '673', 'SAN BENITO', 21),
+(913, '679', 'SAN GIL', 21),
+(914, '682', 'SAN JOAQUIN', 21),
+(915, '684', 'SAN JOSE DE MIRANDA', 21),
+(916, '686', 'SAN MIGUEL', 21),
+(917, '689', 'SAN VICENTE DE CHUCURI', 21),
+(918, '705', 'SANTA BARBARA', 21),
+(919, '720', 'SANTA HELENA DEL OPON', 21),
+(920, '745', 'SIMACOTA', 21),
+(921, '755', 'SOCORRO', 21),
+(922, '770', 'SUAITA', 21),
+(923, '773', 'SUCRE', 21),
+(924, '780', 'SURATA', 21),
+(925, '820', 'TONA', 21),
+(926, '855', 'VALLE DE SAN JOSE', 21),
+(927, '861', 'VELEZ', 21),
+(928, '867', 'VETAS', 21),
+(929, '872', 'VILLANUEVA', 21),
+(930, '895', 'ZAPATOCA', 21),
+(931, '001', 'SINCELEJO', 22),
+(932, '110', 'BUENAVISTA', 22),
+(933, '124', 'CAIMITO', 22),
+(934, '204', 'COLOSO', 22),
+(935, '215', 'COROZAL', 22),
+(936, '221', 'COVEÑAS', 22),
+(937, '230', 'CHALAN', 22),
+(938, '233', 'EL ROBLE', 22),
+(939, '235', 'GALERAS', 22),
+(940, '265', 'GUARANDA', 22),
+(941, '400', 'LA UNION', 22),
+(942, '418', 'LOS PALMITOS', 22),
+(943, '429', 'MAJAGUAL', 22),
+(944, '473', 'MORROA', 22),
+(945, '508', 'OVEJAS', 22),
+(946, '523', 'PALMITO', 22),
+(947, '670', 'SAMPUES', 22),
+(948, '678', 'SAN BENITO ABAD', 22),
+(949, '702', 'SAN JUAN DE BETULIA', 22),
+(950, '708', 'SAN MARCOS', 22),
+(951, '713', 'SAN ONOFRE', 22),
+(952, '717', 'SAN PEDRO', 22),
+(953, '742', 'SAN LUIS DE SINCE', 22),
+(954, '771', 'SUCRE', 22),
+(955, '820', 'SANTIAGO DE TOLU', 22),
+(956, '823', 'TOLU VIEJO', 22),
+(957, '001', 'IBAGUE', 23),
+(958, '024', 'ALPUJARRA', 23),
+(959, '026', 'ALVARADO', 23),
+(960, '030', 'AMBALEMA', 23),
+(961, '043', 'ANZOATEGUI', 23),
+(962, '055', 'ARMERO', 23),
+(963, '067', 'ATACO', 23),
+(964, '124', 'CAJAMARCA', 23),
+(965, '148', 'CARMEN DE APICALA', 23),
+(966, '152', 'CASABIANCA', 23),
+(967, '168', 'CHAPARRAL', 23),
+(968, '200', 'COELLO', 23),
+(969, '217', 'COYAIMA', 23),
+(970, '226', 'CUNDAY', 23),
+(971, '236', 'DOLORES', 23),
+(972, '268', 'ESPINAL', 23),
+(973, '270', 'FALAN', 23),
+(974, '275', 'FLANDES', 23),
+(975, '283', 'FRESNO', 23),
+(976, '319', 'GUAMO', 23),
+(977, '347', 'HERVEO', 23),
+(978, '349', 'HONDA', 23),
+(979, '352', 'ICONONZO', 23),
+(980, '408', 'LERIDA', 23),
+(981, '411', 'LIBANO', 23),
+(982, '443', 'MARIQUITA', 23),
+(983, '449', 'MELGAR', 23),
+(984, '461', 'MURILLO', 23),
+(985, '483', 'NATAGAIMA', 23),
+(986, '504', 'ORTEGA', 23),
+(987, '520', 'PALOCABILDO', 23),
+(988, '547', 'PIEDRAS', 23),
+(989, '555', 'PLANADAS', 23),
+(990, '563', 'PRADO', 23),
+(991, '585', 'PURIFICACION', 23),
+(992, '616', 'RIOBLANCO', 23),
+(993, '622', 'RONCESVALLES', 23),
+(994, '624', 'ROVIRA', 23),
+(995, '671', 'SALDAÑA', 23),
+(996, '675', 'SAN ANTONIO', 23),
+(997, '678', 'SAN LUIS', 23),
+(998, '686', 'SANTA ISABEL', 23),
+(999, '770', 'SUAREZ', 23),
+(1000, '854', 'VALLE DE SAN JUAN', 23),
+(1001, '861', 'VENADILLO', 23),
+(1002, '870', 'VILLAHERMOSA', 23),
+(1003, '873', 'VILLARRICA', 23),
+(1004, '001', 'CALI', 24),
+(1005, '020', 'ALCALA', 24),
+(1006, '036', 'ANDALUCIA', 24),
+(1007, '041', 'ANSERMANUEVO', 24),
+(1008, '054', 'ARGELIA', 24),
+(1009, '100', 'BOLIVAR', 24),
+(1010, '109', 'BUENAVENTURA', 24),
+(1011, '111', 'GUADALAJARA DE BUGA', 24),
+(1012, '113', 'BUGALAGRANDE', 24),
+(1013, '122', 'CAICEDONIA', 24),
+(1014, '126', 'CALIMA', 24),
+(1015, '130', 'CANDELARIA', 24),
+(1016, '147', 'CARTAGO', 24),
+(1017, '233', 'DAGUA', 24),
+(1018, '243', 'EL AGUILA', 24),
+(1019, '246', 'EL CAIRO', 24),
+(1020, '248', 'EL CERRITO', 24),
+(1021, '250', 'EL DOVIO', 24),
+(1022, '275', 'FLORIDA', 24),
+(1023, '306', 'GINEBRA', 24),
+(1024, '318', 'GUACARI', 24),
+(1025, '364', 'JAMUNDI', 24),
+(1026, '377', 'LA CUMBRE', 24),
+(1027, '400', 'LA UNION', 24),
+(1028, '403', 'LA VICTORIA', 24),
+(1029, '497', 'OBANDO', 24),
+(1030, '520', 'PALMIRA', 24),
+(1031, '563', 'PRADERA', 24),
+(1032, '606', 'RESTREPO', 24),
+(1033, '616', 'RIOFRIO', 24),
+(1034, '622', 'ROLDANILLO', 24),
+(1035, '670', 'SAN PEDRO', 24),
+(1036, '736', 'SEVILLA', 24),
+(1037, '823', 'TORO', 24),
+(1038, '828', 'TRUJILLO', 24),
+(1039, '834', 'TULUA', 24),
+(1040, '845', 'ULLOA', 24),
+(1041, '863', 'VERSALLES', 24),
+(1042, '869', 'VIJES', 24),
+(1043, '890', 'YOTOCO', 24),
+(1044, '892', 'YUMBO', 24),
+(1045, '895', 'ZARZAL', 24),
+(1046, '001', 'ARAUCA', 25),
+(1047, '065', 'ARAUQUITA', 25),
+(1048, '220', 'CRAVO NORTE', 25),
+(1049, '300', 'FORTUL', 25),
+(1050, '591', 'PUERTO RONDON', 25),
+(1051, '736', 'SARAVENA', 25),
+(1052, '794', 'TAME', 25),
+(1053, '001', 'YOPAL', 26),
+(1054, '010', 'AGUAZUL', 26),
+(1055, '015', 'CHAMEZA', 26),
+(1056, '125', 'HATO COROZAL', 26),
+(1057, '136', 'LA SALINA', 26),
+(1058, '139', 'MANI', 26),
+(1059, '162', 'MONTERREY', 26),
+(1060, '225', 'NUNCHIA', 26),
+(1061, '230', 'OROCUE', 26),
+(1062, '250', 'PAZ DE ARIPORO', 26),
+(1063, '263', 'PORE', 26),
+(1064, '279', 'RECETOR', 26),
+(1065, '300', 'SABANALARGA', 26),
+(1066, '315', 'SACAMA', 26),
+(1067, '325', 'SAN LUIS DE PALENQUE', 26),
+(1068, '400', 'TAMARA', 26),
+(1069, '410', 'TAURAMENA', 26),
+(1070, '430', 'TRINIDAD', 26),
+(1071, '440', 'VILLANUEVA', 26),
+(1072, '001', 'MOCOA', 27),
+(1073, '219', 'COLON', 27),
+(1074, '320', 'ORITO', 27),
+(1075, '568', 'PUERTO ASIS', 27),
+(1076, '569', 'PUERTO CAICEDO', 27),
+(1077, '571', 'PUERTO GUZMAN', 27),
+(1078, '573', 'LEGUIZAMO', 27),
+(1079, '749', 'SIBUNDOY', 27),
+(1080, '755', 'SAN FRANCISCO', 27),
+(1081, '757', 'SAN MIGUEL', 27),
+(1082, '760', 'SANTIAGO', 27),
+(1083, '865', 'VALLE DEL GUAMUEZ', 27),
+(1084, '885', 'VILLAGARZON', 27),
+(1085, '001', 'SAN ANDRES', 28),
+(1086, '564', 'PROVIDENCIA', 28),
+(1087, '001', 'LETICIA', 29),
+(1088, '263', 'EL ENCANTO', 29),
+(1089, '405', 'LA CHORRERA', 29),
+(1090, '407', 'LA PEDRERA', 29),
+(1091, '430', 'LA VICTORIA', 29),
+(1092, '460', 'MIRITI - PARANA', 29),
+(1093, '530', 'PUERTO ALEGRIA', 29),
+(1094, '536', 'PUERTO ARICA', 29),
+(1095, '540', 'PUERTO NARIÑO', 29),
+(1096, '669', 'PUERTO SANTANDER', 29),
+(1097, '798', 'TARAPACA', 29),
+(1098, '001', 'INIRIDA', 30),
+(1099, '343', 'BARRANCO MINAS', 30),
+(1100, '663', 'MAPIRIPANA', 30),
+(1101, '883', 'SAN FELIPE', 30),
+(1102, '884', 'PUERTO COLOMBIA', 30),
+(1103, '885', 'LA GUADALUPE', 30),
+(1104, '886', 'CACAHUAL', 30),
+(1105, '887', 'PANA PANA', 30),
+(1106, '888', 'MORICHAL', 30),
+(1107, '001', 'SAN JOSE DEL GUAVIARE', 31),
+(1108, '015', 'CALAMAR', 31),
+(1109, '025', 'EL RETORNO', 31),
+(1110, '200', 'MIRAFLORES', 31),
+(1111, '001', 'MITU', 32),
+(1112, '161', 'CARURU', 32),
+(1113, '666', 'TARAIRA', 32),
+(1114, '777', 'PAPUNAUA', 32),
+(1115, '889', 'YAVARATE', 32),
+(1116, '001', 'PUERTO CARREÑO', 33),
+(1117, '524', 'LA PRIMAVERA', 33),
+(1118, '624', 'SANTA ROSALIA', 33),
+(1119, '773', 'CUMARIBO', 33);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asistencia_curso`
+--
+
+CREATE TABLE `asistencia_curso` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
+  `curso` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `duracion` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `instructor` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `estado` tinyint(1) NOT NULL,
+  `entidad_id` int(11) NOT NULL,
+  `sede_id` int(11) NOT NULL,
+  `tipo_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `asistencia_curso`
+--
+
+INSERT INTO `asistencia_curso` (`id`, `codigo`, `curso`, `duracion`, `instructor`, `estado`, `entidad_id`, `sede_id`, `tipo_id`) VALUES
+(1, '', 'OFIMATICA', '40 HORAS', 'MAURICIO VELASQUEZ', 1, 1, 1, 1),
+(2, '', 'AUTOCAD', '40 HORAS', 'MAURICICO VELASQUEZ', 1, 1, 1, 1),
+(3, '', 'INTRODUCCION A LA INGENIERIA', '1 DIA', 'EFRAIN MASMELA', 1, 13, 1, 1),
+(4, '', 'PROGRAMACION BASICA', '4 MESES', 'JUAN JAIRO LOZANO', 1, 13, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asistencia_departamento`
+--
+
+CREATE TABLE `asistencia_departamento` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
+  `departamento` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `asistencia_departamento`
+--
+
+INSERT INTO `asistencia_departamento` (`id`, `codigo`, `departamento`) VALUES
+(1, '05', 'ANTIOQUIA'),
+(2, '08', 'ATLANTICO'),
+(3, '11', 'BOGOTA'),
+(4, '13', 'BOLIVAR'),
+(5, '15', 'BOYACA'),
+(6, '17', 'CALDAS'),
+(7, '18', 'CAQUETA'),
+(8, '19', 'CAUCA'),
+(9, '20', 'CESAR'),
+(10, '23', 'CORDOBA'),
+(11, '25', 'CUNDINAMARCA'),
+(12, '27', 'CHOCO'),
+(13, '41', 'HUILA'),
+(14, '44', 'LA GUAJIRA'),
+(15, '47', 'MAGDALENA'),
+(16, '50', 'META'),
+(17, '52', 'NARIÑO'),
+(18, '54', 'N. DE SANTANDER'),
+(19, '63', 'QUINDIO'),
+(20, '66', 'RISARALDA'),
+(21, '68', 'SANTANDER'),
+(22, '70', 'SUCRE'),
+(23, '73', 'TOLIMA'),
+(24, '76', 'VALLE DEL CAUCA'),
+(25, '81', 'ARAUCA'),
+(26, '85', 'CASANARE'),
+(27, '86', 'PUTUMAYO'),
+(28, '88', 'SAN ANDRES'),
+(29, '91', 'AMAZONAS'),
+(30, '94', 'GUAINIA'),
+(31, '95', 'GUAVIARE'),
+(32, '97', 'VAUPES'),
+(33, '99', 'VICHADA');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asistencia_entidad`
+--
+
+CREATE TABLE `asistencia_entidad` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
+  `entidad` varchar(40) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `asistencia_entidad`
+--
+
+INSERT INTO `asistencia_entidad` (`id`, `codigo`, `entidad`) VALUES
+(1, '', 'ALCALDIA'),
+(2, '', 'SISBEN'),
+(3, '', 'ICBF'),
+(4, '', 'JAC'),
+(5, '', 'VEEDURIAS'),
+(6, '', 'COMISARIA DE FAMILIA'),
+(7, '', 'GOBERNACION'),
+(8, '', 'MINTIC'),
+(9, '', 'DAFP'),
+(10, '', 'CAMARA DE COMERCIO'),
+(11, '', 'SENA'),
+(12, 'EMC', 'EMPRESA DE MEDIOS DE COMUNICACION'),
+(13, '', 'UNIMINUTO'),
+(14, '', 'UNIVERSIDAD DE CUNDINAMARCA'),
+(15, '', 'PARTICULAR'),
+(16, '', 'UNIVERSIDAD PILOTO'),
+(17, '', 'ITFIP');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asistencia_ocupacion`
+--
+
+CREATE TABLE `asistencia_ocupacion` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `ocupacion` varchar(40) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `asistencia_ocupacion`
+--
+
+INSERT INTO `asistencia_ocupacion` (`id`, `codigo`, `ocupacion`) VALUES
+(1, 'B', 'BACHILLER'),
+(2, 'U', 'UNIVERSITARIO'),
+(3, 'P', 'PROFESIONAL'),
+(4, 'E', 'EMPLEADO'),
+(5, 'I', 'INDEPENDIENTE'),
+(6, 'T', 'TECNOLOGO'),
+(7, 'ES', 'ESTUDIANTE');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asistencia_persona`
+--
+
+CREATE TABLE `asistencia_persona` (
+  `id` int(11) NOT NULL,
+  `nombres` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `apellidos` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `numeroDocumento` bigint(20) NOT NULL,
+  `sexo` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
+  `fechaNacimiento` date DEFAULT NULL,
+  `telefono` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(254) COLLATE utf8_unicode_ci NOT NULL,
+  `estrato` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `direccion` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `barrio_id` int(11) NOT NULL,
+  `ciudadResidencia_id` int(11) NOT NULL,
+  `entidad_id` int(11) NOT NULL,
+  `ocupacion_id` int(11) NOT NULL,
+  `poblacion_id` int(11) NOT NULL,
+  `tipoDocumento_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `asistencia_persona`
+--
+
+INSERT INTO `asistencia_persona` (`id`, `nombres`, `apellidos`, `numeroDocumento`, `sexo`, `fechaNacimiento`, `telefono`, `email`, `estrato`, `direccion`, `barrio_id`, `ciudadResidencia_id`, `entidad_id`, `ocupacion_id`, `poblacion_id`, `tipoDocumento_id`) VALUES
+(1, 'BRAYAN NICLLAS', 'RODRIGUEZ', 1070618662, 'M', '1996-04-16', '8885704', 'brodrigue48@uniminuto.edu.co', 'N3', 'CRA 5 # 17-46', 14, 492, 13, 2, 12, 2),
+(2, 'YADI BRIGITE', 'VARGAS OCHOA', 1070619452, 'F', '1996-07-23', '3013119183', 'yvargasocho@uniminuto.edu.co', 'N1', 'MANZANA 7 TORRE 10 APTO 203', 18, 492, 13, 7, 12, 2),
+(3, 'XIOMARA ALEXANDRA', 'PORTELA VILLARRAGA', 1105690428, 'F', '1997-05-23', '30069821654', 'alexandra-9797@hotmail.com', 'N3', 'MANZANA 2 CASA 27 ', 94, 972, 13, 7, 12, 2),
+(4, 'BIANKA ALEXANDRA', 'SANCHEZ RODRIGUEZ', 1070617103, 'F', '1995-10-13', '3203718257', 'bsanch19@uniminuto.edu.co', 'N2', 'MANZANA O CASA 15', 58, 492, 13, 2, 12, 2),
+(5, 'OSCAR DOREL', 'MORENO ARENAS', 1070598482, 'M', '1989-09-19', '3133380347', 'lerod12@gmail.com', 'N2', 'MZ C CASA 13 ', 23, 492, 11, 4, 12, 2),
+(6, 'FREDY HUMBERTO', 'ORTIZ POVEDA', 80013692, 'M', '1981-04-10', '3203336356', 'fredy1127@hotmail.com', 'N2', 'CALLE35 583', 48, 492, 11, 4, 12, 2),
+(7, 'LUIS', 'LEAL', 80493483, 'M', '1981-03-12', '3213836180', 'LUISLEAL2315@GMAIL.COM', 'N2', 'MZ7 T 6 APTO 301', 18, 492, 11, 4, 12, 2),
+(8, 'RUBEN', 'CHICO', 1070611410, 'M', '1993-10-29', '3223749229', 'RUBENCHICOORTEGON@GMAL.COM', 'N1', 'CLL 16 1 91', 108, 492, 15, 4, 12, 2),
+(9, 'JOHN FREDY', 'LAVERDE DIAZ', 79918085, 'M', '1980-02-23', '3176762956', 'ENTESTV1123@GMAIL.COM', 'N3', 'MZ 26 CASA 19', 73, 974, 12, 5, 12, 2),
+(10, 'DIEGO MAURICIO', 'PARRA LAGUNA', 11207268, 'M', '1985-12-14', '3118515349', 'DPARRA86@MISENA.EDU.CO', 'N3', 'CLL 19 10 - 24', 6, 492, 11, 2, 12, 2),
+(11, 'JULIO CESAR', 'NEME GONZALEZ', 11317329, 'M', '1970-01-30', '3133136033', 'JULIONEMEGONZALEZ@GMAIL.COM', 'N1', 'MAZ A CASA 12', 51, 492, 11, 4, 12, 2),
+(12, 'KEYNNER DAMIAN', 'CABRERA NEME', 1070589957, 'M', '2005-08-23', '3133781077', 'KEYNNERDAMIANCABRERANEME@GMAIL.COM', 'N2', 'CRRA 2B N.19 47', 34, 492, 11, 7, 12, 1),
+(13, 'JULIO CESAR', 'NEME GONZALEZ', 11317329, 'M', '1970-01-28', '3133136033', 'JULIONEMEGONZALEZ@GMAIL.COM', 'N1', 'MZ A CASA12', 51, 492, 11, 4, 12, 2),
+(14, 'JULIO CESAR', 'NEME GONZALEZ', 11317329, 'M', '1970-01-28', '3133136033', 'JULIONEMEGONZALEZ@GMAIL.COM', 'N1', 'MZ A CASA 12', 51, 492, 11, 4, 12, 2),
+(15, 'LEIMIT NICOLE', 'MEDINA CORTES', 1193583915, 'F', '2001-12-26', '31263120916', 'leimith.medina@uniminuto.edu.co', 'N3', 'MNZ42 CASA 2', 50, 492, 13, 7, 12, 1),
+(16, 'JERRY SANTIAGO', 'CUERVO CUECHA ', 1031176522, 'M', '1998-08-23', '3182030037', 'jerry.cuervo@uniminuto.edu.co', 'N2', 'KM6 FINCA CALATRAVA', 16, 492, 13, 7, 12, 2),
+(17, 'CATALINA', 'ZAMUDIO', 1070615656, 'F', '1995-03-24', '3132378943', 'catalina.zamudio@uniminuto.edu.co', 'N1', 'GUABINAL', 29, 492, 13, 4, 12, 2),
+(18, 'EDISON ESNEIDER', 'MORALES BARAJAS', 1003634946, 'M', '2002-11-13', '3187903788', 'canaldey2@gmail.com', 'N2', 'CLL15 465', 5, 492, 15, 7, 12, 1),
+(19, 'LUIS JAIR', 'PASTRANA BECERRA', 1070613382, 'M', '1994-04-22', '3212212312', 'LJPASTRANA2@MISENA.EDU.CO', 'N1', 'MANZANA A CASA 5', 61, 492, 15, 5, 12, 2),
+(20, 'ESNEIDER ', 'RANIREZ RUIZ ', 1001192538, 'M', '2002-04-18', '313350462', 'ramirezesneider06@gmail.com', 'N2', 'CLL 15 439', 5, 492, 15, 7, 12, 1),
+(21, 'KATERINE', 'LEAL SALAS', 1108454238, 'F', '1989-08-09', '3214287542', 'jlealsal@uniminuto.edu.co', 'N2', 'BOSQUES DE VIZCAYA', 10, 492, 13, 7, 12, 2),
+(22, 'LISA MARIA', 'RINCON VARON', 1070621973, 'F', '1997-07-22', '8888902', 'lrinconvaro@uniminuto.edu.co', 'N4', 'DIAGONAL9A # 23-47', 21, 492, 13, 7, 12, 2),
+(23, 'CARLOS ALBERTO', 'DIAZ PAEZ', 1070623187, 'M', '1998-01-14', '8885855', 'cdiazpaez@uniminuto.edu', 'N3', 'MZ 39 CASA 12', 2, 492, 13, 7, 12, 2),
+(24, 'SEBASTIAN', 'BARRERO MENDOZA', 1022416075, 'M', '1996-05-23', '3222461185', 'SEBASB96@HOTMAIL.COM', 'N4', 'MANZANA 8 CASA 2', 94, 972, 13, 1, 12, 2),
+(25, 'VALENTINA', 'CARDENAS QUEVEDO', 1070623258, 'F', '1998-01-18', '3023809037', 'VCARDENASQU@UNIMINUTO.EDU.CO', 'N3', 'MANZANA 5 CASA 11', 24, 492, 13, 7, 12, 2),
+(26, 'JOHAN SEBASTIAN ', 'HERNANDEZ MOGOLLON', 1070625721, 'M', '1998-11-27', '3214408166', 'johansebastian027@gmail.com', 'N3', 'MANZANA 1 CASA 18', 2, 492, 13, 7, 1, 2),
+(27, 'JUANCE', 'MORENO', 11032433937, 'M', '1989-12-18', '3134961378', 'jumol89@gmail.com', 'N3', 'CASA 19', 50, 492, 14, 3, 12, 2),
+(28, 'SERGIO ALEJANDRO', 'VARGAS MENDOZA', 1049654008, 'M', '1998-07-03', '3058167218', 'CHECHOSERBIO@GMAIL.COM', 'N3', 'CARRERA 12# 19-30', 56, 492, 13, 2, 9, 2),
+(29, 'DANIEL MATEO', 'QUINTERO VELANDIA', 1003634693, 'M', '2001-09-04', '3195593501', 'DANIEL.QUINTERO@UNIMINUTO.EDU.CO', 'N2', 'CRA 7 N356', 79, 983, 13, 2, 12, 1),
+(30, 'ANDRES FELIPE', 'AYA ROA ', 1003635509, 'M', '2001-04-17', '3212754611', 'ANDRES.AYA@UNIMINUTO.EDU.CO', 'N2', 'MZ 7 APT 202 CIUDADELA CAFAM DEL SOL', 18, 492, 13, 7, 12, 1),
+(31, 'RICHARD CAMILO', 'PUENTES CASTRO', 1007159876, 'M', '2000-09-21', '3209120849', 'RICHARD.PUENTES@UNIMINUTO.EDU.CO', 'N2', 'MZ D CASA 69', 105, 556, 13, 2, 12, 1),
+(32, 'GABRIEL FELIPE', 'RAMIREZ MESA', 1007846735, 'M', '2000-06-15', '3053126311', 'GABRIEL.RANIREZ@UNIMINUTO.EDU.CO', 'N4', 'CONJUNTO LA MARAVILLA CASA NOGAL 2', 107, 492, 13, 7, 12, 1),
+(33, 'MAURICIO NICOLAS', 'RODRIGUEZ OLARTE', 1010123407, 'M', '2000-03-23', '3042137400', 'NIKOLAS232000@HOTMAIL.COM', 'N1', 'CALLE 4-311', 111, 556, 13, 2, 12, 2),
+(34, 'SEBASTIAN', 'MARTIN NUNEZ', 1233692994, 'M', '1997-04-16', '8888612', 'SEBASLDS9816@HOTMAI.ES', 'N2', 'CALLE 10 A # 10-50', 7, 492, 13, 3, 7, 2),
+(35, 'CARLOS DAVID', 'CASTRO RUBIANO', 1007847057, 'M', '2001-08-20', '3005247132', 'RUIZD4857@GMAIL.COM', 'N3', 'MZ F CASA 12', 25, 492, 13, 7, 7, 1),
+(36, 'STYD', 'QUINTERO', 1005933347, 'M', '1996-12-07', '3232253717', 'STYD.QUINTERO@UNIMINUTO.EDU.CO', 'N2', 'CASA 66', 1, 497, 13, 7, 12, 2),
+(37, 'JOHNIER DAVID', 'MALES ROMERO', 1193475568, 'M', '2001-01-15', '3103366932', 'JOHNIER.MALES@uniminuto.edu.co', 'N2', 'SAN JOSE', 1, 459, 13, 2, 12, 1),
+(38, 'JULIAN EDUARDO', 'RODRIGUEZ RODRIGUEZ', 11206929, 'M', '1985-07-30', '3118723617', 'ingjulianrr321@hotmail.com', 'N1', 'RESERVAS DEL NOGAL CASA 25', 7, 492, 13, 3, 12, 2),
+(39, 'SONYA ESPERANZA', 'SANMIGUEL QUEVEDO', 52843716, 'F', '1982-04-25', '3208564294', 'sonyasanmiguel82@gmail.com', 'N2', 'AZAFRANAL', 1, 541, 1, 7, 12, 2),
+(40, 'PAULA ANDREA', 'JIMENEZ VILLAMARIN', 1072430144, 'F', '1996-02-07', '3102021631', 'pjimenezvil@uniminuto.edu.co', 'N2', 'CR 19 #24 124', 27, 492, 13, 7, 12, 2),
+(41, 'LAURA DANIELA', 'ORTIZ ', 1070622628, 'F', '1997-10-15', '3134365563', 'lortizduen1@uniminuto.edu.co', 'N3', 'CR 3# 15 52', 5, 492, 13, 7, 12, 2),
+(42, 'JOSE', 'ORTIZ', 11227335, 'M', '1981-12-05', '3152868854', 'jortizde@uniminuto.edu.co', 'N2', 'MANZANA 18 CAS 19', 22, 492, 13, 2, 12, 2),
+(43, 'JOSE', 'ORTIZ', 11227335, 'M', '1981-12-05', '3152868854', 'jortizde@uniminuto.edu.co', 'N2', 'MANZANA 18 CAS 19', 22, 492, 13, 2, 12, 2),
+(44, 'ALEJANRA', 'RUBIO', 1070617962, 'F', '1996-01-17', '3014766063', 'arubiodi@uniminuto.edu.co', 'N3', 'MANZANA 25 CASA 20', 2, 492, 13, 7, 12, 2),
+(45, 'ANGELICA', 'VALDES MARTINEZ', 1073169923, 'F', '1995-11-18', '3228270035', 'anvama502@hotmail.com', 'N3', 'TRANS 9A #44B 07', 41, 492, 13, 7, 12, 2),
+(46, 'ANDERSON STIVEN', 'ENCISO SUAREZ', 11088272004, 'M', '1989-09-07', '3228229405', 'andersenci@hotmail.com', 'N2', 'CALLE 4 CARRERA 5 CASA 140', 100, 517, 1, 6, 12, 2),
+(47, 'GLORIA AMPARO', 'SIERRA GUERRA', 39568469, 'F', '1973-04-08', '3004212420', 'Gordis1973@hotmail.com', 'N2', 'MANZANA C CASA 5', 58, 492, 8, 5, 6, 2),
+(48, 'GLORIA AMPARO', 'SIERRA GUERRA', 39568469, 'F', '1973-04-08', '3004212420', 'Gordis1973@hotmail.com', 'N2', 'MANZANA C CASA 5', 58, 492, 8, 5, 6, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asistencia_personacurso`
+--
+
+CREATE TABLE `asistencia_personacurso` (
+  `id` int(11) NOT NULL,
+  `estado` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `curso_id` int(11) NOT NULL,
+  `persona_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asistencia_poblacion`
+--
+
+CREATE TABLE `asistencia_poblacion` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `poblacion` varchar(40) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `asistencia_poblacion`
+--
+
+INSERT INTO `asistencia_poblacion` (`id`, `codigo`, `poblacion`) VALUES
+(1, '', 'LGBTI'),
+(2, '', 'DISCAPACITADOS'),
+(3, '', 'VICTIMAS CONFLICTO ARMADO'),
+(4, '', 'AFRO'),
+(5, '', 'TERCERA EDAD'),
+(6, '', 'MADRE CABEZA FAMILIA'),
+(7, '', 'JOVENES EN ACCION'),
+(8, '', 'EMPRENDEDORES'),
+(9, '', 'NNA'),
+(10, '', 'GOBIERNO EN LINEA'),
+(11, '', 'FAMILIAS EN ACCION'),
+(12, '', 'NINGUNO');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asistencia_sede`
+--
+
+CREATE TABLE `asistencia_sede` (
+  `id` int(11) NOT NULL,
+  `sede` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `direccion` varchar(40) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `asistencia_sede`
+--
+
+INSERT INTO `asistencia_sede` (`id`, `sede`, `direccion`) VALUES
+(1, 'VIVELAB', 'ITUC');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asistencia_servicio`
+--
+
+CREATE TABLE `asistencia_servicio` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `servicio` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `sede_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `asistencia_servicio`
+--
+
+INSERT INTO `asistencia_servicio` (`id`, `codigo`, `servicio`, `sede_id`) VALUES
+(1, 'LC', 'LABORATORIO CAPACITACION', 1),
+(2, 'LI', 'LABORATORIO DE IMAGEN', 1),
+(3, '', 'LABORATORIO DE DESARROLLO DE CONTENIDO', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asistencia_tipo`
+--
+
+CREATE TABLE `asistencia_tipo` (
+  `id` int(11) NOT NULL,
+  `tipo` varchar(40) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `asistencia_tipo`
+--
+
+INSERT INTO `asistencia_tipo` (`id`, `tipo`) VALUES
+(1, 'CAPACITACIÓN');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asistencia_tipodocumento`
+--
+
+CREATE TABLE `asistencia_tipodocumento` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `tipo` varchar(40) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `asistencia_tipodocumento`
+--
+
+INSERT INTO `asistencia_tipodocumento` (`id`, `codigo`, `tipo`) VALUES
+(1, 'TI', 'TARJETA DE IDENTIDAD'),
+(2, 'CC', 'CEDULA CIUDADANIA'),
+(3, 'CE', 'CEDULA DE EXTRANJERIA'),
+(4, 'PS', 'PASAPORTE');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_group`
+--
+
+CREATE TABLE `auth_group` (
+  `id` int(11) NOT NULL,
+  `name` varchar(80) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `auth_group`
+--
+
+INSERT INTO `auth_group` (`id`, `name`) VALUES
+(3, 'Administrador'),
+(2, 'Consultor'),
+(1, 'Digitador');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_group_permissions`
+--
+
+CREATE TABLE `auth_group_permissions` (
+  `id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_permission`
+--
+
+CREATE TABLE `auth_permission` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `content_type_id` int(11) NOT NULL,
+  `codename` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `auth_permission`
+--
+
+INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALUES
+(1, 'Can add log entry', 1, 'add_logentry'),
+(2, 'Can change log entry', 1, 'change_logentry'),
+(3, 'Can delete log entry', 1, 'delete_logentry'),
+(4, 'Can add group', 2, 'add_group'),
+(5, 'Can change group', 2, 'change_group'),
+(6, 'Can delete group', 2, 'delete_group'),
+(7, 'Can add permission', 3, 'add_permission'),
+(8, 'Can change permission', 3, 'change_permission'),
+(9, 'Can delete permission', 3, 'delete_permission'),
+(10, 'Can add content type', 4, 'add_contenttype'),
+(11, 'Can change content type', 4, 'change_contenttype'),
+(12, 'Can delete content type', 4, 'delete_contenttype'),
+(13, 'Can add session', 5, 'add_session'),
+(14, 'Can change session', 5, 'change_session'),
+(15, 'Can delete session', 5, 'delete_session'),
+(16, 'Can add ciudad', 6, 'add_ciudad'),
+(17, 'Can change ciudad', 6, 'change_ciudad'),
+(18, 'Can delete ciudad', 6, 'delete_ciudad'),
+(19, 'Can add servicio', 7, 'add_servicio'),
+(20, 'Can change servicio', 7, 'change_servicio'),
+(21, 'Can delete servicio', 7, 'delete_servicio'),
+(22, 'Can add asistencia', 8, 'add_asistencia'),
+(23, 'Can change asistencia', 8, 'change_asistencia'),
+(24, 'Can delete asistencia', 8, 'delete_asistencia'),
+(25, 'Can add barrio', 9, 'add_barrio'),
+(26, 'Can change barrio', 9, 'change_barrio'),
+(27, 'Can delete barrio', 9, 'delete_barrio'),
+(28, 'Can add entidad', 10, 'add_entidad'),
+(29, 'Can change entidad', 10, 'change_entidad'),
+(30, 'Can delete entidad', 10, 'delete_entidad'),
+(31, 'Can add ocupacion', 11, 'add_ocupacion'),
+(32, 'Can change ocupacion', 11, 'change_ocupacion'),
+(33, 'Can delete ocupacion', 11, 'delete_ocupacion'),
+(34, 'Can add user', 12, 'add_user'),
+(35, 'Can change user', 12, 'change_user'),
+(36, 'Can delete user', 12, 'delete_user'),
+(37, 'Can add tipo documento', 13, 'add_tipodocumento'),
+(38, 'Can change tipo documento', 13, 'change_tipodocumento'),
+(39, 'Can delete tipo documento', 13, 'delete_tipodocumento'),
+(40, 'Can add sede', 14, 'add_sede'),
+(41, 'Can change sede', 14, 'change_sede'),
+(42, 'Can delete sede', 14, 'delete_sede'),
+(43, 'Can add persona curso', 15, 'add_personacurso'),
+(44, 'Can change persona curso', 15, 'change_personacurso'),
+(45, 'Can delete persona curso', 15, 'delete_personacurso'),
+(46, 'Can add persona', 16, 'add_persona'),
+(47, 'Can change persona', 16, 'change_persona'),
+(48, 'Can delete persona', 16, 'delete_persona'),
+(49, 'Can add departamento', 17, 'add_departamento'),
+(50, 'Can change departamento', 17, 'change_departamento'),
+(51, 'Can delete departamento', 17, 'delete_departamento'),
+(52, 'Can add curso', 18, 'add_curso'),
+(53, 'Can change curso', 18, 'change_curso'),
+(54, 'Can delete curso', 18, 'delete_curso'),
+(55, 'Can add poblacion', 19, 'add_poblacion'),
+(56, 'Can change poblacion', 19, 'change_poblacion'),
+(57, 'Can delete poblacion', 19, 'delete_poblacion'),
+(58, 'Can add tipo', 20, 'add_tipo'),
+(59, 'Can change tipo', 20, 'change_tipo'),
+(60, 'Can delete tipo', 20, 'delete_tipo');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_user`
+--
+
+CREATE TABLE `auth_user` (
+  `id` int(11) NOT NULL,
+  `password` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `last_login` datetime DEFAULT NULL,
+  `is_superuser` tinyint(1) NOT NULL,
+  `username` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `first_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(254) COLLATE utf8_unicode_ci NOT NULL,
+  `is_staff` tinyint(1) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `date_joined` datetime NOT NULL,
+  `sede_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `auth_user`
+--
+
+INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`, `sede_id`) VALUES
+(1, 'pbkdf2_sha256$100000$fgNlm0H0LajK$czQ+2Ppd8FhuGqh1ER7SXbTMHHsFqG70ws8YhEn+alE=', '2018-04-30 22:22:16', 0, '1070593028', 'JHON JAIRO', 'PALMA GARCIA', 'jhon1946@gmail.com', 0, 1, '2018-03-22 20:30:00', 1),
+(2, 'pbkdf2_sha256$100000$SAFcGBloplwo$b7LkaVO4Pr+QqzZDTFHLjSXB0OVN/uGfpUJaOhyg+Jk=', '2018-04-17 12:33:01', 0, '11223744', 'JOSE MAURICIO', 'VELASQUEZ TRUJILLO', 'sistemas@mail.com', 0, 1, '2018-04-16 15:36:48', 1),
+(3, 'pbkdf2_sha256$100000$0YhiVL0KAuwg$J0u1p8/J/FAQBL3SwOvFJMuRQtPDUVdHD1andU2MJxE=', '2018-04-26 22:49:36', 0, '12345678', 'USUARIO ', 'PRUEBA', 'mail@mail.com', 0, 1, '2018-04-17 00:34:36', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_user_groups`
+--
+
+CREATE TABLE `auth_user_groups` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `auth_user_groups`
+--
+
+INSERT INTO `auth_user_groups` (`id`, `user_id`, `group_id`) VALUES
+(1, 1, 3),
+(4, 2, 3),
+(5, 3, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_user_user_permissions`
+--
+
+CREATE TABLE `auth_user_user_permissions` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_admin_log`
+--
+
+CREATE TABLE `django_admin_log` (
+  `id` int(11) NOT NULL,
+  `action_time` datetime NOT NULL,
+  `object_id` longtext COLLATE utf8_unicode_ci,
+  `object_repr` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `action_flag` smallint(5) UNSIGNED NOT NULL,
+  `change_message` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `content_type_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_content_type`
+--
+
+CREATE TABLE `django_content_type` (
+  `id` int(11) NOT NULL,
+  `app_label` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `model` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `django_content_type`
+--
+
+INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
+(1, 'admin', 'logentry'),
+(8, 'asistencia', 'asistencia'),
+(9, 'asistencia', 'barrio'),
+(6, 'asistencia', 'ciudad'),
+(18, 'asistencia', 'curso'),
+(17, 'asistencia', 'departamento'),
+(10, 'asistencia', 'entidad'),
+(11, 'asistencia', 'ocupacion'),
+(16, 'asistencia', 'persona'),
+(15, 'asistencia', 'personacurso'),
+(19, 'asistencia', 'poblacion'),
+(14, 'asistencia', 'sede'),
+(7, 'asistencia', 'servicio'),
+(20, 'asistencia', 'tipo'),
+(13, 'asistencia', 'tipodocumento'),
+(12, 'asistencia', 'user'),
+(2, 'auth', 'group'),
+(3, 'auth', 'permission'),
+(4, 'contenttypes', 'contenttype'),
+(5, 'sessions', 'session');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_migrations`
+--
+
+CREATE TABLE `django_migrations` (
+  `id` int(11) NOT NULL,
+  `app` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `applied` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `django_migrations`
+--
+
+INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
+(1, 'contenttypes', '0001_initial', '2018-04-13 15:34:07'),
+(2, 'contenttypes', '0002_remove_content_type_name', '2018-04-13 15:34:08'),
+(3, 'auth', '0001_initial', '2018-04-13 15:34:09'),
+(4, 'auth', '0002_alter_permission_name_max_length', '2018-04-13 15:34:09'),
+(5, 'auth', '0003_alter_user_email_max_length', '2018-04-13 15:34:09'),
+(6, 'auth', '0004_alter_user_username_opts', '2018-04-13 15:34:09'),
+(7, 'auth', '0005_alter_user_last_login_null', '2018-04-13 15:34:09'),
+(8, 'auth', '0006_require_contenttypes_0002', '2018-04-13 15:34:09'),
+(9, 'auth', '0007_alter_validators_add_error_messages', '2018-04-13 15:34:09'),
+(10, 'auth', '0008_alter_user_username_max_length', '2018-04-13 15:34:09'),
+(11, 'auth', '0009_alter_user_last_name_max_length', '2018-04-13 15:34:09'),
+(12, 'asistencia', '0001_initial', '2018-04-13 15:34:16'),
+(13, 'admin', '0001_initial', '2018-04-13 15:34:16'),
+(14, 'admin', '0002_logentry_remove_auto_add', '2018-04-13 15:34:16'),
+(15, 'sessions', '0001_initial', '2018-04-13 15:34:17'),
+(16, 'asistencia', '0002_auto_20180416_1651', '2018-04-16 16:51:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_session`
+--
+
+CREATE TABLE `django_session` (
+  `session_key` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `session_data` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `expire_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `django_session`
+--
+
+INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('0033gmimdotdflmll7uo8eq9df18o6lm', 'ZTY1ZGM3YTI3ODgxNWRmYjJmYzI2ZTRhMzU1Mzk1NDZjMDdlNDhmNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjE3NGIxM2U5YjAxNDBkN2VkZTMzZjUxYjVhMjQ1NWFjOGE3ODcwYjciLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=', '2018-05-01 23:05:14'),
+('0na1r6io2ms1eqabarcmdnjbptej7dg0', 'OTc1ZTE3YWU2NTM1MDQyMWJmYmZmYTU5MDJiZjJhYTc1YjBmMjI3MTp7Il9hdXRoX3VzZXJfaGFzaCI6IjE3NGIxM2U5YjAxNDBkN2VkZTMzZjUxYjVhMjQ1NWFjOGE3ODcwYjciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0=', '2018-04-30 16:49:36'),
+('3xzhr6ywuxoaegje59t6d53hkfv9156b', 'MDRhMTRlYjlmN2Y2Y2EzZDlmZTJmNTI5ODNjZTRmMzc1NDIxYzJjMTp7Il9hdXRoX3VzZXJfaGFzaCI6ImZjNDViNTEyNGNkNjkxMTVlYzVjMmIzNjFjMDVlNjBjZjZjNWZlM2UiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIzIn0=', '2018-05-10 22:49:36'),
+('4zip2xg52qryvn2ogedsz0pq0f2gv9or', 'MWM3NGUyZDdhMjZiYjk2MGQ5ZGNhYjUzYWFhY2FlNTUxZTY5ZDViZTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjEiLCJfYXV0aF91c2VyX2hhc2giOiIxNzRiMTNlOWIwMTQwZDdlZGUzM2Y1MWI1YTI0NTVhYzhhNzg3MGI3In0=', '2018-04-30 19:13:34'),
+('iiuckosrdbhkld5gspawvgel5krm21hk', 'MDRhMTRlYjlmN2Y2Y2EzZDlmZTJmNTI5ODNjZTRmMzc1NDIxYzJjMTp7Il9hdXRoX3VzZXJfaGFzaCI6ImZjNDViNTEyNGNkNjkxMTVlYzVjMmIzNjFjMDVlNjBjZjZjNWZlM2UiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIzIn0=', '2018-05-01 00:48:46'),
+('ldeia21o69kq0pgt9fs3ja2ycumlb0q8', 'YWZhYmZlYWIxNTBkMjVjMTc1NjQwZGUzOTJjZTgxYWQ2Y2JkODUwNDp7Il9hdXRoX3VzZXJfaGFzaCI6IjE3NGIxM2U5YjAxNDBkN2VkZTMzZjUxYjVhMjQ1NWFjOGE3ODcwYjciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', '2018-05-14 22:22:16'),
+('mbn33dzq4iyl1hyspeqz38a6pqjqcmfm', 'YWZhYmZlYWIxNTBkMjVjMTc1NjQwZGUzOTJjZTgxYWQ2Y2JkODUwNDp7Il9hdXRoX3VzZXJfaGFzaCI6IjE3NGIxM2U5YjAxNDBkN2VkZTMzZjUxYjVhMjQ1NWFjOGE3ODcwYjciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', '2018-05-11 21:57:06'),
+('nrfbzs9he2fssl10poviq7x9ndyssq3k', 'ZmI1NjMyMTAyN2RjNjY5ZTk5NmRjMzBkYTUxYjYzZDkwMWUxYzU3Yjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxNzRiMTNlOWIwMTQwZDdlZGUzM2Y1MWI1YTI0NTVhYzhhNzg3MGI3In0=', '2018-04-27 17:33:08'),
+('oe59u5lqaofg4bpim8v4i5erqlaog00k', 'ZTY1ZGM3YTI3ODgxNWRmYjJmYzI2ZTRhMzU1Mzk1NDZjMDdlNDhmNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjE3NGIxM2U5YjAxNDBkN2VkZTMzZjUxYjVhMjQ1NWFjOGE3ODcwYjciLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=', '2018-05-07 13:36:57');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `asistencia_asistencia`
+--
+ALTER TABLE `asistencia_asistencia`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `asistencia_asistencia_curso_id_617211ff_fk_asistencia_curso_id` (`curso_id`),
+  ADD KEY `asistencia_asistenci_persona_id_e30ab282_fk_asistenci` (`persona_id`),
+  ADD KEY `asistencia_asistenci_servicio_id_9f27d73b_fk_asistenci` (`servicio_id`);
+
+--
+-- Indexes for table `asistencia_barrio`
+--
+ALTER TABLE `asistencia_barrio`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `asistencia_barrio_ciudad_id_0b9d1778_fk_asistencia_ciudad_id` (`ciudad_id`);
+
+--
+-- Indexes for table `asistencia_ciudad`
+--
+ALTER TABLE `asistencia_ciudad`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `asistencia_ciudad_departamento_id_abe3171f_fk_asistenci` (`departamento_id`);
+
+--
+-- Indexes for table `asistencia_curso`
+--
+ALTER TABLE `asistencia_curso`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `asistencia_curso_entidad_id_ec2e8301_fk_asistencia_entidad_id` (`entidad_id`),
+  ADD KEY `asistencia_curso_sede_id_1af3461c_fk_asistencia_sede_id` (`sede_id`),
+  ADD KEY `asistencia_curso_tipo_id_058f4098_fk_asistencia_tipo_id` (`tipo_id`);
+
+--
+-- Indexes for table `asistencia_departamento`
+--
+ALTER TABLE `asistencia_departamento`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `asistencia_entidad`
+--
+ALTER TABLE `asistencia_entidad`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `asistencia_ocupacion`
+--
+ALTER TABLE `asistencia_ocupacion`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `asistencia_persona`
+--
+ALTER TABLE `asistencia_persona`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `asistencia_persona_barrio_id_11908660_fk_asistencia_barrio_id` (`barrio_id`),
+  ADD KEY `asistencia_persona_ciudadResidencia_id_77b0d7ba_fk_asistenci` (`ciudadResidencia_id`),
+  ADD KEY `asistencia_persona_entidad_id_d2d062c4_fk_asistencia_entidad_id` (`entidad_id`),
+  ADD KEY `asistencia_persona_ocupacion_id_75dbb1c0_fk_asistenci` (`ocupacion_id`),
+  ADD KEY `asistencia_persona_poblacion_id_159ac90d_fk_asistenci` (`poblacion_id`),
+  ADD KEY `asistencia_persona_tipoDocumento_id_435d49ba_fk_asistenci` (`tipoDocumento_id`);
+
+--
+-- Indexes for table `asistencia_personacurso`
+--
+ALTER TABLE `asistencia_personacurso`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `asistencia_personacurso_curso_id_8f7a4f3f_fk_asistencia_curso_id` (`curso_id`),
+  ADD KEY `asistencia_personacu_persona_id_50eb39e2_fk_asistenci` (`persona_id`);
+
+--
+-- Indexes for table `asistencia_poblacion`
+--
+ALTER TABLE `asistencia_poblacion`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `asistencia_sede`
+--
+ALTER TABLE `asistencia_sede`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `asistencia_servicio`
+--
+ALTER TABLE `asistencia_servicio`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `asistencia_servicio_sede_id_581665aa_fk_asistencia_sede_id` (`sede_id`);
+
+--
+-- Indexes for table `asistencia_tipo`
+--
+ALTER TABLE `asistencia_tipo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `asistencia_tipodocumento`
+--
+ALTER TABLE `asistencia_tipodocumento`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `auth_group`
+--
+ALTER TABLE `auth_group`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `auth_group_permissions`
+--
+ALTER TABLE `auth_group_permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `auth_group_permissions_group_id_permission_id_0cd325b0_uniq` (`group_id`,`permission_id`),
+  ADD KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`);
+
+--
+-- Indexes for table `auth_permission`
+--
+ALTER TABLE `auth_permission`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`);
+
+--
+-- Indexes for table `auth_user`
+--
+ALTER TABLE `auth_user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD KEY `auth_user_sede_id_3e90becc_fk_asistencia_sede_id` (`sede_id`);
+
+--
+-- Indexes for table `auth_user_groups`
+--
+ALTER TABLE `auth_user_groups`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `auth_user_groups_user_id_group_id_94350c0c_uniq` (`user_id`,`group_id`),
+  ADD KEY `auth_user_groups_group_id_97559544_fk_auth_group_id` (`group_id`);
+
+--
+-- Indexes for table `auth_user_user_permissions`
+--
+ALTER TABLE `auth_user_user_permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `auth_user_user_permissions_user_id_permission_id_14a6b632_uniq` (`user_id`,`permission_id`),
+  ADD KEY `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` (`permission_id`);
+
+--
+-- Indexes for table `django_admin_log`
+--
+ALTER TABLE `django_admin_log`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `django_admin_log_content_type_id_c4bce8eb_fk_django_co` (`content_type_id`),
+  ADD KEY `django_admin_log_user_id_c564eba6_fk_auth_user_id` (`user_id`);
+
+--
+-- Indexes for table `django_content_type`
+--
+ALTER TABLE `django_content_type`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`);
+
+--
+-- Indexes for table `django_migrations`
+--
+ALTER TABLE `django_migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `django_session`
+--
+ALTER TABLE `django_session`
+  ADD PRIMARY KEY (`session_key`),
+  ADD KEY `django_session_expire_date_a5c62663` (`expire_date`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `asistencia_asistencia`
+--
+ALTER TABLE `asistencia_asistencia`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `asistencia_barrio`
+--
+ALTER TABLE `asistencia_barrio`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+--
+-- AUTO_INCREMENT for table `asistencia_ciudad`
+--
+ALTER TABLE `asistencia_ciudad`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1120;
+--
+-- AUTO_INCREMENT for table `asistencia_curso`
+--
+ALTER TABLE `asistencia_curso`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `asistencia_departamento`
+--
+ALTER TABLE `asistencia_departamento`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+--
+-- AUTO_INCREMENT for table `asistencia_entidad`
+--
+ALTER TABLE `asistencia_entidad`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT for table `asistencia_ocupacion`
+--
+ALTER TABLE `asistencia_ocupacion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `asistencia_persona`
+--
+ALTER TABLE `asistencia_persona`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+--
+-- AUTO_INCREMENT for table `asistencia_personacurso`
+--
+ALTER TABLE `asistencia_personacurso`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `asistencia_poblacion`
+--
+ALTER TABLE `asistencia_poblacion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `asistencia_sede`
+--
+ALTER TABLE `asistencia_sede`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `asistencia_servicio`
+--
+ALTER TABLE `asistencia_servicio`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `asistencia_tipo`
+--
+ALTER TABLE `asistencia_tipo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `asistencia_tipodocumento`
+--
+ALTER TABLE `asistencia_tipodocumento`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `auth_group`
+--
+ALTER TABLE `auth_group`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `auth_group_permissions`
+--
+ALTER TABLE `auth_group_permissions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `auth_permission`
+--
+ALTER TABLE `auth_permission`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+--
+-- AUTO_INCREMENT for table `auth_user`
+--
+ALTER TABLE `auth_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `auth_user_groups`
+--
+ALTER TABLE `auth_user_groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `auth_user_user_permissions`
+--
+ALTER TABLE `auth_user_user_permissions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `django_admin_log`
+--
+ALTER TABLE `django_admin_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `django_content_type`
+--
+ALTER TABLE `django_content_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `django_migrations`
+--
+ALTER TABLE `django_migrations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `asistencia_asistencia`
+--
+ALTER TABLE `asistencia_asistencia`
+  ADD CONSTRAINT `asistencia_asistenci_persona_id_e30ab282_fk_asistenci` FOREIGN KEY (`persona_id`) REFERENCES `asistencia_persona` (`id`),
+  ADD CONSTRAINT `asistencia_asistenci_servicio_id_9f27d73b_fk_asistenci` FOREIGN KEY (`servicio_id`) REFERENCES `asistencia_servicio` (`id`),
+  ADD CONSTRAINT `asistencia_asistencia_curso_id_617211ff_fk_asistencia_curso_id` FOREIGN KEY (`curso_id`) REFERENCES `asistencia_curso` (`id`);
+
+--
+-- Constraints for table `asistencia_barrio`
+--
+ALTER TABLE `asistencia_barrio`
+  ADD CONSTRAINT `asistencia_barrio_ciudad_id_0b9d1778_fk_asistencia_ciudad_id` FOREIGN KEY (`ciudad_id`) REFERENCES `asistencia_ciudad` (`id`);
+
+--
+-- Constraints for table `asistencia_ciudad`
+--
+ALTER TABLE `asistencia_ciudad`
+  ADD CONSTRAINT `asistencia_ciudad_departamento_id_abe3171f_fk_asistenci` FOREIGN KEY (`departamento_id`) REFERENCES `asistencia_departamento` (`id`);
+
+--
+-- Constraints for table `asistencia_curso`
+--
+ALTER TABLE `asistencia_curso`
+  ADD CONSTRAINT `asistencia_curso_entidad_id_ec2e8301_fk_asistencia_entidad_id` FOREIGN KEY (`entidad_id`) REFERENCES `asistencia_entidad` (`id`),
+  ADD CONSTRAINT `asistencia_curso_sede_id_1af3461c_fk_asistencia_sede_id` FOREIGN KEY (`sede_id`) REFERENCES `asistencia_sede` (`id`),
+  ADD CONSTRAINT `asistencia_curso_tipo_id_058f4098_fk_asistencia_tipo_id` FOREIGN KEY (`tipo_id`) REFERENCES `asistencia_tipo` (`id`);
+
+--
+-- Constraints for table `asistencia_persona`
+--
+ALTER TABLE `asistencia_persona`
+  ADD CONSTRAINT `asistencia_persona_barrio_id_11908660_fk_asistencia_barrio_id` FOREIGN KEY (`barrio_id`) REFERENCES `asistencia_barrio` (`id`),
+  ADD CONSTRAINT `asistencia_persona_ciudadResidencia_id_77b0d7ba_fk_asistenci` FOREIGN KEY (`ciudadResidencia_id`) REFERENCES `asistencia_ciudad` (`id`),
+  ADD CONSTRAINT `asistencia_persona_entidad_id_d2d062c4_fk_asistencia_entidad_id` FOREIGN KEY (`entidad_id`) REFERENCES `asistencia_entidad` (`id`),
+  ADD CONSTRAINT `asistencia_persona_ocupacion_id_75dbb1c0_fk_asistenci` FOREIGN KEY (`ocupacion_id`) REFERENCES `asistencia_ocupacion` (`id`),
+  ADD CONSTRAINT `asistencia_persona_poblacion_id_159ac90d_fk_asistenci` FOREIGN KEY (`poblacion_id`) REFERENCES `asistencia_poblacion` (`id`),
+  ADD CONSTRAINT `asistencia_persona_tipoDocumento_id_435d49ba_fk_asistenci` FOREIGN KEY (`tipoDocumento_id`) REFERENCES `asistencia_tipodocumento` (`id`);
+
+--
+-- Constraints for table `asistencia_personacurso`
+--
+ALTER TABLE `asistencia_personacurso`
+  ADD CONSTRAINT `asistencia_personacu_persona_id_50eb39e2_fk_asistenci` FOREIGN KEY (`persona_id`) REFERENCES `asistencia_persona` (`id`),
+  ADD CONSTRAINT `asistencia_personacurso_curso_id_8f7a4f3f_fk_asistencia_curso_id` FOREIGN KEY (`curso_id`) REFERENCES `asistencia_curso` (`id`);
+
+--
+-- Constraints for table `asistencia_servicio`
+--
+ALTER TABLE `asistencia_servicio`
+  ADD CONSTRAINT `asistencia_servicio_sede_id_581665aa_fk_asistencia_sede_id` FOREIGN KEY (`sede_id`) REFERENCES `asistencia_sede` (`id`);
+
+--
+-- Constraints for table `auth_group_permissions`
+--
+ALTER TABLE `auth_group_permissions`
+  ADD CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  ADD CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`);
+
+--
+-- Constraints for table `auth_permission`
+--
+ALTER TABLE `auth_permission`
+  ADD CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`);
+
+--
+-- Constraints for table `auth_user`
+--
+ALTER TABLE `auth_user`
+  ADD CONSTRAINT `auth_user_sede_id_3e90becc_fk_asistencia_sede_id` FOREIGN KEY (`sede_id`) REFERENCES `asistencia_sede` (`id`);
+
+--
+-- Constraints for table `auth_user_groups`
+--
+ALTER TABLE `auth_user_groups`
+  ADD CONSTRAINT `auth_user_groups_group_id_97559544_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+  ADD CONSTRAINT `auth_user_groups_user_id_6a12ed8b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `auth_user_user_permissions`
+--
+ALTER TABLE `auth_user_user_permissions`
+  ADD CONSTRAINT `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  ADD CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `django_admin_log`
+--
+ALTER TABLE `django_admin_log`
+  ADD CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
+  ADD CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

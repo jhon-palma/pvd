@@ -39,33 +39,40 @@
                                     </div>
                                 </li>
                             </div>
-                            {% if request.user|has_group:"Administrador" %}
                             <div class="btn-group" role="group">
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="dropdown" id="btnGroupDrop1" ><i class="fa fa-user" aria-hidden="true"></i> Usuarios</a>
+                                    <a class="nav-link" data-toggle="dropdown" id="btnGroupDrop1" ><i class="fa fa-book" aria-hidden="true"></i> Cursos</a>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                        <a class="dropdown-item" href="{% url 'usuario_create' %}"><i class="fa fa-user-plus" aria-hidden="true"></i> Crear usuario</a>
-                                        <a class="dropdown-item" href="{% url 'usuario_consulta' %}"><i class="fa fa-search" aria-hidden="true"></i> Consultar usuario</a>
+                                        <a class="dropdown-item" href="{% url 'curso_create' %}"><i class="fa fa-plus" aria-hidden="true"></i> Crea curso</a>
+                                        <a class="dropdown-item" href="{% url 'curso_list' %}" ><i class="fa fa-book" aria-hidden="true"></i> Lista de Cursos</a>
                                     </div>
-                                </li>
-                            </div>
-                            {% endif %}
-                            <div class="btn-group" role="group">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'curso_list' %}" ><i class="fa fa-book" aria-hidden="true"></i> Cursos</a>
                                 </li>
                             </div>
                             <div class="btn-group" role="group">
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="dropdown" id="btnGroupDrop1" ><i class="fa fa-cog" aria-hidden="true"></i> Configuración</a>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                        <a class="dropdown-item" href="{% url 'curso_create' %}"><i class="fa fa-book" aria-hidden="true"></i> Crea curso</a>
-                                        <a class="dropdown-item" href="{% url 'servicio_create' %}"><i class="fa fa-list" aria-hidden="true"></i> Crear Servicios</a>
+                                        <a class="dropdown-item" href="{% url 'usuario_create' %}"><i class="fa fa-user-plus" aria-hidden="true"></i> Crear usuario</a>
+                                        <a class="dropdown-item" href="{% url 'usuario_consulta' %}"><i class="fa fa-search" aria-hidden="true"></i> Consultar usuario</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{% url 'instructor_create' %}"><i class="fa fa-user-circle" aria-hidden="true"></i> Crear Instructor</a>
+                                        <a class="dropdown-item" href="{% url 'instructor_consulta' %}"><i class="fa fa-search" aria-hidden="true"></i> Consultar Instructor</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{% url 'servicio_create' %}"><i class="fa fa-server" aria-hidden="true"></i> Crear Labotarorio</a>
+                                        <a class="dropdown-item" href="{% url 'tipo_create' %}"><i class="fa fa-list" aria-hidden="true"></i> Crear Servicio</a>
+                                    </div>
+                                </li>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="dropdown" id="btnGroupDrop1" ><i class="fa fa-clipboard" aria-hidden="true"></i> Reportes</a>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                        <a class="dropdown-item" href="{% url 'consulta_soporte' %}"><i class="fa fa-search" aria-hidden="true"></i> Consulta planillas</a>
                                     </div>
                                 </li>
                             </div>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-clipboard" aria-hidden="true"></i> Reportes</a>
+                                <a class="nav-link" href="{% url 'subir_soporte' %}"><i class="fa fa-upload" aria-hidden="true"></i> Planillas</a>
                             </li>
                             <div class="btn-group" role="group"></div>
                         </ul>
@@ -105,7 +112,7 @@
         </main>
     </div>
     <footer class="blog-footer">
-      <p>&copy; 2018 <a href="#">OTIC Girardot</a> Diseñado <a href="#">@jhon1946</a>.</p>
+      <p>&copy; 2018 <a href="https://www.girardot-cundinamarca.gov.co" target="_blank">OTIC Alcaldía de Girardot</a> Diseñado <a href="mailto:jhon1946@gmail.com">@jhon1946</a>.</p>
     </footer>
     <script src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
     <script src="{% static 'js/jquery.min.js' %}"></script>

@@ -27,7 +27,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Tipo Documento: </label>
-                            <select class="form-control input-sm" name="tipoDocumento">
+                            <select class="form-control input-sm" id="tipoDocumento" name="tipoDocumento" required>
                                 <option value="">Tipo documento...</option>
                                 {% for tipo in tipoDocumento %}
                                 <option value="{{ tipo.id }}" {% if persona.tipoDocumento.id == tipo.id %} selected {% endif %}> {{ tipo.tipo }} </option>
@@ -38,19 +38,20 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Número de identificación: </label>
-                            <input class="form-control input-sm" type="number" name="numeroDocumento" placeholder="Numero de documento" value="{{ persona.numeroDocumento }}" autocomplete="off">
+                            <input class="form-control input-sm" type="number" max="99999999999" id="numeroDocumento" name="numeroDocumento" placeholder="Numero de documento" value="{{ persona.numeroDocumento }}" autocomplete="off" required>
+                            <p id="error"></p>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Nombres: </label>
-                            <input class="form-control input-sm text-uppercase" type="text" name="nombres" placeholder="Nombres" value="{{ persona.nombres }}" autocomplete="off">
+                            <input class="form-control input-sm text-uppercase" type="text" id="nombres" name="nombres" placeholder="Nombres" value="{{ persona.nombres }}" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Apellidos: </label>
-                            <input class="form-control input-sm text-uppercase" type="text" name="apellidos" placeholder="Apellidos" value="{{ persona.apellidos }}" autocomplete="off">
+                            <input class="form-control input-sm text-uppercase" type="text" id="apellidos" name="apellidos" placeholder="Apellidos" value="{{ persona.apellidos }}" autocomplete="off" required>
                         </div>
                     </div>
                 </div>
@@ -58,10 +59,10 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Departamento de residencia: </label>
-                            <select class="form-control input-sm" id="departamento" name="departamento">
+                            <select class="form-control input-sm" id="departamento" name="departamento" required>
                                 <option value="">Departamento de residencia...</option>
                                 {% for departamento in departamentos %}
-                                <option value="{{ departamento.id }}" {% if persona.departamento_id == departamento.id %} selected {% endif %} > {{ departamento.departamento }} </option>
+                                <option value="{{ departamento.id }}" {% if persona.ciudadResidencia.departamento.id == departamento.id %} selected {% endif %} > {{ departamento.departamento }} </option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -69,7 +70,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Ciudad de residencia: </label>
-                            <select class="form-control input-sm" id="ciudad" name="ciudad">
+                            <select class="form-control input-sm" id="ciudad" name="ciudad" required>
                                 <option value="">Ciudad de residencia...</option>
                                 {% for ciudad in ciudades %}
                                 <option value="{{ ciudad.id }}" {% if persona.ciudadResidencia.id == ciudad.id %} selected {% endif %}> {{ ciudad.ciudad }} </option>
@@ -80,13 +81,13 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Dirección: </label>
-                            <input class="form-control input-sm text-uppercase" type="text" name="direccion" placeholder="Dirección" value="{{ persona.direccion }}" autocomplete="off">
+                            <input class="form-control input-sm text-uppercase" type="text" id="direccion" name="direccion" placeholder="Dirección" value="{{ persona.direccion }}" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Barrio: </label>
-                            <select class="form-control input-sm" name="barrio" id="barrio" >
+                            <select class="form-control input-sm" name="barrio" id="barrio" required>
                                 <option value="">Barrio...</option>
                                 {% for barrio in barrios %}
                                 <option value="{{ barrio.id }}" {% if persona.barrio.id == barrio.id %} selected {% endif %}> {{ barrio.barrio }} </option>
@@ -100,13 +101,13 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Teléfono: </label>
-                            <input class="form-control input-sm" type="tel" name="telefono" placeholder="Teléfono" value="{{ persona.telefono }}" autocomplete="off">
+                            <input class="form-control input-sm" type="number" max="9999999999" name="telefono" placeholder="Teléfono" value="{{ persona.telefono }}" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Estrato: </label>
-                            <select class="form-control input-sm" name="estrato">
+                            <select class="form-control input-sm" id="estrato" name="estrato" required>
                                 <option value="">Estrato...</option>
                                 {% for estrato in estratos %}
                                 <option value="{{ estrato.0 }}" {% if persona.estrato == estrato.0 %} selected {% endif %}> {{ estrato.1 }} </option>
@@ -117,7 +118,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Ocupación: </label>
-                            <select class="form-control input-sm" name="ocupacion">
+                            <select class="form-control input-sm" id="ocupacion" name="ocupacion" required>
                                 <option value="">Ocupación...</option>
                                 {% for ocupacion in ocupaciones %}
                                 <option value="{{ ocupacion.id }}" {% if persona.ocupacion.id == ocupacion.id %} selected {% endif %}> {{ ocupacion.ocupacion }} </option>
@@ -128,7 +129,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Sexo: </label>
-                            <select class="form-control input-sm" name="sexo">
+                            <select class="form-control input-sm" id="sexo" name="sexo" required>
                                 <option value="">Sexo...</option>
                                 {% for sexo in sexos %}
                                 <option value="{{ sexo.0 }}" {% if persona.sexo == sexo.0 %} selected {% endif %}> {{ sexo.1 }} </option>
@@ -141,7 +142,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Población: </label>
-                            <select class="form-control input-sm" name="poblacion">
+                            <select class="form-control input-sm" id="poblacion" name="poblacion" required>
                                 <option value="">Población...</option>
                                 {% for poblacion in poblaciones %}
                                 <option value="{{ poblacion.id }}" {% if persona.poblacion.id == poblacion.id %} selected {% endif %}> {{ poblacion.poblacion }} </option>
@@ -152,13 +153,13 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Fecha nacimiento: </label>
-                            <input class="form-control input-sm" type="date" value="{{ persona.fechaNacimiento|date:'Y-m-d' }}" name="fechaNacimiento">
+                            <input class="form-control input-sm" type="date" value="{{ persona.fechaNacimiento|date:'Y-m-d' }}" id="fechaNacimiento" name="fechaNacimiento" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Entidad: </label>
-                            <select class="form-control input-sm" name="entidad">
+                            <select class="form-control input-sm" id="entidad" name="entidad" required>
                                 <option value="">Entidad...</option>
                                 {% for entidad in entidades %}
                                 <option value="{{ entidad.id }}" {% if persona.entidad.id == entidad.id %} selected {% endif %}> {{ entidad.entidad }} </option>
@@ -169,12 +170,36 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Correo: </label>
-                            <input class="form-control input-sm text-lowercase" type="email" value='{{ persona.email }}' placeholder="email" name="email">
+                            <input class="form-control input-sm text-lowercase" type="email" value='{{ persona.email }}' placeholder="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Departamento de nacimiento: </label>
+                            <select class="form-control input-sm" id="departamenton" name="departamenton" required>
+                                <option value="">Departamento de nacimiento...</option>
+                                {% for departamento in departamentos %}
+                                <option value="{{ departamento.id }}" {% if persona.ciudadResidencia.departamento.id == departamento.id %} selected {% endif %} > {{ departamento.departamento }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Ciudad de nacimiento: </label>
+                            <select class="form-control input-sm" id="ciudadn" name="ciudadn" required>
+                                <option value="">Ciudad de nacimiento...</option>
+                                {% for ciudad in ciudades %}
+                                <option value="{{ ciudad.id }}" {% if persona.ciudadNacimiento.id == ciudad.id %} selected {% endif %}> {{ ciudad.ciudad }} </option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
                 </div>
                 <div style="text-align: center;">
-                    <button type="submit" class="btn btn-success"><span class="fa fa-pencil-square-o"></span> {% if create %}Crear {% endif %}{% if edit %}Modificar{% endif %}</button>
+                    <button type="submit" name="crear" id="crear" class="btn btn-success"><span class="fa fa-pencil-square-o"></span> {% if create %}Crear {% endif %}{% if edit %}Modificar{% endif %}</button>
                 </div>
             </div>
         </form>
@@ -193,7 +218,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="grabarb();">Crear</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="grabarB">Crear</button>
                 </div>
             </div>
         </div>
@@ -201,26 +226,6 @@
 {% endblock %}
 {% block javascript %}
     <script src="{% static 'js/ciudad.js' %}"></script>
-    <script>
-        function grabarb()
-            {
-                var barrio = $("#barrioN").val();
-                $.ajax({
-                    data : { 'barrio': barrio },
-                    url: '/barrioAjax',
-                    type: 'get',
-                    success: function(dat){
-                        var select = $('#barrio').html("<option value='' selected>Barrio...</option>");
-                        for (var i = 0; i < dat.length ; i++){
-                            select.append('<option value="'
-                            + dat[i].pk
-                            + '">'
-                            + dat[i].fields.barrio
-                            + '</option>' );
-                        }
-                        select.append('<option class="fa fa-plus" value="01"> &#xf067; Agregar</option>')
-                    }
-                });
-            }
-    </script>
+    <script src="{% static 'js/sweetalert2.all.js' %}"></script>
+    <!--<script src="{% static 'js/validator.js' %}"></script>-->
 {% endblock %}

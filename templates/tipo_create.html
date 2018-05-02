@@ -1,0 +1,22 @@
+{% extends 'template.html'%}
+{% load staticfiles %}
+{% block title %}Crea Servicio{% endblock %}
+{% block subtitle %}Crear Servicio{% endblock %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="col-md-12 form lab">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Nombre del servicio: </label>
+                        <input class="form-control input-sm text-uppercase" type="text" name="nombre" placeholder="Nombre del Servicio" value="{{ datos.nombre }}" autocomplete="off" required>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-success"><span class="fa fa-pencil-square-o"></span> Crear</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

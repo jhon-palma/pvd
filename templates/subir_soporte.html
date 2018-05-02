@@ -1,0 +1,83 @@
+{% extends 'template.html'%}
+{% load staticfiles %}
+{% block title %}{% if create %}Subir Soportes{% endif %}{% if query %}Consultar Planillas{% endif %}{% if edit %}Planilla Soporte{% endif %}{% endblock %}
+{% block subtitle %}{% if create %}Subir Soportes PDF{% endif %}{% if query %}Consultar Planillas{% endif %}{% if edit %}{% if soportes %}Soportes del día {{ fecha }}{% else %}No existe soportes para el día {{ fecha }}{% endif %}{% endif %}{% endblock %}
+{% block content %}
+    {% if query %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row align-items-center">
+                <div class="col-auto">
+                    <label for="inlineFormInput">Fecha: </label>
+                </div>
+                <div class="col-auto">
+                    <input class="form-control input-sm" type="date" id="fecha" name="fecha" required>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" id="btn" class="btn btn-success mb-2"><span class="fa fa-pencil-square-o"></span> Consultar</button>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+    {% if create %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-md-12 form lab">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Fecha a reportar: </label>
+                            <input class="form-control input-sm" type="date" id="fecha" name="fecha" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Documentos de soporte: </label>
+                            <input type="file" accept="application/pdf" name="soporte" id="soporte" onchange="comprobar(this)" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <button type="submit" name="crear" id="crear" class="btn btn-success"><span class="fa fa-pencil-square-o"></span> {% if create %}Subir {% endif %}{% if edit %}Modificar{% endif %}</button>
+                </div>
+            </div>
+        </form>
+        {% endif %}
+        {% if edit %}
+            {% if soportes %}
+                {% for soporte in soportes %}
+                    <table>
+                        <tr>
+                            <object data="/{{ soporte.soporte }}" type="application/pdf" width="100%" height="600px">
+                                No tiene instalado el complemento para visualizar el documento en línea, descárguelo <a href="/{{ soporte.soporte }}">aquí.</a> Para una mejor visualización use Google Chrome.
+                            </object>
+                        </tr>
+                    </table>
+                    <br>
+                {% endfor %}
+            {% else %}
+            <div style="text-align: center;">
+                <a href="{% url 'consulta_soporte'%}" class="btn btn-info" role="button"><span class="fa fa-arrow-left"></span> Volver</a>
+            </div>
+            {% endif %}
+        {% endif %}
+{% endblock %}
+{% block javascript %}
+    <script src="{% static 'js/sweetalert2.all.js' %}"></script>
+    <script>
+        function comprobar(f) {
+            var extension = f.value.split('.').pop().toLowerCase();
+            var input = $("#soporte")
+            if (extension != "pdf"){
+                swal({
+                    title: "Error!",
+                    text: "Solo se permiten archivos PDF!",
+                    type: "error",
+                    confirmButtonText: "Entendido",
+                });
+                input.replaceWith(input.val('').clone(true));
+            }
+        }
+    </script>
+{% endblock %}

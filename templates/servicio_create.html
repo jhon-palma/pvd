@@ -1,7 +1,7 @@
 {% extends 'template.html'%}
 {% load staticfiles %}
-{% block title %}Crea Servicio{% endblock %}
-{% block subtitle %}Crear Servicio{% endblock %}
+{% block title %}Crea Laboratorio{% endblock %}
+{% block subtitle %}Crear Laboratorio{% endblock %}
 {% block content %}
     <form method="post">
         {% csrf_token %}
@@ -9,8 +9,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Nombre del servicio: </label>
-                        <input class="form-control input-sm text-uppercase" type="text" name="nombre" placeholder="Nombre del servicio" value="{{ datos.nombre }}" autocomplete="off">
+                        <label>Nombre del laboratorio: </label>
+                        <input class="form-control input-sm text-uppercase" type="text" name="nombre" placeholder="Nombre del laboratorio" value="{{ datos.nombre }}" autocomplete="off">
                     </div>
                 </div>
                 <div class="col-md-3">
