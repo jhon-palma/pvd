@@ -284,15 +284,16 @@ def usuario_password(request, id_usuario):
 def curso_create(request):
     sedes = Sede.objects.all()
     tipos = Tipo.objects.all()
+    instructores = Instructor.objects.all()
     entidades = Entidad.objects.all().order_by('entidad')
     if request.method == 'POST':
         validator = CursoValidator(request.POST)
-        validator.required = ['nombre','duracion','instructor', ]
+        validator.required = ['nombre','duracion' ]
         if validator.is_valid():
             curso = Curso()
             curso.curso = request.POST['nombre'].upper()
             curso.duracion = request.POST['duracion'].upper()
-            curso.instructor = request.POST['instructor'].upper()
+            curso.instructor = Instructor.objects.get(pk=request.POST['instructor'])
             curso.sede = Sede.objects.get(pk = request.POST['sede'])
             curso.entidad = Entidad.objects.get(pk = request.POST['entidad'])
             curso.tipo = Tipo.objects.get(pk = request.POST['tipo'])
@@ -302,7 +303,7 @@ def curso_create(request):
         else:
             messages.warning(request,validator.getMessage())
             return HttpResponseRedirect('/curso_create')
-    return render(request,'curso_create.html',{'sedes':sedes,'entidades':entidades,'tipos':tipos})
+    return render(request,'curso_create.html',{'sedes':sedes,'entidades':entidades,'tipos':tipos,'instructores':instructores})
 
 @login_required(login_url="/")
 def servicio_create(request):
@@ -342,6 +343,7 @@ def tipo_create(request):
 def registro(request):
     servicios = Servicio.objects.all()
     tipos = Tipo.objects.all()
+    cursos = Curso.objects.all()
     if request.method == 'POST':
         validator = RegistroValidator(request.POST)
         validator.required = ['numeroDocumento']
@@ -350,13 +352,19 @@ def registro(request):
             registro.persona = Persona.objects.get(numeroDocumento = request.POST['numeroDocumento'])
             registro.servicio = Servicio.objects.get(pk = request.POST['servicio'])
             registro.tipo = Tipo.objects.get(pk = request.POST['tipo'])
+            if request.POST['curso'] != '':
+                asist = Asistencia.objects.filter(curso_id=request.POST['curso'], hora__startswith =datetime.datetime.now().date())
+                if asist.count() != 0:
+                    messages.warning(request,'Ya se tomo asistencia para el curso de por el día de hoy!!!!!!!!!!')
+                    return HttpResponseRedirect('/registro')
+                registro.curso = Curso.objects.get(pk = request.POST['curso'])
             registro.save()
             messages.success(request,validator.getMessage())
             return HttpResponseRedirect('/registro')
         else:
             messages.warning(request,validator.getMessage())
             return HttpResponseRedirect('/registro')
-    return render(request,'registro.html',{'servicios':servicios,'tipos':tipos})
+    return render(request,'registro.html',{'servicios':servicios,'tipos':tipos,'cursos':cursos})
 
 @login_required(login_url="/")
 def curso_list(request):
@@ -394,7 +402,7 @@ def curso_persona(request, id_curso):
 def curso_asistencia(request, id_curso):
     curso = Curso.objects.get(pk = id_curso)
     if request.method == 'POST':
-        asist = Asistencia.objects.filter(curso_id=id_curso, hora__startswith =datetime.now().date())
+        asist = Asistencia.objects.filter(curso_id=id_curso, hora__startswith =datetime.datetime.now().date())
         if asist.count() != 0:
             messages.warning(request,'Ya se tomo asistencia para el curso de %s por el día de hoy!!!!!!!!!!'%curso.curso)
             return HttpResponseRedirect('/curso_asistencia/%s' %id_curso)
@@ -418,6 +426,7 @@ def curso_asistencia(request, id_curso):
 @login_required(login_url="/")
 def subir_soporte(request):
     create = True
+    sedes = Sede.objects.all()
     if request.method == 'POST':
         validator = SoporteValidator(request.POST)
         validator.required = ['fecha']
@@ -425,6 +434,7 @@ def subir_soporte(request):
             soporte = Soporte()
             soporte.soporte = request.FILES['soporte']
             soporte.fecha = request.POST['fecha']
+            soporte.sede = Sede.objects.get(pk=request.POST['sede'])
             ahora = datetime.datetime.now()
             soporte.soporte.name = "%s-%s.%s" % (soporte.fecha,ahora.minute,'pdf')
             soporte.save()
@@ -433,23 +443,24 @@ def subir_soporte(request):
         else:
             messages.warning(request,validator.getMessage())
             return HttpResponseRedirect('/subir_soporte')
-    return render(request,'subir_soporte.html',{'create':create})
+    return render(request,'subir_soporte.html',{'create':create,'sedes':sedes})
 
 @login_required(login_url="/")
 def consulta_soporte(request):
     query = True
+    sedes = Sede.objects.all()
     if request.method == 'POST':
         validator = SoporteValidator(request.POST)
         validator.required = ['fecha']
         if validator.is_valid():
             edit = True
             fecha = request.POST['fecha']
-            soportes = Soporte.objects.filter(fecha = fecha)
+            soportes = Soporte.objects.filter(fecha = fecha, sede =request.POST['sede'])
             return render(request,'subir_soporte.html', {'edit':edit, 'soportes':soportes,'fecha':fecha })
         else:
             messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/consulta_soporte',{'query':query})
-    return render(request,'subir_soporte.html',{'query':query})
+            return HttpResponseRedirect('/consulta_soporte',{'query':query,'sedes':sedes})
+    return render(request,'subir_soporte.html',{'query':query,'sedes':sedes})
 
 @login_required(login_url="/")
 def barrioAjax(request):

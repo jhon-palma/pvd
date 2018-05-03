@@ -289,6 +289,10 @@ class CursoValidator(Validator):
             self._message = ('Asigne una entidad al curso').upper()
             return False
 
+        if self._post['instructor'] == '':
+            self._message = ('Seleccione el instructor del curso').upper()
+            return False
+
         if self._post['tipo'] == '':
             self._message = ('Asigne un tipo al curso').upper()
             return False
@@ -404,6 +408,10 @@ class SoporteValidator(Validator):
 
     def is_valid(self):
         if not super(SoporteValidator, self).is_valid():
+            return False
+
+        if self._post['sede'] == '':
+            self._message = ('Seleccione una sede').upper()
             return False
 
         self._message = ('ARCHIVO SUBIDO CORRECTAMENTE').upper()

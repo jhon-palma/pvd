@@ -10,19 +10,19 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Nombre del curso: </label>
-                                        <input class="form-control input-sm text-uppercase" type="text" name="nombre" placeholder="Nombre del curso" value="{{ datos.nombre }}" autocomplete="off">
+                                        <input class="form-control input-sm text-uppercase" type="text" name="nombre" placeholder="Nombre del curso" value="{{ datos.nombre }}" autocomplete="off" required>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Duración: </label>
-                                        <input class="form-control input-sm text-uppercase" type="text" name="duracion" placeholder="Duración" value="{{ datos.nombre }}" autocomplete="off">
+                                        <input class="form-control input-sm text-uppercase" type="text" name="duracion" placeholder="Duración" value="{{ datos.nombre }}" autocomplete="off" required>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Sede: </label>
-                                        <select class="form-control input-sm" name="sede">
+                                        <select class="form-control input-sm" name="sede" required>
                                             <option value="">Sede...</option>
                                             {% for sede in sedes %}
                                             <option value="{{ sede.id }}"> {{ sede.sede }} </option>
@@ -34,14 +34,21 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Instructor: </label>
-                                        <input class="form-control input-sm text-uppercase" type="text" placeholder="Instructor" name="instructor">
+                                        <div class="form-group">
+                                            <label>Instructor: </label>
+                                            <select class="form-control input-sm" name="instructor" required>
+                                                <option value="">Instructor...</option>
+                                                {% for instructor in instructores %}
+                                                    <option value="{{ instructor.id }}"> {{ instructor.nombres }} {{ instructor.apellidos }} </option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Entidad: </label>
-                                        <select class="form-control input-sm" name="entidad">
+                                        <select class="form-control input-sm" name="entidad" required>
                                             <option value="">Entidad...</option>
                                             {% for entidad in entidades %}
                                             <option value="{{ entidad.id }}"> {{ entidad.entidad }} </option>
@@ -52,7 +59,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Tipo: </label>
-                                        <select class="form-control input-sm" name="tipo">
+                                        <select class="form-control input-sm" name="tipo" required>
                                             <option value="">Tipo...</option>
                                             {% for tipo in tipos %}
                                             <option value="{{ tipo.id }}"> {{ tipo.tipo }} </option>

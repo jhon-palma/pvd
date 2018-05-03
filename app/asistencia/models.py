@@ -58,7 +58,7 @@ class Curso(models.Model):
     codigo = models.CharField(max_length=3)
     curso = models.CharField(max_length=40)
     duracion = models.CharField(max_length=40)
-    instructor = models.CharField(max_length=40)
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
     estado = models.BooleanField(default=True)
     entidad = models.ForeignKey(Entidad, on_delete=models.CASCADE)
     sede = models.ForeignKey(Sede, on_delete=models.CASCADE)
@@ -112,3 +112,4 @@ class User(AbstractUser):
 class Soporte(models.Model):
     soporte = models.FileField(upload_to="static/archivos/")
     fecha = models.DateField()
+    sede = models.ForeignKey(Sede,on_delete=models.CASCADE)

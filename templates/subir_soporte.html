@@ -6,14 +6,27 @@
     {% if query %}
         <form method="post">
             {% csrf_token %}
-            <div class="form-row align-items-center">
-                <div class="col-auto">
-                    <label for="inlineFormInput">Fecha: </label>
+            <div class="col-md-12 form lab">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="inlineFormInput">Fecha: </label>
+                            <input class="form-control input-sm" type="date" id="fecha" name="fecha" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Sede: </label>
+                            <select class="form-control input-sm" name="sede" required>
+                                <option value="">Sede...</option>
+                                {% for sede in sedes %}
+                                <option value="{{ sede.id }}"> {{ sede.sede }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-auto">
-                    <input class="form-control input-sm" type="date" id="fecha" name="fecha" required>
-                </div>
-                <div class="col-auto">
+                <div style="text-align: left;">
                     <button type="submit" id="btn" class="btn btn-success mb-2"><span class="fa fa-pencil-square-o"></span> Consultar</button>
                 </div>
             </div>
@@ -34,6 +47,17 @@
                         <div class="form-group">
                             <label>Documentos de soporte: </label>
                             <input type="file" accept="application/pdf" name="soporte" id="soporte" onchange="comprobar(this)" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Sede: </label>
+                            <select class="form-control input-sm" name="sede" required>
+                                <option value="">Sede...</option>
+                                {% for sede in sedes %}
+                                    <option value="{{ sede.id }}"> {{ sede.sede }} </option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
                 </div>
