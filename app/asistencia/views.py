@@ -492,6 +492,16 @@ def personaAjax(request):
         return HttpResponse(json.dumps({}), content_type='application/json')
 
 @login_required(login_url="/")
+def instructorAjax(request):
+    documento = request.GET['documentos']
+    try:
+        instructor = Instructor.objects.get(numeroDocumento=documento)
+        data = serializers.serialize('json', [instructor], fields=('nombres','apellidos'))
+        return HttpResponse(data, content_type='application/json')
+    except Instructor.DoesNotExist:
+        return HttpResponse(json.dumps({}), content_type='application/json')
+
+@login_required(login_url="/")
 def ciudadesAjax(request):
     id_departamento = request.GET['id']
     ciudad = Ciudad.objects.filter(departamento__id=id_departamento).order_by('ciudad')

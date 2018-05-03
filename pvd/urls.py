@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^barrioAjax/', barrioAjax, name='barrioAjax'),
     url(r'^barrioCiudadAjax/', barrioCiudadAjax, name='barrioCiudadAjax'),
     url(r'^personaAjax/', personaAjax, name='personaAjax'),
+    url(r'^instructorAjax/', instructorAjax, name='instructorAjax'),
     url(r'^ciudadesAjax/', ciudadesAjax, name='ciudadesAjax'),
     url(r'^logout/$', logout, name='logout'),
 ]

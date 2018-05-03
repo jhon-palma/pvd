@@ -38,7 +38,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Número de identificación: </label>
-                            <input class="form-control input-sm" type="number" max="99999999999" id="numeroDocumento" name="numeroDocumento" placeholder="Numero de documento" value="{{ instructor.numeroDocumento }}" autocomplete="off" required>
+                            <input class="form-control input-sm" type="number" max="99999999999" id="numeroDocumentos" name="numeroDocumentos" placeholder="Numero de documento" value="{{ instructor.numeroDocumento }}" autocomplete="off" required>
                             <p id="error"></p>
                         </div>
                     </div>
@@ -110,28 +110,8 @@
             </div>
         </form>
         {% endif %}
-    <div class="modal fade" id="modal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Crear barrio</h4>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Barrio</label>
-                        <input class="form-control text-uppercase" name="barrioN" id="barrioN" placeholder="Barrio" type="text" autocomplete="off">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" id="grabarB">Crear</button>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}
 {% block javascript %}
-    <script src="{% static 'js/ciudad.js' %}"></script>
     <script src="{% static 'js/sweetalert2.all.js' %}"></script>
-    <script src="{% static 'js/validator.js' %}"></script>
+    <script src="{% static 'js/validatorI.js' %}"></script>
 {% endblock %}
