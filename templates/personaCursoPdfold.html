@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Carnet</title>
+        <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        @page{
+            size: 27.9cm 21.6cm;
+            margin: 18px 30px;
+        }
+        .table-bordered {
+            border: 1px solid #dddddd;
+        }
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        body {
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 14px;
+            line-height: 1.42857143;
+        }
+        thead {
+            display: table-header-group;
+            vertical-align: middle;
+            border-color: inherit;
+        }
+        .table>thead>tr>th.active {
+            background-color: #f5f5f5;
+        }
+        .table-bordered>thead>tr>th {
+            border-bottom-width: 2px;
+            border: 1px solid #dddddd;
+        }
+        .table>thead>tr>th {
+            padding: 8px;
+            line-height: 1.42857143;
+        }
+        .table-bordered>tbody>tr>td{
+            border: 1px solid #dddddd;
+        }
+        .agrupar{
+            width: 960px;
+            height: 120px;
+            text-align: left;
+        }
+        .logo_municipio{
+            display: table-cell;
+            background-image:url(data:image/png;base64,{{img}});
+            background-repeat: no-repeat, repeat;
+            background-size: 100% 100%;
+        }
+        h1{
+            font: bold 20px verdana, sans-serif;
+        }
+        h2{
+            font: bold 16px verdana, sans-serif;
+        }
+        h4{
+            font: bold 14px verdana, sans-serif;
+        }
+        section, aside, header,hgroup, article{
+            display: block;
+        }
+        th{
+            text-align: center;
+        }
+        td{
+            padding: 0px 5px;
+        }
+        #seccion{
+            float:left;
+            width: 660px;
+            margin-top: 8px;
+        }
+        #columna{
+            width: 94px;
+            float: left;
+        }
+        .documento{
+            text-align: right;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="agrupar">
+            <aside id="columna">
+                <div class="logo_municipio" rowspan="3">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <br> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <br> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <br> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <br> </div>
+            </aside>
+            <section id="seccion">
+                <article>
+                    <header>
+                        <hgroup>
+                            <h1>Punto Vive Digital Lab Girardot</h1>
+                            <h2>Control Asistencia</h2>
+                            <h4>Curso {{ cursos.curso }}</h4>
+                            <h4>Asistencia de {{ fi }} a {{ ff }} </h4>
+                        </hgroup>
+                    </header>
+                </article>
+            </section>
+        </div>
+        {% if asistentes %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="active col-sm-1">Documento</th>
+                        <th class="active col-sm-2">Nombres y apellidos </th>
+                        {% for fecha in fechas %}
+                            <th class="active col-sm-1">{{ fecha|date:'d/m/y' }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for asistente in asistentes %}
+                        <tr>
+                            <td class="documento">{{ asistente.persona.numeroDocumento }}</td>
+                            <td>{{ asistente.persona.apellidos|capfirst }} {{ asistente.persona.nombres|capfirst }}</td>
+                            {% for x in asistencia %}
+                            {% for fecha in fechas %}
+                                {% if asistente.persona.id == x.persona.id %}
+                                        {% if fecha == x.fecha %}
+                                        <td>{{fecha}}X{{ x.fecha }}</td>
+                                        {% else %}
+                                        <td></td>
+                                        {% endif %}
+                                {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </body>
+</html>

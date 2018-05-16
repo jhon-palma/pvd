@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from datetime import datetime
+from datetime import datetime, date
+import time
 
 class Departamento(models.Model):
     codigo = models.CharField(max_length=3)
@@ -56,7 +57,7 @@ class Instructor(models.Model):
 
 class Curso(models.Model):
     codigo = models.CharField(max_length=3)
-    curso = models.CharField(max_length=40)
+    curso = models.CharField(max_length=120)
     duracion = models.CharField(max_length=40)
     instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
     estado = models.BooleanField(default=True)
@@ -101,7 +102,11 @@ class Asistencia(models.Model):
     servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE, null=True)
     tipo = models.ForeignKey(Tipo, on_delete=models.CASCADE, null=True)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE, null=True)
-    hora = models.DateTimeField(default=datetime.now,editable=False)
+    hora = models.TimeField(default=time.strftime("%H:%M:%S"),editable=False)
+    fecha = models.DateField(default=date.today,editable=False)
+
+    def getFecha(self):
+        return str(self.hora.strftime("%Y-%m-%d"))
 
 class User(AbstractUser):
     sede = models.ForeignKey(Sede,on_delete=models.CASCADE)

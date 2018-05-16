@@ -92,7 +92,7 @@
                                 {% for barrio in barrios %}
                                 <option value="{{ barrio.id }}" {% if persona.barrio.id == barrio.id %} selected {% endif %}> {{ barrio.barrio }} </option>
                                 {% endfor %}
-                                <option value="01"> &#xf067; Agregar</option>
+                                <option class="fa fa-plus" value="01"> &#xf067; Agregar</option>
                             </select>
                         </div>
                     </div>
@@ -164,6 +164,7 @@
                                 {% for entidad in entidades %}
                                 <option value="{{ entidad.id }}" {% if persona.entidad.id == entidad.id %} selected {% endif %}> {{ entidad.entidad }} </option>
                                 {% endfor %}
+                                <option class="fa fa-plus" value="01"> &#xf067; Agregar</option>
                             </select>
                         </div>
                     </div>
@@ -181,7 +182,7 @@
                             <select class="form-control input-sm" id="departamenton" name="departamenton" required>
                                 <option value="">Departamento de nacimiento...</option>
                                 {% for departamento in departamentos %}
-                                <option value="{{ departamento.id }}" {% if persona.ciudadResidencia.departamento.id == departamento.id %} selected {% endif %} > {{ departamento.departamento }} </option>
+                                <option value="{{ departamento.id }}" {% if persona.ciudadNacimiento.departamento.id == departamento.id %} selected {% endif %} > {{ departamento.departamento }} </option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -208,8 +209,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Crear barrio</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
@@ -219,6 +220,25 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-dismiss="modal" id="grabarB">Crear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalE" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Crear entidad</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Entidad</label>
+                        <input class="form-control text-uppercase" name="entidadN" id="entidadN" placeholder="Entidad" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="grabarE">Crear</button>
                 </div>
             </div>
         </div>

@@ -1,0 +1,32 @@
+{% extends 'template.html'%}
+{% load staticfiles %}
+{% block title %}Reporte de cargue de datos{% endblock %}
+{% block subtitle %}Reporte de cargue de datos{% endblock %}
+{% block content %}
+    <div class="col-md-12 form lab">
+        <form method="post">
+            {% csrf_token %}    
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="inlineFormInput">Fecha Inicial: </label>
+                        <input class="form-control input-sm" type="date" id="fechaInicial" name="fechaInicial" required>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="inlineFormInput">Fecha Final: </label>
+                        <input class="form-control input-sm" type="date" id="fechaFinal" name="fechaFinal" required disabled>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: left;">
+                <button type="submit" id="btn" class="btn btn-success mb-2" disabled><span class="fa fa-file-excel-o"></span> Generar</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script src="{% static 'js/sweetalert2.all.js' %}"></script>
+    <script src="{% static 'js/informes.js' %}"></script>
+{% endblock %}

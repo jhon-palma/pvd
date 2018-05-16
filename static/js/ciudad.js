@@ -2,7 +2,9 @@ document.getElementById('departamento').addEventListener("change", ciudad_depart
 document.getElementById('departamenton').addEventListener("change", ciudad_departamenton);
 document.getElementById('ciudad').addEventListener("change", barrio_ciudad);
 document.getElementById('barrio').addEventListener("change", creaBarrio);
+document.getElementById('entidad').addEventListener("change", creaEntidad);
 document.getElementById('grabarB').addEventListener("click", grabarb)
+document.getElementById('grabarE').addEventListener("click", grabare)
 function ciudad_departamento() {
     id = document.getElementById("departamento").value;
     if (id != ''){
@@ -10,7 +12,7 @@ function ciudad_departamento() {
         document.getElementById("barrio").disabled = false;
         $.ajax({
             data : {'id':id},
-            url: '/ciudadesAjax',
+            url: '/asistencia/ciudadesAjax',
             type: 'get',
             success: function(data){
                 var select = $('#ciudad').html("<option value='' selected>Ciudad de residencia...</option>");
@@ -37,7 +39,7 @@ function barrio_ciudad() {
     if (id != ''){
         $.ajax({
             data : {'id':id},
-            url: '/barrioCiudadAjax',
+            url: '/asistencia/barrioCiudadAjax',
             type: 'get',
             success: function(data){
                 var select = $('#barrio').html("<option value='' selected>Barrio...</option>");
@@ -70,7 +72,7 @@ function grabarb()
         var ciudad = $("#ciudad").val();
         $.ajax({
             data : { 'barrio': barrio, 'ciudad':ciudad },
-            url: '/barrioAjax',
+            url: '/asistencia/barrioAjax',
             type: 'get',
             success: function(dat){
                 var select = $('#barrio').html("<option value='' selected>Barrio...</option>");
@@ -92,7 +94,7 @@ function ciudad_departamenton() {
         document.getElementById("ciudadn").disabled = false;
         $.ajax({
             data : {'id':id},
-            url: '/ciudadesAjax',
+            url: '/asistencia/ciudadesAjax',
             type: 'get',
             success: function(data){
                 var select = $('#ciudadn').html("<option value='' selected>Ciudad de nacimiento...</option>");
@@ -110,4 +112,33 @@ function ciudad_departamenton() {
         var select = $('#ciudadn').html("<option value='' selected>Ciudad de residencia...</option>");
         document.getElementById("ciudadn").disabled = true;
     }
+}
+
+function creaEntidad(){
+        id = document.getElementById("entidad").value;
+        if(id == "01"){
+            $('#modalE').modal('show');
+        }
+        else{
+            $('#modalE').modal('hide');
+        }
+}
+function grabare(){
+    var entidadN = $("#entidadN").val();
+    $.ajax({
+        data : { 'entidadN': entidadN },
+        url: '/asistencia/entidadAjax',
+        type: 'get',
+        success: function(dat){
+            var select = $('#entidad').html("<option value='' selected>Barrio...</option>");
+            for (var i = 0; i < dat.length ; i++){
+                select.append('<option value="'
+                + dat[i].pk
+                + '">'
+                + dat[i].fields.entidad
+                + '</option>' );
+            }
+            select.append('<option class="fa fa-plus" value="01"> &#xf067; Agregar</option>')
+        }
+    });
 }

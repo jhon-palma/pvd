@@ -12,18 +12,20 @@
                     <th>DURACIÓN</th>
                     <th>SEDE</th>
                     <th>ENTIDAD</th>
-                    <th>ACCIÓN</th>
+                    <th colspan="3">ACCIÓN</th>
                 </tr>
             </thead>
             <tbody>
                 {% for curso in cursos %}
                 <tr>
                     <td>{{ curso.curso}}</td>
-                    <td>{{ curso.instructor }}</td>
+                    <td>{{ curso.instructor.nombres }} {{ curso.instructor.apellidos }}</td>
                     <td>{{ curso.duracion }}</td>
                     <td>{{ curso.sede.sede }}</td>
                     <td>{{ curso.entidad.entidad }}</td>
-                    <td><a href="{% url 'curso_inscribe' %}"><i class="fa fa-address-book" title="Asignar alumnos"></i></a> &nbsp <a href="{% url 'curso_asistencia' curso.id %}"><i class="fa fa-check-square-o" title="Tomar asistencia"></i></a>  &nbsp <a href="{% url 'curso_persona' curso.id %}"><i class="fa fa-search" title="Consultar inscritos"></a></td>
+                    <td><a href="{% url 'asistencia:curso_inscribe' %}"><i class="fa fa-address-book" title="Asignar alumnos"></i></a></td>
+                    <td><a href="{% url 'asistencia:curso_asistencia' curso.id %}"><i class="fa fa-check-square-o" title="Tomar asistencia"></i></a></td>
+                    <td><a href="{% url 'asistencia:curso_persona' curso.id %}"><i class="fa fa-search" title="Consultar inscritos"></a></td>
                 </tr>
                 {% endfor %}
             </tbody>

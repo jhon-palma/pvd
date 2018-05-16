@@ -243,11 +243,11 @@ class InstructorValidator(Validator):
             self._message = ('Seleccione la entidad a la que pertenece').upper()
             return False
 
-        if Instructor.objects.filter(numeroDocumento = self._post['numeroDocumento']).exists():
-            self._message = ('El instructor identificado con documento %s ya se encuentra registrado.' %self._post['numeroDocumento']).upper()
+        if Instructor.objects.filter(numeroDocumento = self._post['numeroDocumentos']).exists():
+            self._message = ('El instructor identificado con documento %s ya se encuentra registrado.' %self._post['numeroDocumentos']).upper()
             return False
 
-        self._message = ('Instructor %s creado con exito' %self._post['numeroDocumento']).upper()
+        self._message = ('Instructor %s creado con exito' %self._post['numeroDocumentos']).upper()
         return True
 
 class InstructorEditValidator(Validator):
@@ -272,7 +272,7 @@ class InstructorEditValidator(Validator):
             self._message = ('Seleccione la entidad a la que pertenece').upper()
             return False
 
-        self._message = ('Instructor %s modificado con exito' %self._post['numeroDocumento']).upper()
+        self._message = ('Instructor %s modificado con exito' %self._post['numeroDocumentos']).upper()
         return True
 
 class CursoValidator(Validator):
@@ -330,6 +330,10 @@ class InscribeCursoValidator(Validator):
 
         if self._post['curso'] == '':
             self._message = ('Asigne el curso').upper()
+            return False
+        
+        if PersonaCurso.objects.filter(persona = Persona.objects.get(numeroDocumento = self._post['numeroDocumento']), curso = self._post['curso']).exists():
+            self._message = ('La persona identificada con documento %s ya se encuentra inscrita al curso %s.'  % ((self._post['numeroDocumento']).upper() , Curso.objects.get(pk = self._post['curso']).curso.upper()))
             return False
 
         self._message = ('Inscripción realizada con exito').upper()

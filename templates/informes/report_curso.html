@@ -1,0 +1,125 @@
+{% extends 'template.html'%}
+{% load staticfiles %}
+{% block css %}<link rel="stylesheet" type="text/css" href="{% static 'css/print.min.css' %}">{% endblock %}
+{% block title %}Asistencias por Curso{% endblock %}
+{% block subtitle %}{% if create %}<h3>Asistencia al curso {{ cursos.curso }} desde {{ fi }} hasta {{ ff }}</h3>{% endif %}{% if query %}Asistencias por Curso{% endif %}{% if edit %}{% if soportes %}Soportes del día {{ fecha }}{% else %}No existe soportes para el día {{ fecha }}{% endif %}{% endif %}{% endblock %}
+{% block content %}
+    {% if query %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="col-md-12 form lab">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>Curso: </label>
+                            <select class="form-control input-sm" onchange="cursojs()" id="curso" name="curso" required>
+                                <option value="">Curso</option>
+                                {% for curso in cursos %}
+                                <option value="{{ curso.id }}"> {{ curso.curso }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="inlineFormInput">Fecha Inicial: </label>
+                            <input class="form-control input-sm" type="date" onchange="fechajs()" id="fechaInicial" name="fechaInicial" required disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="inlineFormInput">Fecha Final: </label>
+                            <input class="form-control input-sm" type="date" onchange="validajs()" id="fechaFinal" name="fechaFinal" required disabled>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: left;">
+                    <button type="submit" id="btn" class="btn btn-success mb-2" disabled><span class="fa fa-pencil-square-o"></span> Consultar</button>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+    {% if asistentes %}
+        <div id="printJS-form">
+            <table class="table table-bordered" id="datos">
+                <thead>
+                <tr id="encabezado">
+                    <th class="active">Documento</th>
+                    <th class="active">Nombres y apellidos </th>
+                </tr>
+            </thead>
+
+            </table>
+        </div>
+        <div id="fijaTabla" style="display:none;" class="fijaTabla">
+            <div class="text-center">
+                <button type="button" onclick="printJS({ printable: 'printJS-form', type: 'html', header: 'Asistencia al curso {{ cursos.curso }} desde {{ fi }} hasta {{ ff }}', documentTitle: 'Sistema de Información para ViveLAB Girardot' })" class="btn btn-success"><span class="fa fa-file-pdf-o"></span>
+                    Imprimir
+                </button>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block javascript %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/sweetalert2.all.js' %}"></script>
+
+    <script src="{% static 'js/informeAsistencia.js' %}"></script>
+    {% if asistentes %}
+        <script>
+            var cod = 2;
+            {% for fecha in fechas %}
+                var table = document.getElementById("datos");
+                var y = document.createElement("TH");
+                var t = document.createTextNode("{{fecha|date:'d/m/Y'}}") ;
+                y.appendChild(t);
+                document.getElementById("encabezado").appendChild(y);
+                cod = cod+1;
+            {% endfor %}
+
+            var fila = 1;
+
+            {% for persona in asistentes %}
+                var x = document.createElement("TR");
+                x.setAttribute("id", "{{ persona.persona.id }}");
+                document.getElementById("datos").appendChild(x);
+
+                var y = document.createElement("TD");
+                var t = document.createTextNode("{{ persona.persona.numeroDocumento }}");
+                y.appendChild(t);
+                document.getElementById("{{ persona.persona.id }}").appendChild(y);
+
+                var y = document.createElement("TD");
+                var t = document.createTextNode("{{ persona.persona.apellidos }} {{ persona.persona.nombres }}");
+                y.appendChild(t);
+                document.getElementById("{{ persona.persona.id }}").appendChild(y);
+
+                for (var i=3; i<=cod; i++){
+                    var y = document.createElement("TD");
+                    var t = document.createTextNode("");
+                    y.appendChild(t);
+                    document.getElementById("{{ persona.persona.id }}").appendChild(y);
+
+                    {% for person in asistencia %}
+                        {% if person.persona.id == persona.persona.id %}
+
+                            var w = document.getElementById("datos").rows[fila].cells.item(i-1).innerHTML;
+                            var xs = document.getElementById("datos").rows[0].cells.item(i-1).innerHTML;
+                            if( xs == "{{ person.fecha|date:'d/m/Y' }}" ){
+                                document.getElementById("datos").rows[fila].cells.item(i-1).innerHTML = "X"
+
+                        }
+
+                        {% endif %}
+                    {% endfor %}
+
+                }
+                fila = fila+1;
+            {% endfor %}
+            document.getElementById('fijaTabla').style.display = 'block';
+        </script>
+
+        <script src="{% static 'js/print.min.js' %}"></script>
+
+    {% endif %}
+{% endblock %}

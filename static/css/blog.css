@@ -170,3 +170,9 @@ input[type=number]::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance:textfield;
 }
+
+.centrarCaja{
+    position: relative !important;
+    left: 10% !important;
+    width: 70%;
+}

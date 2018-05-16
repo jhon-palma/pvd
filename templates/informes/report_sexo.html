@@ -1,0 +1,45 @@
+{% extends 'template.html'%}
+{% load staticfiles %}
+{% block title %}{% if create %}Informe por Sexo{% endif %}{% if query %}Informe por Sexo{% endif %}{% if edit %}Planilla Soporte{% endif %}{% endblock %}
+{% block subtitle %}{% if create %}Informe por Sexo{% endif %}{% if query %}Informe por Sexo{% endif %}{% if edit %}{% if soportes %}Soportes del día {{ fecha }}{% else %}No existe soportes para el día {{ fecha }}{% endif %}{% endif %}{% endblock %}
+{% block content %}
+    {% if query %}
+        <div class="col-md-12 form lab">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="inlineFormInput">Fecha Inicial: </label>
+                        <input class="form-control input-sm" type="date" id="fechaInicial" name="fechaInicial" required>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="inlineFormInput">Fecha Final: </label>
+                        <input class="form-control input-sm" type="date" id="fechaFinal" name="fechaFinal" required disabled>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: left;">
+                <button type="submit" id="btn" class="btn btn-success mb-2" disabled><span class="fa fa-pencil-square-o"></span> Consultar</button>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="centrarCaja">
+            <div id="canvas-holder">
+                <canvas id="chart-area"></canvas>
+            </div>
+        </div>
+    </div>
+    <div id="fijaTabla" style="display:none;" class="fijaTabla">
+        <div class="text-center">
+            <button id="cmd" class="btn btn-success">Generar PDF</button>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script src="{% static 'js/sweetalert2.all.js' %}"></script>
+    <script src="{% static 'js/jspdf.min.js' %}"></script>
+    <script src="{% static 'js/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'js/informes.js' %}"></script>
+{% endblock %}

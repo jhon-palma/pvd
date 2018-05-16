@@ -16,6 +16,9 @@
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
         <link href="{% static 'css/blog.css' %}" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'css/sweetalert.css' %}"></link>
+        {% block css %}
+
+            {% endblock %}
     </head>
     <body>
         {% block header %}
@@ -28,14 +31,14 @@
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'registro' %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Registro</a>
+                                <a class="nav-link" href="{% url 'asistencia:registro' %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Registro</a>
                             </li>
                             <div class="btn-group" role="group">
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="dropdown" id="btnGroupDrop1" ><i class="fa fa-users" aria-hidden="true"></i> Personas</a>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                        <a class="dropdown-item" href="{% url 'persona_create' %}"><i class="fa fa-user" aria-hidden="true"></i> Crear persona</a>
-                                        <a class="dropdown-item" href="{% url 'persona_consulta' %}"><i class="fa fa-search" aria-hidden="true"></i> Consultar persona</a>
+                                        <a class="dropdown-item" href="{% url 'asistencia:persona_create' %}"><i class="fa fa-user" aria-hidden="true"></i> Crear persona</a>
+                                        <a class="dropdown-item" href="{% url 'asistencia:persona_consulta' %}"><i class="fa fa-search" aria-hidden="true"></i> Consultar persona</a>
                                     </div>
                                 </li>
                             </div>
@@ -43,8 +46,8 @@
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="dropdown" id="btnGroupDrop1" ><i class="fa fa-book" aria-hidden="true"></i> Cursos</a>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                        <a class="dropdown-item" href="{% url 'curso_create' %}"><i class="fa fa-plus" aria-hidden="true"></i> Crea curso</a>
-                                        <a class="dropdown-item" href="{% url 'curso_list' %}" ><i class="fa fa-book" aria-hidden="true"></i> Lista de Cursos</a>
+                                        <a class="dropdown-item" href="{% url 'asistencia:curso_create' %}"><i class="fa fa-plus" aria-hidden="true"></i> Crea curso</a>
+                                        <a class="dropdown-item" href="{% url 'asistencia:curso_list' %}" ><i class="fa fa-book" aria-hidden="true"></i> Lista de Cursos</a>
                                     </div>
                                 </li>
                             </div>
@@ -52,14 +55,14 @@
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="dropdown" id="btnGroupDrop1" ><i class="fa fa-cog" aria-hidden="true"></i> Configuración</a>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                        <a class="dropdown-item" href="{% url 'usuario_create' %}"><i class="fa fa-user-plus" aria-hidden="true"></i> Crear usuario</a>
-                                        <a class="dropdown-item" href="{% url 'usuario_consulta' %}"><i class="fa fa-search" aria-hidden="true"></i> Consultar usuario</a>
+                                        <a class="dropdown-item" href="{% url 'asistencia:usuario_create' %}"><i class="fa fa-user-plus" aria-hidden="true"></i> Crear usuario</a>
+                                        <a class="dropdown-item" href="{% url 'asistencia:usuario_consulta' %}"><i class="fa fa-search" aria-hidden="true"></i> Consultar usuario</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{% url 'instructor_create' %}"><i class="fa fa-user-circle" aria-hidden="true"></i> Crear Instructor</a>
-                                        <a class="dropdown-item" href="{% url 'instructor_consulta' %}"><i class="fa fa-search" aria-hidden="true"></i> Consultar Instructor</a>
+                                        <a class="dropdown-item" href="{% url 'asistencia:instructor_create' %}"><i class="fa fa-user-circle" aria-hidden="true"></i> Crear Instructor</a>
+                                        <a class="dropdown-item" href="{% url 'asistencia:instructor_consulta' %}"><i class="fa fa-search" aria-hidden="true"></i> Consultar Instructor</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{% url 'servicio_create' %}"><i class="fa fa-server" aria-hidden="true"></i> Crear Labotarorio</a>
-                                        <a class="dropdown-item" href="{% url 'tipo_create' %}"><i class="fa fa-list" aria-hidden="true"></i> Crear Servicio</a>
+                                        <a class="dropdown-item" href="{% url 'asistencia:servicio_create' %}"><i class="fa fa-server" aria-hidden="true"></i> Crear Labotarorio</a>
+                                        <a class="dropdown-item" href="{% url 'asistencia:tipo_create' %}"><i class="fa fa-list" aria-hidden="true"></i> Crear Servicio</a>
                                     </div>
                                 </li>
                             </div>
@@ -67,12 +70,15 @@
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="dropdown" id="btnGroupDrop1" ><i class="fa fa-clipboard" aria-hidden="true"></i> Reportes</a>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                        <a class="dropdown-item" href="{% url 'consulta_soporte' %}"><i class="fa fa-search" aria-hidden="true"></i> Consulta planillas</a>
+                                        <a class="dropdown-item" href="{% url 'informes:consulta_soporte' %}"><i class="fa fa-search" aria-hidden="true"></i> Consulta planillas</a>
+                                        <a class="dropdown-item" href="{% url 'informes:report_sexo' %}"><i class="fa fa-venus-mars" aria-hidden="true"></i> Reporte por sexo</a>
+                                        <a class="dropdown-item" href="{% url 'informes:report_curso' %}"><i class="fa fa-table" aria-hidden="true"></i> Reporte Asistencia por curso</a>
+                                        <a class="dropdown-item" href="{% url 'informes:report_datos' %}"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Reporte Cargue Datos</a>
                                     </div>
                                 </li>
                             </div>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'subir_soporte' %}"><i class="fa fa-upload" aria-hidden="true"></i> Planillas</a>
+                                <a class="nav-link" href="{% url 'informes:subir_soporte' %}"><i class="fa fa-upload" aria-hidden="true"></i> Planillas</a>
                             </li>
                             <div class="btn-group" role="group"></div>
                         </ul>

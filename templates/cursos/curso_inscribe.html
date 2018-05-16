@@ -45,7 +45,7 @@
                 var documento = $("#numeroDocumento").val();
                 $.ajax({
                     data : {'documento':documento},
-                    url: '/personaAjax',
+                    url: '/asistencia/personaAjax',
                     type: 'get',
                     success: function(data) {
                         if(data.length==1){
@@ -55,7 +55,7 @@
                         else{
                             swal({
                                 title: "Error!",
-                                html: "No existe ninguna persona registrada con el documento número "+ documento +" <a href='{% url 'persona_create' %}'>Click para registrarla</a>",
+                                html: "No existe ninguna persona registrada con el documento número "+ documento +" <a href='{% url 'asistencia:persona_create' %}'>Click para registrarla</a>",
                                 type: "error",
                                 confirmButtonText: "Entendido",
                             });

@@ -4,7 +4,7 @@ function validaForms() {
     var documento = document.getElementById('numeroDocumentos').value;
     $.ajax({
         data : {'documentos':documento},
-        url: '/instructorAjax',
+        url: '/asistencia/instructorAjax',
         type: 'get',
         success: function(data) {
             if(data.length==1){

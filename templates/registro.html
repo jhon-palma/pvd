@@ -10,7 +10,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Número de identificación: </label>
-                        <input class="form-control input-sm" type="number" id="numeroDocumento" name="numeroDocumento" placeholder="Numero de documento" value="{{ datos.nit }}" autocomplete="off" onblur="verifica(this.value);" required>
+                        <input class="form-control input-sm" type="number" id="numeroDocumento" name="numeroDocumento" placeholder="Numero de documento" value="{{ datos.nit }}" autocomplete="off" required>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -22,7 +22,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Laboratorio: </label>
-                        <select class="form-control input-sm" name="servicio" required>
+                        <select class="form-control input-sm" name="servicio" id="servicio" required>
                             <option value="">Laboratorio....</option>
                             {% for servicio in servicios %}
                             <option value="{{ servicio.id }}"> {{ servicio.servicio }} </option>
@@ -46,7 +46,7 @@
                 <div class="col-md-3">
                     <div class="form-group" style="display: none;" id="oculto">
                         <label>Curso: </label>
-                        <select class="form-control input-sm" name="curso">
+                        <select class="form-control input-sm" name="curso" id="curso">
                             <option value="">Curso....</option>
                             {% for curso in cursos %}
                                 <option value="{{ curso.id }}"> {{ curso.curso }} </option>
@@ -64,32 +64,41 @@
 {% block javascript %}
     <script src="{% static 'js/sweetalert2.all.js' %}"></script>
     <script>
+        document.getElementById('numeroDocumento').addEventListener("blur", verifica);
         function verifica()
             {
                 var documento = $("#numeroDocumento").val();
-                $.ajax({
-                    data : {'documento':documento},
-                    url: '/personaAjax',
-                    type: 'get',
-                    success: function(data) {
-                        if(data.length==1){
-                            document.getElementById('nombres').value = data[0].fields.nombres+" "+data[0].fields.apellidos;
-                            document.getElementById('btn').disabled = false;
+                if (documento != ''){
+                    $.ajax({
+                        data : {'documento':documento},
+                        url: '/asistencia/personaAjax',
+                        type: 'get',
+                        success: function(data) {
+                            if(data.length==1){
+                                document.getElementById('nombres').value = data[0].fields.nombres+" "+data[0].fields.apellidos;
+                                document.getElementById('btn').disabled = false;
+                            }
+                            else{
+                                swal({
+                                    title: "Error!",
+                                    html: "No existe ninguna persona registrada con el documento número "+ documento +" <a href='{% url 'asistencia:persona_create' %}'>Click para registrarla</a>",
+                                    type: "error",
+                                    confirmButtonText: "Entendido",
+                                });
+                                document.getElementById('nombres').value = "";
+                                document.getElementById('numeroDocumento').value = "";
+                                document.getElementById('btn').disabled = true;
+                                document.getElementById("numeroDocumento").focus();
+                            }
                         }
-                        else{
-                            swal({
-                                title: "Error!",
-                                html: "No existe ninguna persona registrada con el documento número "+ documento +" <a href='{% url 'persona_create' %}'>Click para registrarla</a>",
-                                type: "error",
-                                confirmButtonText: "Entendido",
-                            });
-                            document.getElementById('nombres').value = "";
-                            document.getElementById('numeroDocumento').value = "";
-                            document.getElementById('btn').disabled = true;
-                            document.getElementById("numeroDocumento").focus();
-                        }
-                    }
-                });
+                    });
+                }else{
+                    document.getElementById('nombres').value = "";
+                    document.getElementById('servicio').selectedIndex = 0;
+                    document.getElementById('tipo').selectedIndex = 0;
+                    $("#oculto").css("display",'none');
+                    document.formulario.curso.required = false;
+                }
             }
     </script>
     <script>
@@ -100,12 +109,37 @@
             if (document.formulario.tipo.options[2].selected == true){
                 $("#oculto").removeAttr("style");
                 document.formulario.curso.required = true;
+                function cursoPersona() {
+                    var documento = $("#numeroDocumento").val();
+                    $.ajax({
+                        data : {'documento':documento},
+                        url: '/asistencia/personaCursoAjax',
+                        type: 'get',
+                        success: function(data) {
+                            var select = $('#curso').html("<option value='' selected>Curso...</option>");
+                            for (var i = 0; i < data.length ; i++){
+                                '{% for curso in cursos %}'
+                                    if (data[i].fields.curso == '{{ curso.id }}'){
+                                        select.append('<option value="'
+                                        + '{{ curso.id }}'
+                                        + '">'
+                                        + '{{ curso.curso }}'
+                                        + '</option>' );
+                                    }
+                                '{% endfor %}'
+                            }
+                        }
+                    });
+                }
+                return cursoPersona();
             }else {
                 $("#oculto").css("display",'none');
+                document.getElementById('curso').selectedIndex = 0
                 document.formulario.curso.required = false;
             }
         }
 
 
     </script>
+
 {% endblock %}

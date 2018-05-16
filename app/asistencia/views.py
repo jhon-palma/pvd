@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import *
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
 from django.contrib import messages
 from django.core import serializers
 import json
@@ -19,7 +19,7 @@ def login(request):
             clave = request.POST['password']
             auth.login(request, validator.acceso)
             messages.success(request,'Bienvenido %s!!!' % request.user.first_name)
-            return HttpResponseRedirect('/registro')
+            return HttpResponseRedirect('/asistencia/registro')
         else:
             messages.warning(request,validator.getMessage())
             return HttpResponseRedirect('/' )
@@ -41,7 +41,7 @@ def persona_create(request):
     estratos = ListaEstrato
     sexos = ListaSexo
     poblaciones = Poblacion.objects.all().order_by('poblacion')
-    entidades = Entidad.objects.all()
+    entidades = Entidad.objects.all().order_by('entidad')
     if request.method == 'POST':
         validator = PersonaValidator(request.POST)
         validator.required = ['numeroDocumento','nombres','apellidos','direccion','telefono','fechaNacimiento', 'email']
@@ -65,10 +65,10 @@ def persona_create(request):
             persona.ciudadNacimiento = Ciudad.objects.get(pk = request.POST['ciudadn'])
             persona.save()
             messages.success(request,'Usuario creado correctamente')
-            return HttpResponseRedirect('/persona_create')
+            return HttpResponseRedirect('/asistencia/persona_create')
         else:
             messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/persona_create')
+            return HttpResponseRedirect('/asistencia/persona_create')
     return render(request,'persona_create.html',{'tipoDocumento':tipoDocumento,'departamentos':departamentos,'ciudades':ciudades,'ocupaciones':ocupaciones,'barrios':barrios,'estratos':estratos,'sexos':sexos,'poblaciones':poblaciones,'entidades':entidades,'create':create})
 
 @login_required(login_url="/")
@@ -80,10 +80,10 @@ def persona_consulta(request):
         if validator.is_valid():
 
             persona = Persona.objects.get(numeroDocumento = request.POST['documento'])
-            return HttpResponseRedirect('/persona_edit/%s' %persona.id)
+            return HttpResponseRedirect('/asistencia/persona_edit/%s' %persona.id)
         else:
             messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/persona_consulta',{'query':query})
+            return HttpResponseRedirect('/asistencia/persona_consulta',{'query':query})
     return render(request,'persona_create.html',{'query':query})
 
 @login_required(login_url="/")
@@ -121,10 +121,10 @@ def persona_edit(request, id_persona):
             persona.ciudadNacimiento = Ciudad.objects.get(pk = request.POST['ciudadn'])
             persona.save()
             messages.success(request,validator.getMessage())
-            return HttpResponseRedirect('/persona_consulta')
+            return HttpResponseRedirect('/asistencia/persona_consulta')
         else:
             messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/persona_consulta')
+            return HttpResponseRedirect('/asistencia/persona_consulta')
     return render(request,'persona_create.html',{'persona':persona,'departamentos':departamentos,'tipoDocumento':tipoDocumento,'ciudades':ciudades,'ocupaciones':ocupaciones,'barrios':barrios,'estratos':estratos,'sexos':sexos,'poblaciones':poblaciones,'entidades':entidades,'edit':edit})
 
 @login_required(login_url="/")
@@ -136,13 +136,13 @@ def instructor_create(request):
     entidades = Entidad.objects.all()
     if request.method == 'POST':
         validator = InstructorValidator(request.POST)
-        validator.required = ['numeroDocumento','nombres','apellidos','telefono', 'email']
+        validator.required = ['numeroDocumentos','nombres','apellidos','telefono', 'email']
         if validator.is_valid():
             instructor = Instructor()
             instructor.nombres = request.POST['nombres'].upper()
             instructor.apellidos = request.POST['apellidos'].upper()
             instructor.tipoDocumento = TipoDocumento.objects.get(pk=request.POST['tipoDocumento'])
-            instructor.numeroDocumento = request.POST['numeroDocumento']
+            instructor.numeroDocumento = request.POST['numeroDocumentos']
             instructor.ocupacion = Ocupacion.objects.get(pk = request.POST['ocupacion'])
             instructor.sexo = request.POST['sexo'].upper()
             instructor.telefono = request.POST['telefono']
@@ -150,10 +150,10 @@ def instructor_create(request):
             instructor.entidad = Entidad.objects.get(pk = request.POST['entidad'])
             instructor.save()
             messages.success(request,validator.getMessage())
-            return HttpResponseRedirect('/instructor_create')
+            return HttpResponseRedirect('/asistencia/instructor_create')
         else:
             messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/instructor_create')
+            return HttpResponseRedirect('/asistencia/instructor_create')
     return render(request,'instructor_create.html',{'tipoDocumento':tipoDocumento,'ocupaciones':ocupaciones,'sexos':sexos,'entidades':entidades,'create':create})
 
 @login_required(login_url="/")
@@ -164,10 +164,10 @@ def instructor_consulta(request):
         validator.required = ['documento']
         if validator.is_valid():
             instructor = Instructor.objects.get(numeroDocumento = request.POST['documento'])
-            return HttpResponseRedirect('/instructor_edit/%s' % instructor.id)
+            return HttpResponseRedirect('/asistencia/instructor_edit/%s' % instructor.id)
         else:
             messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/instructor_consulta',{'query':query})
+            return HttpResponseRedirect('/asistencia/instructor_consulta',{'query':query})
     return render(request,'instructor_create.html',{'query':query})
 
 @login_required(login_url="/")
@@ -180,12 +180,12 @@ def instructor_edit(request, id_instructor):
     instructor = Instructor.objects.get(pk = id_instructor)
     if request.method == 'POST':
         validator = InstructorEditValidator(request.POST)
-        validator.required = ['numeroDocumento','nombres','apellidos','telefono', 'email']
+        validator.required = ['numeroDocumentos','nombres','apellidos','telefono', 'email']
         if validator.is_valid():
             instructor.nombres = request.POST['nombres'].upper()
             instructor.apellidos = request.POST['apellidos'].upper()
             instructor.tipoDocumento = TipoDocumento.objects.get(pk=request.POST['tipoDocumento'])
-            instructor.numeroDocumento = request.POST['numeroDocumento']
+            instructor.numeroDocumento = request.POST['numeroDocumentos']
             instructor.ocupacion = Ocupacion.objects.get(pk = request.POST['ocupacion'])
             instructor.sexo = request.POST['sexo'].upper()
             instructor.telefono = request.POST['telefono']
@@ -193,10 +193,10 @@ def instructor_edit(request, id_instructor):
             instructor.entidad = Entidad.objects.get(pk = request.POST['entidad'])
             instructor.save()
             messages.success(request,validator.getMessage())
-            return HttpResponseRedirect('/instructor_create')
+            return HttpResponseRedirect('/asistencia/instructor_create')
         else:
             messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/instructor_create')
+            return HttpResponseRedirect('/asistencia/instructor_create')
     return render(request,'instructor_create.html',{'instructor':instructor,'tipoDocumento':tipoDocumento,'ocupaciones':ocupaciones,'sexos':sexos,'entidades':entidades,'edit':edit})
 
 @login_required(login_url="/")
@@ -218,10 +218,10 @@ def usuario_create(request):
             usuario.save()
             usuario.groups.add(Group.objects.get(pk = request.POST['perfil']))
             messages.success(request,validator.getMessage())
-            return HttpResponseRedirect('/usuario_create')
+            return HttpResponseRedirect('/asistencia/usuario_create')
         else:
             messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/usuario_create')
+            return HttpResponseRedirect('/asistencia/usuario_create')
     return render(request,'usuario_create.html',{'perfiles':perfiles,'sedes':sedes,'create':create})
 
 @login_required(login_url="/")
@@ -232,10 +232,10 @@ def usuario_consulta(request):
         validator.required = ['documento']
         if validator.is_valid():
             usuario = User.objects.get(username = request.POST['documento'])
-            return HttpResponseRedirect('/usuario_edit/%s' %usuario.id)
+            return HttpResponseRedirect('/asistencia/usuario_edit/%s' %usuario.id)
         else:
             messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/usuario_consulta',{'query':query})
+            return HttpResponseRedirect('/asistencia/usuario_consulta',{'query':query})
     return render(request,'usuario_create.html',{'query':query})
 
 @login_required(login_url="/")
@@ -257,10 +257,10 @@ def usuario_edit(request, id_usuario):
             usuario.groups.through.objects.filter(user_id=usuario.id).delete()
             usuario.groups.add(Group.objects.get(pk = request.POST['perfil']))
             messages.success(request,validator.getMessage())
-            return HttpResponseRedirect('/usuario_consulta')
+            return HttpResponseRedirect('/asistencia/usuario_consulta')
         else:
             messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/usuario_consulta')
+            return HttpResponseRedirect('/asistencia/usuario_consulta')
     return render(request,'usuario_create.html',{'usuario':usuario,'perfiles':perfiles,'sedes':sedes,'edit':edit})
 
 @login_required(login_url="/")
@@ -274,10 +274,10 @@ def usuario_password(request, id_usuario):
             usuario.password = make_password(request.POST['psw'])
             usuario.save()
             messages.success(request,validator.getMessage())
-            return HttpResponseRedirect('/usuario_consulta')
+            return HttpResponseRedirect('/asistencia/usuario_consulta')
         else:
             messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/usuario_password/%s'%usuario.id)
+            return HttpResponseRedirect('/asistencia/usuario_password/%s'%usuario.id)
     return render(request,'usuario_create.html',{'usuario':usuario, 'pswd':pswd})
 
 @login_required(login_url="/")
@@ -299,11 +299,11 @@ def curso_create(request):
             curso.tipo = Tipo.objects.get(pk = request.POST['tipo'])
             curso.save()
             messages.success(request,validator.getMessage())
-            return HttpResponseRedirect('/curso_create')
+            return HttpResponseRedirect('/asistencia/curso_create')
         else:
             messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/curso_create')
-    return render(request,'curso_create.html',{'sedes':sedes,'entidades':entidades,'tipos':tipos,'instructores':instructores})
+            return HttpResponseRedirect('/asistencia/curso_create')
+    return render(request,'cursos/curso_create.html',{'sedes':sedes,'entidades':entidades,'tipos':tipos,'instructores':instructores})
 
 @login_required(login_url="/")
 def servicio_create(request):
@@ -317,10 +317,10 @@ def servicio_create(request):
             servicio.sede = Sede.objects.get(pk = request.POST['sede'])
             servicio.save()
             messages.success(request,validator.getMessage())
-            return HttpResponseRedirect('/servicio_create')
+            return HttpResponseRedirect('/asistencia/servicio_create')
         else:
             messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/servicio_create')
+            return HttpResponseRedirect('/asistencia/servicio_create')
     return render(request,'servicio_create.html',{'sedes':sedes})
 
 @login_required(login_url="/")
@@ -333,10 +333,10 @@ def tipo_create(request):
             servicio.tipo = request.POST['nombre'].upper()
             servicio.save()
             messages.success(request,validator.getMessage())
-            return HttpResponseRedirect('/tipo_create')
+            return HttpResponseRedirect('/asistencia/tipo_create')
         else:
             messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/tipo_create')
+            return HttpResponseRedirect('/asistencia/tipo_create')
     return render(request,'tipo_create.html',)
 
 @login_required(login_url="/")
@@ -353,23 +353,23 @@ def registro(request):
             registro.servicio = Servicio.objects.get(pk = request.POST['servicio'])
             registro.tipo = Tipo.objects.get(pk = request.POST['tipo'])
             if request.POST['curso'] != '':
-                asist = Asistencia.objects.filter(curso_id=request.POST['curso'], hora__startswith =datetime.datetime.now().date())
+                asist = Asistencia.objects.filter(curso_id=request.POST['curso'], fecha__startswith =datetime.datetime.now().date())
                 if asist.count() != 0:
                     messages.warning(request,'Ya se tomo asistencia para el curso de por el día de hoy!!!!!!!!!!')
-                    return HttpResponseRedirect('/registro')
+                    return HttpResponseRedirect('/asistencia/registro')
                 registro.curso = Curso.objects.get(pk = request.POST['curso'])
             registro.save()
             messages.success(request,validator.getMessage())
-            return HttpResponseRedirect('/registro')
+            return HttpResponseRedirect('/asistencia/registro')
         else:
             messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/registro')
+            return HttpResponseRedirect('/asistencia/registro')
     return render(request,'registro.html',{'servicios':servicios,'tipos':tipos,'cursos':cursos})
 
 @login_required(login_url="/")
 def curso_list(request):
     cursos = Curso.objects.all()
-    return render(request,'curso_list.html',{'cursos':cursos})
+    return render(request,'cursos/curso_list.html',{'cursos':cursos})
 
 @login_required(login_url="/")
 def curso_inscribe(request):
@@ -383,29 +383,29 @@ def curso_inscribe(request):
             registro.curso = Curso.objects.get(pk = request.POST['curso'])
             registro.save()
             messages.success(request,validator.getMessage())
-            return HttpResponseRedirect('/curso_inscribe')
+            return HttpResponseRedirect('/asistencia/curso_inscribe')
         else:
             messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/curso_inscribe')
-    return render(request,'curso_inscribe.html',{'cursos':cursos})
+            return HttpResponseRedirect('/asistencia/curso_inscribe')
+    return render(request,'cursos/curso_inscribe.html',{'cursos':cursos})
 
 @login_required(login_url="/")
 def curso_persona(request, id_curso):
     curso_list = Curso.objects.get(pk = id_curso)
-    cso = curso_list.persona_set.all()
-    paginator = Paginator(cso,10)
+    cso = curso_list.persona_set.all().order_by('numeroDocumento')
+    paginator = Paginator(cso,15)
     page = request.GET.get('page')
     curso = paginator.get_page(page)
-    return render(request,'curso_persona.html',{'curso':curso,'curso_list':curso_list})
+    return render(request,'cursos/curso_persona.html',{'curso':curso,'curso_list':curso_list})
 
 @login_required(login_url="/")
 def curso_asistencia(request, id_curso):
     curso = Curso.objects.get(pk = id_curso)
     if request.method == 'POST':
-        asist = Asistencia.objects.filter(curso_id=id_curso, hora__startswith =datetime.datetime.now().date())
+        asist = Asistencia.objects.filter(curso_id=id_curso, fecha__startswith =datetime.datetime.now().date())
         if asist.count() != 0:
             messages.warning(request,'Ya se tomo asistencia para el curso de %s por el día de hoy!!!!!!!!!!'%curso.curso)
-            return HttpResponseRedirect('/curso_asistencia/%s' %id_curso)
+            return HttpResponseRedirect('/asistencia/curso_asistencia/%s' %id_curso)
         else:
             validator = AsisteCursoValidator(request.POST)
             validator.required = ['asiste']
@@ -417,50 +417,11 @@ def curso_asistencia(request, id_curso):
                     asistencia.curso = Curso.objects.get(pk=curso.id)
                     asistencia.save()
                 messages.success(request,validator.getMessage())
-                return HttpResponseRedirect('/curso_asistencia/%s' %id_curso)
+                return HttpResponseRedirect('/asistencia/curso_asistencia/%s' %id_curso)
             else:
                 messages.warning(request,validator.getMessage())
-                return HttpResponseRedirect('/curso_asistencia/%s' %id_curso)
-    return render(request,'curso_asistencia.html',{'curso':curso})
-
-@login_required(login_url="/")
-def subir_soporte(request):
-    create = True
-    sedes = Sede.objects.all()
-    if request.method == 'POST':
-        validator = SoporteValidator(request.POST)
-        validator.required = ['fecha']
-        if validator.is_valid():
-            soporte = Soporte()
-            soporte.soporte = request.FILES['soporte']
-            soporte.fecha = request.POST['fecha']
-            soporte.sede = Sede.objects.get(pk=request.POST['sede'])
-            ahora = datetime.datetime.now()
-            soporte.soporte.name = "%s-%s.%s" % (soporte.fecha,ahora.minute,'pdf')
-            soporte.save()
-            messages.success(request,validator.getMessage())
-            return HttpResponseRedirect('/subir_soporte')
-        else:
-            messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/subir_soporte')
-    return render(request,'subir_soporte.html',{'create':create,'sedes':sedes})
-
-@login_required(login_url="/")
-def consulta_soporte(request):
-    query = True
-    sedes = Sede.objects.all()
-    if request.method == 'POST':
-        validator = SoporteValidator(request.POST)
-        validator.required = ['fecha']
-        if validator.is_valid():
-            edit = True
-            fecha = request.POST['fecha']
-            soportes = Soporte.objects.filter(fecha = fecha, sede =request.POST['sede'])
-            return render(request,'subir_soporte.html', {'edit':edit, 'soportes':soportes,'fecha':fecha })
-        else:
-            messages.warning(request,validator.getMessage())
-            return HttpResponseRedirect('/consulta_soporte',{'query':query,'sedes':sedes})
-    return render(request,'subir_soporte.html',{'query':query,'sedes':sedes})
+                return HttpResponseRedirect('/asistencia/curso_asistencia/%s' %id_curso)
+    return render(request,'cursos/curso_asistencia.html',{'curso':curso})
 
 @login_required(login_url="/")
 def barrioAjax(request):
@@ -492,6 +453,13 @@ def personaAjax(request):
         return HttpResponse(json.dumps({}), content_type='application/json')
 
 @login_required(login_url="/")
+def personaCursoAjax(request):
+    documento = request.GET['documento']
+    cursoId = PersonaCurso.objects.filter(persona = Persona.objects.get(numeroDocumento=documento))
+    data = serializers.serialize('json', cursoId, fields=('curso'))
+    return HttpResponse(data, content_type='application/json')
+
+@login_required(login_url="/")
 def instructorAjax(request):
     documento = request.GET['documentos']
     try:
@@ -514,3 +482,20 @@ def barrioCiudadAjax(request):
     barrio = Barrio.objects.filter(ciudad__id=id_ciudad).order_by('barrio')
     data = serializers.serialize('json', barrio, fields=('barrio','codigo'))
     return HttpResponse(data, content_type='application/json')
+
+@login_required(login_url="/")
+def entidadAjax(request):
+    entidadN = request.GET['entidadN']
+    try:
+        if Entidad.objects.filter(entidad = request.GET['entidadN']).exists():
+            return HttpResponse(json.dumps({"mensaje":"LA ENTIDAD %s YA EXISTE" %request.GET['entidad']}), content_type='application/json', status = 500)
+        else:
+            entidad = Entidad()
+            entidad.entidad = entidadN.upper()
+            entidad.save()
+            entidades = Entidad.objects.all().order_by('entidad')
+            dat = serializers.serialize('json', entidades, fields=('entidad'))
+            return HttpResponse(dat, content_type='application/json')
+    except:
+        return HttpResponse(json.dumps({"mensaje":"Error"}), content_type='application/json', status = 500)
+    return HttpResponse(json.dumps({"mensaje":"Error"}), content_type='application/json')
